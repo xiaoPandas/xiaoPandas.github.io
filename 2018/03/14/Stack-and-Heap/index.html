@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java，DIY" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="操作系统 heap 是堆，stack 是栈。 空间分配区别   栈：由操作系统自动分配释放，存放函数的参数值，局部变量的值等。其操作方式类似于数据结构中的栈；  堆：一般由程序员分配释放，若程序员不释放，程序结束时可能由OS回收；分配方式类似于数据结构中的列表。   缓存方式区别   栈：使用的是一级缓存，他们通常都是被调用时处于存储空间中，调用完毕立即释放；  堆：是存放在二级缓存中，生命周期由">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Stack and Heap">
+<meta property="og:url" content="http://yoursite.com/2018/03/14/Stack-and-Heap/index.html">
+<meta property="og:site_name" content="xiaoPandas">
+<meta property="og:description" content="操作系统 heap 是堆，stack 是栈。 空间分配区别   栈：由操作系统自动分配释放，存放函数的参数值，局部变量的值等。其操作方式类似于数据结构中的栈；  堆：一般由程序员分配释放，若程序员不释放，程序结束时可能由OS回收；分配方式类似于数据结构中的列表。   缓存方式区别   栈：使用的是一级缓存，他们通常都是被调用时处于存储空间中，调用完毕立即释放；  堆：是存放在二级缓存中，生命周期由">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-15T13:54:48.691Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Stack and Heap">
+<meta name="twitter:description" content="操作系统 heap 是堆，stack 是栈。 空间分配区别   栈：由操作系统自动分配释放，存放函数的参数值，局部变量的值等。其操作方式类似于数据结构中的栈；  堆：一般由程序员分配释放，若程序员不释放，程序结束时可能由OS回收；分配方式类似于数据结构中的列表。   缓存方式区别   栈：使用的是一级缓存，他们通常都是被调用时处于存储空间中，调用完毕立即释放；  堆：是存放在二级缓存中，生命周期由">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '19BJM0J404',
+      apiKey: '2f287374bf03d3739c504b7eaac5a3d0',
+      indexName: 'xiaoPandasblog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键词进行搜索","hits_empty":"找不到关于 ${query} 的文章","hits_stats":"在 ${time} ms 内找到 ${hits} 篇文章"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/14/Stack-and-Heap/"/>
+
+
+
+
+
+  <title>Stack and Heap | xiaoPandas</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">xiaoPandas</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/14/Stack-and-Heap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xiaoPandas">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oyiq6rmz1.bkt.clouddn.com/%E5%A4%B4%E5%83%8F.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xiaoPandas">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Stack and Heap</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-14T23:01:50+08:00">
+                2018-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面试/" itemprop="url" rel="index">
+                    <span itemprop="name">面试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/03/14/Stack-and-Heap/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/03/14/Stack-and-Heap/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h3><ol>
+<li>heap 是堆，stack 是栈。</li>
+<li>空间分配区别</li>
+</ol>
+<ul>
+<li>栈：由操作系统自动分配释放，存放函数的参数值，局部变量的值等。其操作方式类似于数据结构中的栈； </li>
+<li>堆：一般由程序员分配释放，若程序员不释放，程序结束时可能由OS回收；分配方式类似于数据结构中的列表。</li>
+</ul>
+<ol>
+<li>缓存方式区别</li>
+</ol>
+<ul>
+<li>栈：使用的是一级缓存，他们通常都是被调用时处于存储空间中，调用完毕立即释放； </li>
+<li>堆：是存放在二级缓存中，生命周期由虚拟机的垃圾回收算法来决定，所以调用这些对象的速度要相对来得低一些。<a id="more"></a></li>
+</ul>
+<ol>
+<li>申请后系统的响应</li>
+</ol>
+<ul>
+<li>栈：只要栈的剩余空间大于所申请空间，系统将为程序提供内存，否则将报异常提示栈溢出；    </li>
+<li>堆：首先应该知道操作系统有一个记录空闲内存地址的链表，当系统收到程序的申请时，会遍历该链表，寻找第一个空间大于所申请空间的堆结点，然后将该结点从空闲结点链表中删除，并将该结点的空间分配给程序，另外，对于大多数系统，会在这块内存空间中的首地址处记录本次分配的大小，这样，代码中的 delete 语句才能正确的释放本内存空间。另外，由于找到的堆结点的大小不一定正好等于申请的大小，系统会自动的将多余的那部分重新放入空闲链表中。</li>
+</ul>
+<ol>
+<li>申请大小的限制</li>
+</ol>
+<ul>
+<li>栈：在 Windows 下,栈是向低地址扩展的数据结构，是一块连续的内存的区域。这句话的意思是栈顶的地址和栈的最大容量是系统预先规定好的，在 Windows 下，栈的大小是 2M（也有的说是 1M，总之是一个编译时就确定的常数），如果申请的空间超过栈的剩余空间时，将提示 overflow。因此，能从栈获得的空间较小。    </li>
+<li>堆：堆是向高地址扩展的数据结构，是不连续的内存区域。这是由于系统是用链表来存储的空闲内存地址的，自然是不连续的，而链表的遍历方向是由低地址向高地址。堆的大小受限于计算机系统中有效的虚拟内存。由此可见，堆获得的空间比较灵活，也比较大。</li>
+</ul>
+<ol>
+<li>申请效率区别    </li>
+</ol>
+<ul>
+<li>栈：由系统自动分配，速度较快。但程序员是无法控制的。    </li>
+<li>堆：由 new 分配的内存，一般速度比较慢，而且容易产生内存碎片,不过用起来最方便。另外，在 Windows 下，最好的方式是用 VirtualAlloc 分配内存，他不是在堆，也不是在栈，而是直接在进程的地址空间中保留一块内存，虽然用起来最不方便。但是速度快，也最灵活。  </li>
+</ul>
+<ol>
+<li>存储内容区别    </li>
+</ol>
+<ul>
+<li>栈：在函数调用时，第一个进栈的是主函数后的下一条指令（函数调用语句的下一条可执行语句）的地址，然后是函数的各个参数。当本次函数调用结束后，局部变量先出栈，然后是参数，最后栈顶指针指向最开始存的地址，也就是主函数中的下一条指令，程序由该点继续运行；  </li>
+<li>堆：一般是在堆的头部用一个字节存放堆的大小，堆中的具体内容由程序员安排。</li>
+</ul>
+<h3 id="英文描述"><a href="#英文描述" class="headerlink" title="英文描述"></a>英文描述</h3><ul>
+<li><p>Stack. This lives in the general RAM (Random-Access Memory) area, but has direct support from the processor via its stack pointer. The stack pointer is moved down to create new memory and moved up to release that memory. This is an extremely fast and efficient way to allocate storage, second only to registers. The Java compiler must know, while it is creating the program, the exact size and lifetime of all the data that is stored on the stack, because it must generate the code to move the stack pointer up and down. This constraint places limits on the flexibility of your programs.</p>
+</li>
+<li><p>Heap. This is a general-purpose pool of memory (also in the RAM area) where all Java objects live. The nice thing about the heap is that, unlike the stack, the compiler doesn ‘t need to know how much storage it needs to allocate from the heap or how long that storage must stay on the heap. Thus, there ‘s a great deal of flexibility in using storage on the heap. Whenever you need to create an object, you simply write the code to create it using new and the storage is allocated on the heap when that code is executed. And of course there’s a price you pay for this flexibility: it takes more time to allocate heap storage.</p>
+</li>
+</ul>
+<h3 id="小结one"><a href="#小结one" class="headerlink" title="小结one"></a>小结one</h3><blockquote>
+<ul>
+<li>使用栈就象我们去饭馆里吃饭，只管点菜（发出申请）、付钱、和吃（使用），吃饱了就走，不必理会切菜、洗菜等准备工作和洗碗、刷锅等扫尾工作，他的好处是快捷，但是自由度小。    </li>
+<li>使用堆就象是自己动手做喜欢吃的菜肴，比较麻烦，但是比较符合自己的口味，而且自由度大。 </li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><ol>
+<li>每个应用程序运行时，都有属于自己的一段内存空间，用于存放临时变量、参数传递、函数调用时的 PC 值的保存；这叫 stack；<br>所有的应用可以从一个系统共用的空间中申请供自己使用的内存，这个共用的空间叫 heap；<br>Java 自动管理栈和堆，程序员不能直接地设置栈或堆。 </li>
+<li>分配时间<br>Java 中对象都是分配在 heap (堆)中，从 heap 中分配内存所消耗的时间远远大于从 stack 产生存储空间所需的时间；<br>stack 中变量的大小和个数会影响 exe 的文件大小，但速度快。堆中的变量大小与 exe 大小关系不大，但分配和释放需要耗费的时间远大于 stack 中分配内存所需的时间。</li>
+<li>回收</li>
+</ol>
+<ul>
+<li>stack 中的对象或变量只要定义好就可使用了，应用程序结束时会自动释放；</li>
+<li>heap 中申请的变量或对象只能定义变量指针，并要求在运行过程中通过 new 来动态分配内存空间，而且必须显示地 free 你申请过的内存，不过 Java 的垃圾回收机解决了这个问题，它会帮你释放这部分内存。</li>
+</ul>
+<ol>
+<li>优缺点</li>
+</ol>
+<ul>
+<li>栈的优点是，存取速度比堆要快，仅次于直接位于 CPU 中的寄存器；缺点是，存在栈中的数据大小与生存期必须是确定的，缺乏灵活性；另外，栈数据可以共享；</li>
+<li>堆的优点是可以动态地分配内存大小，生存期也不必事先告诉编译器，Java 的垃圾收集器会自动收走这些不再使用的数据；缺点是，由于要在运行时动态分配内存，存取速度较慢。 </li>
+</ul>
+<ol>
+<li>创建时间以及存放内容</li>
+</ol>
+<ul>
+<li>每个 JVM 的线程都有自己的私有的栈空间，随线程创建而创建，Java 的 stack 存放的是 frames，Java 的 stack 和 c 的不同，只是存放本地变量，返回值和调用方法，不允许直接 push 和 pop frames，因为 frames 可能是有 heap 分配的，所以 Java 的 stack 分配的内存不需要是连续的；</li>
+<li>Java 的 heap 是所有线程共享的，堆存放所有 runtime data ，里面是所有的对象实例和数组，heap 是 JVM 启动时创建。 </li>
+</ul>
+<ol>
+<li>相关拓展<br>　　Java 中的数据类型有两种。一种是基本类型(primitive types), 共有 8 种，即 int，short，long，byte，float，double，boolean， char(注意，并没有 String 的基本类型)。这种类型的定义是通过诸如 int a = 3；long b = 255L；的形式来定义的，称为自动变量。值得注意的是，自动变量存的是字面值，不是类的实例，即不是类的引用，这里并没有类的存在。如 int a = 3; 这里的 a 是一个指向 int 类型的引用，指向 3 这个字面值。这些字面值的数据，由于大小可知，生存期可知(这些字面值固定定义在某个程序块里面，程序块退出后，字段值就消失了)，出于追求速度的原因，就存在于栈中。<br>　　另外，栈有一个很重要的特殊性，就是存在栈中的数据可以共享。假设我们同时定义 </li>
+</ol>
+<p><code>int a = 3; 
+　　 int b = 3；</code></p>
+<p>　　编译器先处理 int a = 3；首先它会在栈中创建一个变量为 a 的引用，然后查找有没有字面值为 3 的地址，没找到，就开辟一个存放 3 这个字面值的地址，然后将a指向 3 的地址。接着处理 int b = 3；在创建完 b 的引用变量后，由于在栈中已经有 3 这个字面值，便将 b 直接指向 3 的地址。这样，就出现了 a 与 b 同时均指向3的情况。<br>　　特别注意的是，这种字面值的引用与类对象的引用不同。假定两个类对象的引用同时指向一个对象，如果一个对象引用变量修改了这个对象的内部状态，那么另一个对象引用变量也即刻反映出这个变化。相反，通过字面值的引用来修改其值，不会导致另一个指向此字面值的引用的值也跟着改变的情况。如上例，我们定义完 a 与 b  的值后，再令 a=4；那么，b 不会等于 4，还是等于 3。在编译器内部，遇到 a=4；时，它就会重新搜索栈中是否有 4 的字面值，如果没有，重新开辟地址存放 4 的值；如果已经有了，则直接将a指向这个地址。因此a值的改变不会影响到b 的值。<br>　　另一种是包装类数据，如 Integer，String， Double 等将相应的基本数据类型包装起来的类。这些类数据全部存在于堆中，Java 用 new() 语句来显示地告诉编译器，在运行时才根据需要动态创建，因此比较灵活，但缺点是要占用更多的时间。<br>　　String 是一个特殊的包装类数据。即可以用 String str = new String(“abc”); 的形式来创建，也可以用 String str = “abc”; 的形式来创建。包装类的值不可修改，不仅仅是 String 类的值不可修改，所有的数据类型包装类都不能更改其内部的值。</p>
+<ol>
+<li>String 相关<br>关于 String str = “abc” 的内部工作。Java 内部将此语句转化为以下几个步骤：<br>(1) 先定义一个名为 str 的对 String 类的对象引用变量：String str；<br>(2) 在栈中查找有没有存放值为 “abc” 的地址，如果没有，则开辟一个存放字面值为 “abc” 的地址，接着创建一个新的 String 类的对象 o ，并将 o  的字符串值指向这个地址，而且在栈中这个地址旁边记下这个引用的对象 o 。如果已经有了值为 “abc” 的地址，则查找对象 o ，并返回 o 的地址。<br>(3) 将 str 指向对象 o 的地址。<br>　　值得注意的是，一般 String 类中字符串值都是直接存值的。但像 String str = “abc”；这种场合下，其字符串值却是保存了一个指向存在栈中数据的引用！<br>为了更好地说明这个问题，我们可以通过以下的几个代码进行验证。 </li>
+</ol>
+<p><code>String str1 = &quot;abc&quot;; 
+　　String str2 = &quot;abc&quot;; 
+　　System.out.println(str1==str2);   //true</code></p>
+<p>　　注意，我们这里并不用 str1.equals(str2)；的方式，因为这将比较两个字符串的值是否相等。==号，根据 JDK 的说明，只有在两个引用都指向了同一个对象时才返回真值。而我们在这里要看的是，str1 与 str2 是否都指向了同一个对象。<br>　　结果说明，JVM 创建了两个引用 str1 和 str2，但只创建了一个对象，而且两个引用都指向了这个对象。 </p>
+<p>　　我们再来更进一步，将以上代码改成： </p>
+<p><code>String str1 = &quot;abc&quot;; 
+　　String str2 = &quot;abc&quot;; 
+　　str1 = &quot;bcd&quot;; 
+　　System.out.println(str1 + &quot;,&quot; + str2);   //bcd, abc 
+　　System.out.println(str1==str2);   //false</code></p>
+<p>　　这就是说，赋值的变化导致了类对象引用的变化，str1 指向了另外一个新对象！而 str2 仍旧指向原来的对象。上例中，当我们将 str1 的值改为 “bcd” 时，JVM 发现在栈中没有存放该值的地址，便开辟了这个地址，并创建了一个新的对象，其字符串的值指向这个地址。<br>　　事实上，String 类被设计成为不可改变 (immutable) 的类。如果你要改变其值，可以，但 JVM 在运行时根据新值悄悄创建了一个新对象，然后将这个对象的地址返回给原来类的引用。这个创建过程虽说是完全自动进行的，但它毕竟占用了更多的时间。在对时间要求比较敏感的环境中，会带有一定的不良影响。<br>　　<br>　　再修改原来代码： </p>
+<p><code>String str1 = &quot;abc&quot;; 
+　　String str2 = &quot;abc&quot;; 
+　　str1 = &quot;bcd&quot;; 
+　　String str3 = str1; 
+　　System.out.println(str3);   //bcd 
+　　String str4 = &quot;bcd&quot;; 
+　　System.out.println(str1 == str4);   //true</code></p>
+<p>　　str3 这个对象的引用直接指向 str1 所指向的对象(注意，str3 并没有创建新对象)。当 str1 改完其值后，再创建一个 String 的引用 str4，并指向因 str1 修改值而创建的新的对象。可以发现，这回 str4 也没有创建新的对象，从而再次实现栈中数据的共享。 </p>
+<p>　　我们再接着看以下的代码。 </p>
+<p><code>String str1 = new String(&quot;abc&quot;); 
+　　String str2 = &quot;abc&quot;; 
+　　System.out.println(str1==str2);   //false</code></p>
+<p>　　创建了两个引用。创建了两个对象。两个引用分别指向不同的两个对象。 </p>
+<p><code>String str1 = &quot;abc&quot;; 
+　　String str2 = new String(&quot;abc&quot;); 
+　　System.out.println(str1==str2);   //false</code></p>
+<p>　　创建了两个引用。创建了两个对象。两个引用分别指向不同的两个对象。 </p>
+<p>　　<em>以上两段代码说明，只要是用 new() 来新建对象的，都会在堆中创建，而且其字符串是单独存值的，即使与栈中的数据相同，也不会与栈中的数据共享。</em> </p>
+<h3 id="小结two"><a href="#小结two" class="headerlink" title="小结two"></a>小结two</h3><blockquote>
+<ul>
+<li>我们在使用诸如 String str = “abc”；的格式定义类时，总是认为我们创建了 String 类的对象 str 。但是对象可能并没有被创建！唯一可以肯定的是，指向 String 类的引用被创建了。至于这个引用到底是否指向了一个新的对象，必须根据上下文来考虑，除非你通过 new() 方法来显示创建一个新的对象。因此，更为准确的说法是，我们创建了一个指向 String 类的对象的引用变量 str，这个对象引用变量指向了某个值为 “abc” 的 String 类。清醒地认识到这一点对排除程序中难以发现的 bug 是很有帮助的；</li>
+<li>使用 String str = “abc”；的方式，可以在一定程度上提高程序的运行速度，因为 JVM 会自动根据栈中数据的实际情况来决定是否有必要创建新对象。而对于 String str = new String(“abc”)；的代码，则一概在堆中创建新对象，而不管其字符串值是否相等，是否有必要创建新对象，从而加重了程序的负担；</li>
+<li>当比较包装类里面的数值是否相等时，用 equals()方法；当测试两个包装类的引用是否指向同一个对象时，用 ==；</li>
+<li>由于 String 类的 immutable 性质，当 String 变量需要经常变换其值时，应该考虑使用 StringBuffer 类，以提高程序效率； </li>
+<li>如果 Java 不能成功分配 heap 的空间，将抛 出OutOfMemoryError。</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="文章来源"><a href="#文章来源" class="headerlink" title="文章来源"></a>文章来源</h3><p><a href="http://blog.csdn.net/hairetz/article/details/4141043/" target="_blank" rel="noopener">http://blog.csdn.net/hairetz/article/details/4141043/</a><br><a href="http://blog.csdn.net/wl_ldy/article/details/5935528" target="_blank" rel="noopener">http://blog.csdn.net/wl_ldy/article/details/5935528</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/22/VMware虚拟机安装相关/" rel="next" title="VMware虚拟机安装相关">
+                <i class="fa fa-chevron-left"></i> VMware虚拟机安装相关
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="uyan_frame"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://oyiq6rmz1.bkt.clouddn.com/%E5%A4%B4%E5%83%8F.jpg"
+                alt="xiaoPandas" />
+            
+              <p class="site-author-name" itemprop="name">xiaoPandas</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/xiaoPandas" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/5626435388/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#操作系统"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;" class="headerlink" title="&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;"></a>&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#英文描述"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x82F1;&#x6587;&#x63CF;&#x8FF0;" class="headerlink" title="&#x82F1;&#x6587;&#x63CF;&#x8FF0;"></a>&#x82F1;&#x6587;&#x63CF;&#x8FF0;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结one"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x5C0F;&#x7ED3;one" class="headerlink" title="&#x5C0F;&#x7ED3;one"></a>&#x5C0F;&#x7ED3;one</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java"><span class="nav-number">4.</span> <span class="nav-text"><a href="#Java" class="headerlink" title="Java"></a>Java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结two"><span class="nav-number">5.</span> <span class="nav-text"><a href="#&#x5C0F;&#x7ED3;two" class="headerlink" title="&#x5C0F;&#x7ED3;two"></a>&#x5C0F;&#x7ED3;two</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文章来源"><span class="nav-number">6.</span> <span class="nav-text"><a href="#&#x6587;&#x7AE0;&#x6765;&#x6E90;" class="headerlink" title="&#x6587;&#x7AE0;&#x6765;&#x6E90;"></a>&#x6587;&#x7AE0;&#x6765;&#x6E90;</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o" aria-hidden="true"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiaoPandas</span>
+
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数：<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+
+<!--
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+--!>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2152066"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'JXAo1V98Jxty3jaqIK99PaeV-gzGzoHsz',
+        appKey: 'OLlQNbYqajqOpiOwLPsvt92c',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

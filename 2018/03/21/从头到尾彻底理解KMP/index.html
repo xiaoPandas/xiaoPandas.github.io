@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Java,面试,算法," />
+  <meta name="keywords" content="字符串," />
 
 
 
@@ -79,21 +79,23 @@
 
 
 
-<meta name="description" content="前言本文为部分节选，想要更详细的解释请直接点击最下面的参考文章。 暴力匹配实现有一个文本串 s 和 模式串 p，要查找 p 在 s 中的位置；如果 s[i] == p[j]，则 i++，j++；如果 s[i] != p[j]，则 i = i - j + 1，j = 0；此时 i 回溯，j 被重置为 0。 代码如下：">
-<meta name="keywords" content="Java,面试,算法">
+<meta name="description" content="前言本文为部分节选，想要更详细的解释请直接点击最下面的参考文章。 暴力匹配实现有一个文本串 s 和 模式串 p，要查找 p 在 s 中的位置；如果 s[i] == p[j]，则 i++，j++；如果 s[i] != p[j]，则 i = i - j + 1，j = 0；此时 i 回溯，j 被重置为 0。">
+<meta name="keywords" content="字符串">
 <meta property="og:type" content="article">
-<meta property="og:title" content="从头到尾彻底理解KMP">
+<meta property="og:title" content="从头到尾彻底理解 KMP">
 <meta property="og:url" content="http://yoursite.com/2018/03/21/从头到尾彻底理解KMP/index.html">
 <meta property="og:site_name" content="xiaoPandas">
-<meta property="og:description" content="前言本文为部分节选，想要更详细的解释请直接点击最下面的参考文章。 暴力匹配实现有一个文本串 s 和 模式串 p，要查找 p 在 s 中的位置；如果 s[i] == p[j]，则 i++，j++；如果 s[i] != p[j]，则 i = i - j + 1，j = 0；此时 i 回溯，j 被重置为 0。 代码如下：">
+<meta property="og:description" content="前言本文为部分节选，想要更详细的解释请直接点击最下面的参考文章。 暴力匹配实现有一个文本串 s 和 模式串 p，要查找 p 在 s 中的位置；如果 s[i] == p[j]，则 i++，j++；如果 s[i] != p[j]，则 i = i - j + 1，j = 0；此时 i 回溯，j 被重置为 0。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://img.blog.csdn.net/20140725231726921">
 <meta property="og:image" content="http://img.blog.csdn.net/20140721222801918">
 <meta property="og:image" content="http://img.blog.csdn.net/20140721230250468">
-<meta property="og:updated_time" content="2018-03-21T14:58:29.804Z">
+<meta property="og:image" content="http://hi.csdn.net/attachment/201106/14/8394323_1308075859Zfue.jpg">
+<meta property="og:image" content="http://hi.csdn.net/attachment/201106/14/8394323_13080758591kyV.jpg">
+<meta property="og:updated_time" content="2018-04-25T11:50:44.905Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="从头到尾彻底理解KMP">
-<meta name="twitter:description" content="前言本文为部分节选，想要更详细的解释请直接点击最下面的参考文章。 暴力匹配实现有一个文本串 s 和 模式串 p，要查找 p 在 s 中的位置；如果 s[i] == p[j]，则 i++，j++；如果 s[i] != p[j]，则 i = i - j + 1，j = 0；此时 i 回溯，j 被重置为 0。 代码如下：">
+<meta name="twitter:title" content="从头到尾彻底理解 KMP">
+<meta name="twitter:description" content="前言本文为部分节选，想要更详细的解释请直接点击最下面的参考文章。 暴力匹配实现有一个文本串 s 和 模式串 p，要查找 p 在 s 中的位置；如果 s[i] == p[j]，则 i++，j++；如果 s[i] != p[j]，则 i = i - j + 1，j = 0；此时 i 回溯，j 被重置为 0。">
 <meta name="twitter:image" content="http://img.blog.csdn.net/20140725231726921">
 
 
@@ -130,7 +132,7 @@
 
 
 
-  <title>从头到尾彻底理解KMP | xiaoPandas</title>
+  <title>从头到尾彻底理解 KMP | xiaoPandas</title>
   
 
 
@@ -322,7 +324,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">从头到尾彻底理解KMP</h1>
+          <h1 class="post-title" itemprop="name headline">从头到尾彻底理解 KMP</h1>
         
 
         <div class="post-meta">
@@ -405,9 +407,9 @@
 
       
         <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本文为部分节选，想要更详细的解释请直接点击最下面的参考文章。</p>
-<h3 id="暴力匹配"><a href="#暴力匹配" class="headerlink" title="暴力匹配"></a>暴力匹配</h3><h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><p>有一个文本串 s 和 模式串 p，要查找 p 在 s 中的位置；<br>如果 s[i] == p[j]，则 i++，j++；<br>如果 s[i] != p[j]，则 i = i - j + 1，j = 0；<br>此时 i 回溯，j 被重置为 0。</p>
-<p>代码如下：<br><a id="more"></a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">violenceMatch</span><span class="params">(<span class="keyword">char</span>[] s, <span class="keyword">char</span>[] p)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> slen = s.length;</span><br><span class="line">		<span class="keyword">int</span> plen = p.length;</span><br><span class="line">		<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span>(i &lt; slen &amp;&amp; j &lt; plen) &#123;</span><br><span class="line">			<span class="keyword">if</span>(s[i] == p[j]) &#123;</span><br><span class="line">				i++;</span><br><span class="line">				j++;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> &#123;</span><br><span class="line">				i = i - j + <span class="number">1</span>;</span><br><span class="line">				j = <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(j == plen)</span><br><span class="line">			<span class="keyword">return</span> i - j + <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><p>有文本串 S 如 “ABCDAB AB ABCDABD” 和模式串 P “ABCDABD” 进行匹配：<br>ABCDAB - ABCDAB： OK；<br>空格 - D： 失败；<br>前面 “ABCDAB” 匹配成功，而在空格处匹配失败，此时 i 回溯到 1 而 j 重置回 0，但是我们经过上次的匹配已经知道了 S[5] = S<a href="http://img.blog.csdn.net/20140725231726921" target="_blank" rel="noopener">1</a> = B，而 P[0] = A 了，此时 S<a href="http://img.blog.csdn.net/20140725231726921" target="_blank" rel="noopener">1</a> 和 P[0] 再重新匹配必定不成功。<br>所以我们想要重新确定一种算法，让 i 不回溯，只需要移动 j。</p>
+<h3 id="暴力匹配"><a href="#暴力匹配" class="headerlink" title="暴力匹配"></a>暴力匹配</h3><h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><p>有一个文本串 s 和 模式串 p，要查找 p 在 s 中的位置；<br>如果 s[i] == p[j]，则 i++，j++；<br>如果 s[i] != p[j]，则 i = i - j + 1，j = 0；<br>此时 i 回溯，j 被重置为 0。<br><a id="more"></a><br>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">violenceMatch</span><span class="params">(<span class="keyword">char</span>[] s, <span class="keyword">char</span>[] p)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> slen = s.length;</span><br><span class="line">		<span class="keyword">int</span> plen = p.length;</span><br><span class="line">		<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span>(i &lt; slen &amp;&amp; j &lt; plen) &#123;</span><br><span class="line">			<span class="keyword">if</span>(s[i] == p[j]) &#123;</span><br><span class="line">				i++;</span><br><span class="line">				j++;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> &#123;</span><br><span class="line">				i = i - j + <span class="number">1</span>;</span><br><span class="line">				j = <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(j == plen)</span><br><span class="line">			<span class="keyword">return</span> i - j + <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><p>有文本串 S 如 “ABCDAB AB ABCDABD” 和模式串 P “ABCDABD” 进行匹配：<br>ABCDAB - ABCDAB： OK；<br>空格 - D： 失败；<br>前面 “ABCDAB” 匹配成功，而在空格处匹配失败，此时 i 回溯到 1 而 j 重置回 0，但是我们经过上次的匹配已经知道了 S[5] = S[1] = B，而 P[0] = A 了，此时 S[1] 和 P[0] 再重新匹配必定不成功。<br>所以我们想要重新确定一种算法，让 i 不回溯，只需要移动 j。</p>
 <hr>
 <h3 id="KMP"><a href="#KMP" class="headerlink" title="KMP"></a>KMP</h3><h4 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h4><p>假设现在文本串 S 匹配到 i 位置，模式串 P 匹配到 j 位置：</p>
 <ul>
@@ -422,6 +424,7 @@
 <h4 id="next-数组"><a href="#next-数组" class="headerlink" title="next 数组"></a>next 数组</h4><p>next 数组各值的含义：代表当前字符之前的字符串中，有多大长度的相同前缀后缀；<br>例如如果next[j] = k，代表 j 之前的字符串中有最大长度为 k 的相同前缀后缀。</p>
 <p>对于上面的模式串 “ABCDABD” 的 next 数组如下表所示：<br><img src="http://img.blog.csdn.net/20140721230250468" alt="next数组"></p>
 <p>所以说 next 数组相当于“最大长度值” 整体向右移动一位，然后初始值赋为 -1。意识到了这一点，你会惊呼原来 next 数组的求解竟然如此简单：就是找最大对称长度的前缀后缀，然后整体右移一位，初值赋为 -1。</p>
+<h4 id="next-数组优化"><a href="#next-数组优化" class="headerlink" title="next 数组优化"></a>next 数组优化</h4><p>比如，如果用之前的 next 数组方法求模式串 “abab” 的 next 数组，可得其 next 数组为 -1 0 0 1（0 0 1 2 整体右移一位，初值赋为 -1），当它跟下图中的文本串去匹配的时候，发现 b 跟 c 失配，于是模式串右移 j - next[j] = 3 - 1 =2 位。<br><img src="http://hi.csdn.net/attachment/201106/14/8394323_1308075859Zfue.jpg" alt="next匹配"><br>右移 2 位后，b 又跟 c 失配。事实上，因为在上一步的匹配中，已经得知 p[3] = b，与 s[3] = c 失配，而右移两位之后，让 p[next[3]] = p[1] = b 再跟 s[3] 匹配时，必然失配。问题出在哪呢？<br><img src="http://hi.csdn.net/attachment/201106/14/8394323_13080758591kyV.jpg" alt="next右移后匹配"><br>问题出在不该出现 p[j] = p[ next[j] ]。为什么呢？理由是：当 p[j] != s[i] 时，下次匹配必然是 p[ next [j]] 跟 s[i] 匹配，如果 p[j] = p[ next[j] ]，必然导致后一步匹配失败（因为 p[j] 已经跟 s[i] 失配，然后你还用跟 p[j] 等同的值 p[next[j]] 去跟 s[i] 匹配，很显然，必然失配），所以不能允 许p[j] = p[ next[j ]]。如果出现 了p[j] = p[ next[j] ]咋办呢？如果出现了，则需要再次递归，即令 next[j] = next[ next[j] ]。</p>
 <p>代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">getNext</span><span class="params">(<span class="keyword">char</span>[] p, <span class="keyword">int</span>[] next)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> plen = p.length;</span><br><span class="line">		next[<span class="number">0</span>] = -<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">int</span> k = -<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span> (j &lt; plen - <span class="number">1</span>) &#123;</span><br><span class="line">			<span class="comment">// p[k]表示前缀，p[j]表示后缀</span></span><br><span class="line">			<span class="keyword">if</span>(k == -<span class="number">1</span> || p[j] == p[k]) &#123;</span><br><span class="line">				j++;</span><br><span class="line">				k++;</span><br><span class="line">				<span class="comment">// 较之前next数组求法，改动在下面4行</span></span><br><span class="line">				<span class="keyword">if</span>(p[j] != p[k]) </span><br><span class="line">					 <span class="comment">// 之前只有这一行</span></span><br><span class="line">					next[j] = k;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">			    	<span class="comment">/*因为不能出现p[j] = p[next[j]]，</span></span><br><span class="line"><span class="comment">					所以当出现时需要继续递归，</span></span><br><span class="line"><span class="comment">					k = next[k] = next[next[k]]*/</span></span><br><span class="line">					next[j] = next[k];</span><br><span class="line">			&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">				k = next[k];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
 <h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="http://blog.csdn.net/v_july_v/article/details/7041827#" target="_blank" rel="noopener">http://blog.csdn.net/v_july_v/article/details/7041827#</a></p>
 
@@ -441,11 +444,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Java/" rel="tag"># Java</a>
-          
-            <a href="/tags/面试/" rel="tag"># 面试</a>
-          
-            <a href="/tags/算法/" rel="tag"># 算法</a>
+            <a href="/tags/字符串/" rel="tag"># 字符串</a>
           
         </div>
       
@@ -556,7 +555,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -567,7 +566,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -578,7 +577,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -627,7 +626,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x524D;&#x8A00;" class="headerlink" title="&#x524D;&#x8A00;"></a>&#x524D;&#x8A00;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#暴力匹配"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x66B4;&#x529B;&#x5339;&#x914D;" class="headerlink" title="&#x66B4;&#x529B;&#x5339;&#x914D;"></a>&#x66B4;&#x529B;&#x5339;&#x914D;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实现"><span class="nav-number">2.1.</span> <span class="nav-text"><a href="#&#x5B9E;&#x73B0;" class="headerlink" title="&#x5B9E;&#x73B0;"></a>&#x5B9E;&#x73B0;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点"><span class="nav-number">2.2.</span> <span class="nav-text"><a href="#&#x7F3A;&#x70B9;" class="headerlink" title="&#x7F3A;&#x70B9;"></a>&#x7F3A;&#x70B9;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KMP"><span class="nav-number">3.</span> <span class="nav-text"><a href="#KMP" class="headerlink" title="KMP"></a>KMP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实现-1"><span class="nav-number">3.1.</span> <span class="nav-text"><a href="#&#x5B9E;&#x73B0;-1" class="headerlink" title="&#x5B9E;&#x73B0;"></a>&#x5B9E;&#x73B0;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最大长度表"><span class="nav-number">3.2.</span> <span class="nav-text"><a href="#&#x6700;&#x5927;&#x957F;&#x5EA6;&#x8868;" class="headerlink" title="&#x6700;&#x5927;&#x957F;&#x5EA6;&#x8868;"></a>&#x6700;&#x5927;&#x957F;&#x5EA6;&#x8868;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#next-数组"><span class="nav-number">3.3.</span> <span class="nav-text"><a href="#next-&#x6570;&#x7EC4;" class="headerlink" title="next &#x6570;&#x7EC4;"></a>next &#x6570;&#x7EC4;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文章"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x53C2;&#x8003;&#x6587;&#x7AE0;" class="headerlink" title="&#x53C2;&#x8003;&#x6587;&#x7AE0;"></a>&#x53C2;&#x8003;&#x6587;&#x7AE0;</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x524D;&#x8A00;" class="headerlink" title="&#x524D;&#x8A00;"></a>&#x524D;&#x8A00;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#暴力匹配"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x66B4;&#x529B;&#x5339;&#x914D;" class="headerlink" title="&#x66B4;&#x529B;&#x5339;&#x914D;"></a>&#x66B4;&#x529B;&#x5339;&#x914D;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实现"><span class="nav-number">2.1.</span> <span class="nav-text"><a href="#&#x5B9E;&#x73B0;" class="headerlink" title="&#x5B9E;&#x73B0;"></a>&#x5B9E;&#x73B0;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点"><span class="nav-number">2.2.</span> <span class="nav-text"><a href="#&#x7F3A;&#x70B9;" class="headerlink" title="&#x7F3A;&#x70B9;"></a>&#x7F3A;&#x70B9;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KMP"><span class="nav-number">3.</span> <span class="nav-text"><a href="#KMP" class="headerlink" title="KMP"></a>KMP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实现-1"><span class="nav-number">3.1.</span> <span class="nav-text"><a href="#&#x5B9E;&#x73B0;-1" class="headerlink" title="&#x5B9E;&#x73B0;"></a>&#x5B9E;&#x73B0;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最大长度表"><span class="nav-number">3.2.</span> <span class="nav-text"><a href="#&#x6700;&#x5927;&#x957F;&#x5EA6;&#x8868;" class="headerlink" title="&#x6700;&#x5927;&#x957F;&#x5EA6;&#x8868;"></a>&#x6700;&#x5927;&#x957F;&#x5EA6;&#x8868;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#next-数组"><span class="nav-number">3.3.</span> <span class="nav-text"><a href="#next-&#x6570;&#x7EC4;" class="headerlink" title="next &#x6570;&#x7EC4;"></a>next &#x6570;&#x7EC4;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#next-数组优化"><span class="nav-number">3.4.</span> <span class="nav-text"><a href="#next-&#x6570;&#x7EC4;&#x4F18;&#x5316;" class="headerlink" title="next &#x6570;&#x7EC4;&#x4F18;&#x5316;"></a>next &#x6570;&#x7EC4;&#x4F18;&#x5316;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文章"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x53C2;&#x8003;&#x6587;&#x7AE0;" class="headerlink" title="&#x53C2;&#x8003;&#x6587;&#x7AE0;"></a>&#x53C2;&#x8003;&#x6587;&#x7AE0;</span></a></li></ol></div>
             
 
           </div>

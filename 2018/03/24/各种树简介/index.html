@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="树," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="二叉树定义：二叉树是每个节点最多有两个子树的树结构。通常子树被称作“左子树”（left subtree）和“右子树”（right subtree）。 性质：在非空二叉树中，第 i 层的结点总数不超过 2^(i-1), i&amp;gt;=1；深度为 h 的二叉树最多有 2^h-1  个结点 (h&amp;gt;=1)，最少有 h 个结点；">
+<meta name="keywords" content="树">
+<meta property="og:type" content="article">
+<meta property="og:title" content="各种树简介">
+<meta property="og:url" content="http://yoursite.com/2018/03/24/各种树简介/index.html">
+<meta property="og:site_name" content="xiaoPandas">
+<meta property="og:description" content="二叉树定义：二叉树是每个节点最多有两个子树的树结构。通常子树被称作“左子树”（left subtree）和“右子树”（right subtree）。 性质：在非空二叉树中，第 i 层的结点总数不超过 2^(i-1), i&amp;gt;=1；深度为 h 的二叉树最多有 2^h-1  个结点 (h&amp;gt;=1)，最少有 h 个结点；">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://gss3.bdstatic.com/7Po3dSag_xI4khGkpoWK1HF6hhy/baike/c0=baike72,5,5,72,24/sign=fb3e725cc6bf6c81e33a24badd57da50/8ad4b31c8701a18be06a847b942f07082838fe05.jpg">
+<meta property="og:image" content="http://oyiq6rmz1.bkt.clouddn.com/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91.png">
+<meta property="og:image" content="http://oyiq6rmz1.bkt.clouddn.com/AVL%E6%A0%91%E4%B8%8D%E5%B9%B3%E8%A1%A1.png">
+<meta property="og:image" content="http://oyiq6rmz1.bkt.clouddn.com/TreeMap_rotateLeft.png">
+<meta property="og:image" content="http://oyiq6rmz1.bkt.clouddn.com/TreeMap_rotateRight.png">
+<meta property="og:image" content="http://oyiq6rmz1.bkt.clouddn.com/%E7%BA%A2%E9%BB%91%E6%A0%91%E6%8F%92%E5%85%A51.png">
+<meta property="og:image" content="http://oyiq6rmz1.bkt.clouddn.com/%E7%BA%A2%E9%BB%91%E6%A0%91%E6%8F%92%E5%85%A52.png">
+<meta property="og:image" content="http://jbcdn2.b0.upaiyun.com/2017/07/9cfbf62dfdefe5891347de95a976758f.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/CarpenterLee/JCFInternals/master/PNGFigures/TreeMap_successor.png">
+<meta property="og:image" content="http://oyiq6rmz1.bkt.clouddn.com/%E5%88%A0%E9%99%A4%E6%83%85%E5%BD%A22.png">
+<meta property="og:image" content="http://jbcdn2.b0.upaiyun.com/2017/07/30759b4136b3cd56ba31eb8d06a434d2.png">
+<meta property="og:image" content="http://oyiq6rmz1.bkt.clouddn.com/%E5%88%A0%E9%99%A4%E6%83%85%E5%BD%A24.png">
+<meta property="og:image" content="http://oyiq6rmz1.bkt.clouddn.com/%E5%88%A0%E9%99%A4%E6%83%85%E5%BD%A25.png">
+<meta property="og:image" content="http://jbcdn2.b0.upaiyun.com/2017/07/c0ea423eef5e175e0ba92e43ad17270d.png">
+<meta property="og:image" content="http://hi.csdn.net/attachment/201106/7/8394323_13074405906V6Q.jpg">
+<meta property="og:image" content="http://wx3.sinaimg.cn/large/7cc829d3gy1fh5p12mz57g20qm06d4qq.gif">
+<meta property="og:image" content="http://oyiq6rmz1.bkt.clouddn.com/B%E6%A0%91%E6%8F%92%E5%85%A51.jpg">
+<meta property="og:image" content="http://oyiq6rmz1.bkt.clouddn.com/B%E6%A0%91%E6%8F%92%E5%85%A52.jpg">
+<meta property="og:image" content="http://oyiq6rmz1.bkt.clouddn.com/B%E6%A0%91%E6%8F%92%E5%85%A53.jpg">
+<meta property="og:image" content="http://hi.csdn.net/attachment/201106/8/8394323_1307525895q8j1.jpg">
+<meta property="og:image" content="http://hi.csdn.net/attachment/201106/8/8394323_1307525894XPqO.jpg">
+<meta property="og:image" content="http://hi.csdn.net/attachment/201106/8/8394323_1307525894XPqO.jpg">
+<meta property="og:image" content="http://hi.csdn.net/attachment/201106/8/8394323_1307525891j1B1.jpg">
+<meta property="og:image" content="http://hi.csdn.net/attachment/201106/8/8394323_1307525890gB3b.jpg">
+<meta property="og:image" content="http://hi.csdn.net/attachment/201106/8/8394323_1307525887QhC3.jpg">
+<meta property="og:image" content="http://hi.csdn.net/attachment/201106/8/8394323_1307525886x2r2.jpg">
+<meta property="og:image" content="http://hi.csdn.net/attachment/201106/8/8394323_1307525883hHW0.jpg">
+<meta property="og:image" content="http://hi.csdn.net/attachment/201106/7/8394323_1307440587b6WG.jpg">
+<meta property="og:image" content="http://hi.csdn.net/attachment/201106/7/8394323_13074405869mSW.jpg">
+<meta property="og:updated_time" content="2018-04-21T09:33:06.883Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="各种树简介">
+<meta name="twitter:description" content="二叉树定义：二叉树是每个节点最多有两个子树的树结构。通常子树被称作“左子树”（left subtree）和“右子树”（right subtree）。 性质：在非空二叉树中，第 i 层的结点总数不超过 2^(i-1), i&amp;gt;=1；深度为 h 的二叉树最多有 2^h-1  个结点 (h&amp;gt;=1)，最少有 h 个结点；">
+<meta name="twitter:image" content="https://gss3.bdstatic.com/7Po3dSag_xI4khGkpoWK1HF6hhy/baike/c0=baike72,5,5,72,24/sign=fb3e725cc6bf6c81e33a24badd57da50/8ad4b31c8701a18be06a847b942f07082838fe05.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '19BJM0J404',
+      apiKey: '2f287374bf03d3739c504b7eaac5a3d0',
+      indexName: 'xiaoPandasblog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键词进行搜索","hits_empty":"找不到关于 ${query} 的文章","hits_stats":"在 ${time} ms 内找到 ${hits} 篇文章"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/24/各种树简介/"/>
+
+
+
+
+
+  <title>各种树简介 | xiaoPandas</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">xiaoPandas</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/24/各种树简介/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xiaoPandas">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oyiq6rmz1.bkt.clouddn.com/%E5%A4%B4%E5%83%8F.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xiaoPandas">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">各种树简介</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-24T21:29:46+08:00">
+                2018-03-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/03/24/各种树简介/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/03/24/各种树简介/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h3><p>定义：<br>二叉树是每个节点最多有两个子树的树结构。通常子树被称作“左子树”（left subtree）和“右子树”（right subtree）。</p>
+<p>性质：<br>在非空二叉树中，第 i 层的结点总数不超过 2^(i-1), i&gt;=1；<br>深度为 h 的二叉树最多有 2^h-1  个结点 (h&gt;=1)，最少有 h 个结点；<br><a id="more"></a><br>对于任意一棵二叉树，如果其叶结点数为 N0，而度数为 2 的结点总数为 N2，则 N0 = N2 + 1；</p>
+<h3 id="满二叉树"><a href="#满二叉树" class="headerlink" title="满二叉树"></a>满二叉树</h3><p>定义：<br>一个二叉树，除叶子结点外的所有结点均有两个子结点，节点数达到最大值，所有叶子结点必须在同一层上。</p>
+<p>性质：</p>
+<ul>
+<li>一颗树深度为 h，最大层数为 k，深度与最大层数相同，k = h；</li>
+<li>第 i 层的结点数是：2^(i - 1);</li>
+<li>层数为 k 的满二叉树的叶子结点个数(也就是最后一层)：2^(k - 1)；</li>
+<li>总结点数是：(2^k) - 1，且总节点数一定是奇数。<br><img src="https://gss3.bdstatic.com/7Po3dSag_xI4khGkpoWK1HF6hhy/baike/c0=baike72,5,5,72,24/sign=fb3e725cc6bf6c81e33a24badd57da50/8ad4b31c8701a18be06a847b942f07082838fe05.jpg" alt="满二叉树"></li>
+</ul>
+<h3 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h3><p>定义：叶节点只能出现在最下层和次下层，并且最下面一层的结点都集中在该层最左边的若干位置的二叉树。</p>
+<p>性质：</p>
+<ul>
+<li>满二叉树一定是完全二叉树，完全二叉树不一定是满二叉树；</li>
+<li>叶子结点只可能在最大的两层上出现,对任意结点，若其右分支下的子孙最大层次为 L，则其左分支下的子孙的最大层次必为 L 或 L + 1；</li>
+<li>出于简便起见,完全二叉树通常采用数组而不是链表存储；</li>
+<li><font color="red">具有 n 个结点的完全二叉树的深度为 [log(n)] + 1</font> (注：[ ]表示向下取整)；</li>
+<li>完全二叉树第 i 层至多有 2^(i-1) 个节点，共 i 层的完全二叉树最多有 2^i-1 个节点。</li>
+</ul>
+<p>有 N 个结点的完全二叉树各结点如果用顺序方式存储，则结点之间有如下关系：<br>若 i 为结点编号则 如果 i &gt; 1，则其父结点的编号为 i / 2；<br>如果 2*i &lt;= N，则其左儿子（即左子树的根结点）的编号为 2*i；若 2*i &gt; N，则无左儿子；<br>如果 2*i + 1 &lt;= N，则其右儿子的结点编号为 2*i + 1；若 2*i + 1 &gt; N，则无右儿子；<br><img src="http://oyiq6rmz1.bkt.clouddn.com/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91.png" alt="完全二叉树"></p>
+<h3 id="二叉查找树"><a href="#二叉查找树" class="headerlink" title="二叉查找树"></a>二叉查找树</h3><p>定义：<br>二叉排序树或者是一棵空树，或者是具有下列性质的二叉树：<br>（1）若左子树不空，则左子树上所有结点的值均小于或等于它的根结点的值；<br>（2）若右子树不空，则右子树上所有结点的值均大于或等于它的根结点的值；<br>（3）左、右子树也分别为二叉排序树；</p>
+<p>性质：对二叉查找树进行中序遍历，即可得到有序的数列。</p>
+<p>时间复杂度：它和二分查找一样，插入和查找的时间复杂度均为 O(logn)，但是在最坏的情况下仍然会有 O(n) 的时间复杂度。原因在于插入和删除元素的时候，树没有保持平衡。我们追求的是在最坏的情况下仍然有较好的时间复杂度，这就是平衡查找树设计的初衷。</p>
+<blockquote>
+<p>二叉查找树的高度决定了二叉查找树的查找效率。</p>
+</blockquote>
+<h4 id="二叉查找树的插入"><a href="#二叉查找树的插入" class="headerlink" title="二叉查找树的插入"></a>二叉查找树的插入</h4><p>首先执行查找算法，找出被插结点的父亲结点。<br>若当前的二叉查找树为空，则插入的元素为根节点；<br>若插入的元素值小于根节点值，则将元素插入到左子树中；<br>若插入的元素值不小于根节点值，则将元素插入到右子树中。<br>注意：新插入的结点总是叶子结点。</p>
+<h4 id="二叉查找树的删除"><a href="#二叉查找树的删除" class="headerlink" title="二叉查找树的删除"></a>二叉查找树的删除</h4><p>在二叉排序树删去一个结点，分三种情况讨论：</p>
+<ol>
+<li>若 p 结点为叶子结点，即 PL (左子树)和 PR (右子树)均为空树。由于删去叶子结点不破坏整棵树的结构，则可以直接删除此子结点。</li>
+<li>若 p 结点只有左子树 PL 或右子树 PR，此时只要令 PL 或 PR 直接成为其双亲结点 f 的左子树（当 p 是左子树）或右子树（当 p 是右子树）即可，作此修改也不破坏二叉排序树的特性。</li>
+<li>若 p 结点的左子树和右子树均不空。找到 p 结点的直接中序后继节点（即其右子树中值最小的节点），将此结点的值赋给 p，然后删除此结点。右子树key最小的节点一定不含左子树,所以删除这个 key 最小的节点一定是属于叶子节点或者只有右子树的节点。</li>
+</ol>
+<h4 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h4><p>最坏情况下，当先后插入的关键字有序时，构成的二叉排序树蜕变为单支树，树的深度为其平均查找长度 (n+1)/2 (和顺序查找相同）；<br>最好的情况是二叉排序树的形态和折半查找的判定树相同，其平均查找长度和 log(n) 成正比。</p>
+<h4 id="相关代码"><a href="#相关代码" class="headerlink" title="相关代码"></a>相关代码</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BinarySearchTree</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根节点</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> TreeNode root;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BinarySearchTree</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.root = <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 前序遍历</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">preorder_iterator</span><span class="params">(TreeNode node)</span></span>&#123;  </span><br><span class="line">        System.out.print(node.value + <span class="string">" "</span>);  </span><br><span class="line">        <span class="keyword">if</span>(node.left != <span class="keyword">null</span>)  </span><br><span class="line">            preorder_iterator(node.left);  </span><br><span class="line">        <span class="keyword">if</span>(node.right != <span class="keyword">null</span>)  </span><br><span class="line">            preorder_iterator(node.right);  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 中序遍历  </span></span><br><span class="line"><span class="comment">     * 将会得到包含二叉搜索树所有数据项的有序数列</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">inorder_iterator</span><span class="params">(TreeNode node)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">if</span>(node.left != <span class="keyword">null</span>)  </span><br><span class="line">            inorder_iterator(node.left);  </span><br><span class="line">        System.out.print(node.value + <span class="string">" "</span>);  </span><br><span class="line">        <span class="keyword">if</span>(node.right != <span class="keyword">null</span>)  </span><br><span class="line">            inorder_iterator(node.right);  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 后序遍历  </span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">postorder_iterator</span><span class="params">(TreeNode node)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">if</span>(node.left != <span class="keyword">null</span>)  </span><br><span class="line">            postorder_iterator(node.left);  </span><br><span class="line">        <span class="keyword">if</span>(node.right != <span class="keyword">null</span>)   </span><br><span class="line">            postorder_iterator(node.right);  </span><br><span class="line">        System.out.print(node.value + <span class="string">" "</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 查找</span></span><br><span class="line"><span class="comment">     *      1. 从root节点开始</span></span><br><span class="line"><span class="comment">     *      2. 比当前节点值小,则找其左节点</span></span><br><span class="line"><span class="comment">     *      3. 比当前节点值大,则找其右节点</span></span><br><span class="line"><span class="comment">     *      4. 与当前节点值相等,查找到返回TRUE</span></span><br><span class="line"><span class="comment">     *      5. 查找完毕未找到,查找失败返回false</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">search</span> <span class="params">(<span class="keyword">int</span> key)</span> </span>&#123;</span><br><span class="line">        TreeNode current = root;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>)&#123;  </span><br><span class="line">            System.out.println(<span class="string">"The tree is empty!"</span>);  </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">while</span> (current != <span class="keyword">null</span></span><br><span class="line">                &amp;&amp; key != current.value) &#123;</span><br><span class="line">            <span class="keyword">if</span> (key &lt; current.value )</span><br><span class="line">                current = current.left;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                current = current.right;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(current == <span class="keyword">null</span>)</span><br><span class="line">        	<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        	<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 插入</span></span><br><span class="line"><span class="comment">     *      1. 从root节点开始</span></span><br><span class="line"><span class="comment">     *      2. 如果root为空,root为插入值</span></span><br><span class="line"><span class="comment">     *      循环:</span></span><br><span class="line"><span class="comment">     *      3. 如果当前节点值大于插入值,找左节点</span></span><br><span class="line"><span class="comment">     *      4. 如果当前节点值小于插入值,找右节点</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">insert</span> <span class="params">(<span class="keyword">int</span> key)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 新增节点</span></span><br><span class="line">        TreeNode newNode = <span class="keyword">new</span> TreeNode(key);</span><br><span class="line">        <span class="comment">// 当前节点</span></span><br><span class="line">        TreeNode current = root;</span><br><span class="line">        <span class="comment">// 上个节点</span></span><br><span class="line">        TreeNode parent  = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">// 如果根节点为空</span></span><br><span class="line">        <span class="keyword">if</span> (current == <span class="keyword">null</span>) &#123;</span><br><span class="line">            root = newNode;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(search(key) == <span class="keyword">true</span>)&#123;  </span><br><span class="line">            System.out.println(<span class="string">"Node with value '"</span> +  </span><br><span class="line">                    key + <span class="string">"' has already existed!"</span>);  </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            parent = current;</span><br><span class="line">            <span class="keyword">if</span> (key &lt; current.value) &#123;</span><br><span class="line">                current = current.left;</span><br><span class="line">                <span class="keyword">if</span> (current == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    parent.left = newNode;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                current = current.right;</span><br><span class="line">                <span class="keyword">if</span> (current == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    parent.right = newNode;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 删除节点</span></span><br><span class="line"><span class="comment">     *      1.找到删除节点</span></span><br><span class="line"><span class="comment">     *      2.如果删除节点左节点为空 , 右节点也为空;</span></span><br><span class="line"><span class="comment">     *      3.如果删除节点只有一个子节点 右节点 或者 左节点</span></span><br><span class="line"><span class="comment">     *      4.如果删除节点左右子节点都不为空</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">  <span class="comment">//删除节点需要分3种情况进行讨论  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">delete</span><span class="params">(<span class="keyword">int</span> key)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>)&#123;  </span><br><span class="line">            System.out.println(<span class="string">"The tree is empty!"</span>);  </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;  </span><br><span class="line">        &#125;  </span><br><span class="line">        TreeNode targetParent = root;  </span><br><span class="line">        TreeNode target = root;  </span><br><span class="line">        <span class="keyword">boolean</span> isLeftChild = <span class="keyword">true</span>;  </span><br><span class="line">        <span class="keyword">while</span>(target.value != key)&#123;  </span><br><span class="line">            <span class="keyword">if</span>(key &gt; target.value)&#123;  </span><br><span class="line">                targetParent = target;  </span><br><span class="line">                target = target.right;   </span><br><span class="line">                isLeftChild = <span class="keyword">false</span>;  </span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;  </span><br><span class="line">                targetParent = target;  </span><br><span class="line">                target = target.left;  </span><br><span class="line">                isLeftChild = <span class="keyword">true</span>;  </span><br><span class="line">            &#125;  </span><br><span class="line">            <span class="keyword">if</span>(target == <span class="keyword">null</span>)  </span><br><span class="line">                <span class="keyword">break</span>;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">if</span>(target == <span class="keyword">null</span>)&#123;  </span><br><span class="line">            System.out.println(<span class="string">"Node with value '"</span>+ key + <span class="string">"' dosen't exist!"</span>   </span><br><span class="line">                    + <span class="string">" Can not delete."</span>);  </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="comment">//被删除节点为叶子节点  </span></span><br><span class="line">        <span class="keyword">if</span>(target.left == <span class="keyword">null</span> &amp;&amp;  </span><br><span class="line">                target.right == <span class="keyword">null</span>)&#123;  </span><br><span class="line">            <span class="keyword">if</span>(target.value == root.value)&#123;  </span><br><span class="line">                root = <span class="keyword">null</span>;  </span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;  </span><br><span class="line">            &#125;  </span><br><span class="line">            <span class="keyword">if</span>(isLeftChild)  </span><br><span class="line">                targetParent.left = <span class="keyword">null</span>;  </span><br><span class="line">            <span class="keyword">else</span>  </span><br><span class="line">                targetParent.right = <span class="keyword">null</span>;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="comment">//被删除节点有1个子节点  </span></span><br><span class="line">        <span class="comment">//被删除节点只有右子节点  </span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(target.left == <span class="keyword">null</span> &amp;&amp;   </span><br><span class="line">                target.right != <span class="keyword">null</span>)&#123;  </span><br><span class="line">            <span class="keyword">if</span>(target.value == root.value)&#123;  </span><br><span class="line">                root = root.right;  </span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;  </span><br><span class="line">            &#125;  </span><br><span class="line">            <span class="keyword">if</span>(isLeftChild)  </span><br><span class="line">                targetParent.left = target.right;  </span><br><span class="line">            <span class="keyword">else</span>  </span><br><span class="line">                targetParent.right = target.right;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="comment">//被删除节点只有左子节点  </span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(target.left != <span class="keyword">null</span> &amp;&amp;   </span><br><span class="line">                target.right == <span class="keyword">null</span>)&#123;  </span><br><span class="line">            <span class="keyword">if</span>(target.value == root.value)&#123;  </span><br><span class="line">                root = root.left;  </span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;  </span><br><span class="line">            &#125;  </span><br><span class="line">            <span class="keyword">if</span>(isLeftChild)  </span><br><span class="line">                targetParent.left = target.left;  </span><br><span class="line">            <span class="keyword">else</span>  </span><br><span class="line">                targetParent.right = target.left;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="comment">//被删除节点有左右子节点，先找到后续节点，将，然后将后续节点插入至待删除节点的位置  </span></span><br><span class="line">        <span class="keyword">else</span>&#123;  </span><br><span class="line">        	TreeNode followingNode = getFollowingNode(target);  </span><br><span class="line">            <span class="keyword">if</span>(target.value == root.value)  </span><br><span class="line">                root = followingNode;  </span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(isLeftChild)  </span><br><span class="line">                targetParent.left = followingNode;  </span><br><span class="line">            <span class="keyword">else</span>  </span><br><span class="line">                targetParent.right = followingNode;  </span><br><span class="line">            followingNode.left = target.left;  </span><br><span class="line">            followingNode.right = target.right;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取删除节点的后继者</span></span><br><span class="line"><span class="comment">     *      删除节点的后继者是在其右节点树种最小的节点</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> deleteNode</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> TreeNode <span class="title">getFollowingNode</span><span class="params">(TreeNode node2Del)</span></span>&#123;  </span><br><span class="line">    	TreeNode nodeParent = node2Del;  </span><br><span class="line">        <span class="comment">//只有被删除节点有左右子节点时，才会调用该方法  </span></span><br><span class="line">        <span class="comment">//这里直接调用rightChild是没有问题的  </span></span><br><span class="line">    	TreeNode node = node2Del.right;  </span><br><span class="line">        <span class="keyword">while</span>(node.left != <span class="keyword">null</span>)&#123;  </span><br><span class="line">            nodeParent = node;  </span><br><span class="line">            node = node.left;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">if</span>(node.value != node2Del.right.value)  </span><br><span class="line">            nodeParent.left = node.right;  </span><br><span class="line">        <span class="keyword">else</span>  </span><br><span class="line">            nodeParent.right = node.right;  </span><br><span class="line">        <span class="keyword">return</span> node;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 节点</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 节点值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">int</span> value;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 左节点</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    TreeNode left;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 右节点</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    TreeNode right;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TreeNode</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.value = value;</span><br><span class="line">        left  = <span class="keyword">null</span>;</span><br><span class="line">        right = <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h3><p>我们可以通过随机化建立二叉搜索树来尽量的避免最坏情况，但是在进行了多次的操作之后，由于在删除时，我们总是选择将待删除节点的后继代替它本身，这样就会造成总是右边的节点数目减少，以至于树向左偏沉。这同时也会造成树的平衡性受到破坏，提高它操作的时间复杂度。于是就有了我们下边介绍的平衡二叉树。</p>
+<p>定义：<br>平衡二叉树（Balanced Binary Tree），且具有以下性质：它是一 棵空树或它的左右两个子树的高度差的绝对值不超过 1，并且左右两个子树都是一棵平衡二叉树。平衡二叉树的实现方法有红黑树、AVL 树等。在平衡二叉搜索树中，高度一般都良好地维持在 O(logn)，大大降低了操作的时间复杂度。</p>
+<p>最小二叉平衡树的节点的公式如下：</p>
+<p>F(n) = F(n-1) + F(n-2) + 1</p>
+<p>这个类似于一个递归的数列，可以参考 Fibonacci 数列，1 是根节点，F(n-1) 是左子树的节点数量，F(n-2) 是右子树的节点数量。</p>
+<h3 id="平衡二叉树之-AVL-树"><a href="#平衡二叉树之-AVL-树" class="headerlink" title="平衡二叉树之 AVL 树"></a>平衡二叉树之 AVL 树</h3><p>在 AVL 中任何节点的两个儿子子树的高度最大差别为 1，所以它也被称为高度平衡树，n 个结点的 AVL 树最大深度约 1.44logn。<br>增加和删除可能需要通过一次或多次树旋转来重新平衡这个树。这个方案很好的解决了二叉查找树退化成链表的问题，把插入，查找，删除的时间复杂度最好情况和最坏情况都维持在 O(logN)。但是频繁旋转会使插入和删除牺牲掉 O(logN)左右的时间，不过相对二叉查找树来说，时间上稳定了很多。</p>
+<h4 id="AVL-树的旋转"><a href="#AVL-树的旋转" class="headerlink" title="AVL 树的旋转"></a>AVL 树的旋转</h4><p>对于一个平衡的节点，由于任意节点最多有两个儿子，因此高度不平衡时，此节点的两颗子树的高度差 2。容易看出，这种不平衡出现在下面四种情况：<br><img src="http://oyiq6rmz1.bkt.clouddn.com/AVL%E6%A0%91%E4%B8%8D%E5%B9%B3%E8%A1%A1.png" alt="不平衡树"></p>
+<ol>
+<li><p>6 节点的左子树 3 节点高度比右子树 7 节点大 2，左子树 3 节点的左子树 1 节点高度大于右子树 4 节点，这种情况为左左；</p>
+</li>
+<li><p>6 节点的左子树 2 节点高度比右子树 7 节点大 2，左子树 2 节点的左子树 1 节点高度小于右子树 4 节点，这种情况为左右；</p>
+</li>
+<li><p>2 节点的左子树 1 节点高度比右子树 5 节点小 2，右子树 5 节点的左子树 3 节点高度大于右子树 6 节点，这种情况为右左；</p>
+</li>
+<li><p>2 节点的左子树 1 节点高度比右子树 4 节点小 2，右子树 4 节点的左子树 3 节点高度小于右子树 6 节点，这种情况为右右。</p>
+</li>
+</ol>
+<p>从图 2 中可以可以看出，左左和右右两种情况是对称的，这两种情况的旋转算法是一致的，只需要经过一次旋转就可以达到目标。左右和右左两种情况也是对称的，这两种情况的旋转算法也是一致的，需要进行两次旋转。</p>
+<p>左旋的过程是逆时针旋转红黑树的两个节点，使得父节点被自己的右孩子取代，而自己成为自己的左孩子。<br><img src="http://oyiq6rmz1.bkt.clouddn.com/TreeMap_rotateLeft.png" alt="左旋"></p>
+<p>右旋的过程是顺时针旋转红黑树的两个节点，使得父节点被自己的左孩子取代，而自己成为自己的右孩子。<br><img src="http://oyiq6rmz1.bkt.clouddn.com/TreeMap_rotateRight.png" alt="右旋"></p>
+<h3 id="平衡二叉树之红黑树"><a href="#平衡二叉树之红黑树" class="headerlink" title="平衡二叉树之红黑树"></a>平衡二叉树之红黑树</h3><p>规则：</p>
+<ol>
+<li><p>每个节点不是红色就是黑色的；</p>
+</li>
+<li><p>根节点总是黑色的；</p>
+</li>
+<li><p>每个红色节点必须有两个黑色的子节点；</p>
+</li>
+<li><p>从任一节点到其每个叶子的所有路径都包含相同数目的黑色节点。    </p>
+</li>
+</ol>
+<p>在红-黑树中插入的节点都是红色的，这不是偶然的，因为插入一个红色节点比插入一个黑色节点违背红-黑规则的可能性更小。原因是：如果我们插入的是黑色节点，那就违反了性质五，需要进行大规模调整，如果我们插入的是红色节点，那就只有在要插入节点的父节点也是红色的时候违反性质四或者是当插入的节点是根节点时，违反性质二。</p>
+<p>红黑树上的只读操作与普通二叉查找树上的只读操作相同。然而，在红黑树上进行插入操作和删除操作会导致不再符合红黑树的性质。恢复红黑树的性质需要少量 (O(logn)) 的颜色变更(实际是非常快速的)和不超过三次树旋转(对于插入操作是两次)。虽然插入和删除很复杂，但操作时间仍可以保持为 O(logn) 次。</p>
+<h4 id="红黑树的插入"><a href="#红黑树的插入" class="headerlink" title="红黑树的插入"></a>红黑树的插入</h4><p>假设，将要插入的节点标为 N，N 的父节点标为 P，N 的祖父节点标为 G，N的叔父节点标为 U。</p>
+<p>情形1: 当插入的节点是根节点时，直接涂黑即可；</p>
+<p>情形2: 当要插入的节点 N 的父节点 P 是黑色的时候，这个时候插入一个红色的节点并没有对这五个性质产生破坏，所以直接插入；</p>
+<p>情形3: 如果父节点 P 和叔父节点 U 二者都是红色(此时新插入节点 N 做为 P 的左子节点或右子节点都属于情形 3，这里下图仅显示 N 做为 P 左子的情形)：<br>我们可以将 P 和 U 两个重绘为黑色并重绘祖父节点 G 为红色(用来保持性质 3)；<br>现在我们的新节点 N 有了一个黑色的父节点 P。因为通过父节点 P 或叔父节点 U 的任何路径都必定通过祖父节点 G，在这些路径上的黑节点数目没有改变。但是，红色的祖父节点 G 的父节点也有可能是红色的，这就违反了性质 3；<br>为了解决这个问题，我们在祖父节点 G 上递归地进行上述情形的整个过程（把 G 当成是新加入的节点进行各种情形的检查）。<br>比如，G 为根节点，那我们就直接将 G 变为黑色（情形1）；如果 G 不是根节点，而它的父节点为黑色，那符合所有的性质，直接插入即可（情形2）；如果 G 不是根节点，而它的父节点为红色，则递归上述过程（情形3）。<br><img src="http://oyiq6rmz1.bkt.clouddn.com/%E7%BA%A2%E9%BB%91%E6%A0%91%E6%8F%92%E5%85%A51.png" alt="情形3"></p>
+<p>情形4: 父节点 P 是红色而叔父节点 U 是黑色或缺少，新节点 N 是其父节点的左子节点，而父节点 P 又是其父节点 G 的左子节点：<br>在这种情形下，我们对祖父节点 G 进行一次右旋转； 在旋转产生的树中，以前的父节点 P 现在是新节点 N 和以前的祖父节点 G 的父节点。我们知道以前的祖父节点 G 是黑色，否则父节点 P 就不可能是红色(如果 P 和 G 都是红色就违反了性质3，所以 G 必须是黑色)。<br>我们切换以前的父节点P和祖父节点 G 的颜色，结果的树满足性质 3。性质 4 也仍然保持满足，因为通过这三个节点中任何一个的所有路径以前都通过祖父节点 G，现在它们都通过以前的父节点 P。在各自的情形下，这都是三个节点中唯一的黑色节点。<br><img src="http://oyiq6rmz1.bkt.clouddn.com/%E7%BA%A2%E9%BB%91%E6%A0%91%E6%8F%92%E5%85%A52.png" alt="情形4"></p>
+<p>情形5: 父节点 P 是红色而叔父节点 U 是黑色或缺少，并且新节点 N 是其父节点 P 的右子节点而父节点 P 又是其父节点的左子节点：<br>在这种情形下，我们进行一次左旋转调换新节点和其父节点的角色； 接着，我们按情形 4 处理以前的父节点 P 以解决仍然失效的性质 3。<br>注意这个改变会导致某些路径通过它们以前不通过的新节点 N （比如图中 1 号叶子节点）或不通过节点 P（比如图中 3 号叶子节点），但由于这两个节点都是红色的，所以性质 4 仍有效。<br><img src="http://jbcdn2.b0.upaiyun.com/2017/07/9cfbf62dfdefe5891347de95a976758f.png" alt="情形5"></p>
+<p>注: 插入实际上是原地算法，因为上述所有调用都使用了尾部递归。</p>
+<h4 id="红黑树的删除"><a href="#红黑树的删除" class="headerlink" title="红黑树的删除"></a>红黑树的删除</h4><p>对于一棵二叉查找树，给定节点 t，其后继（树中比大于 t 的最小的那个元素）可以通过如下方式找到：</p>
+<p>t 的右子树不空，则 t 的后继是其右子树中最小的那个元素。<br>t 的右孩子为空，则 t 的后继是其第一个向左走的祖先。</p>
+<p>后继节点在红黑树的删除操作中将会用到。</p>
+<p><img src="https://raw.githubusercontent.com/CarpenterLee/JCFInternals/master/PNGFigures/TreeMap_successor.png" alt="后继"></p>
+<p>对于二叉查找树，在删除带有两个非叶子儿子的节点的时候，我们找到要么在它的左子树中的最大元素、要么在它的右子树中的最小元素，并把它的值转移到要删除的节点中。<br>我们接着删除我们从中复制出值的那个节点，它必定有少于两个非叶子的儿子。因为只是复制了一个值，不违反任何性质，这就把问题简化为如何删除最多有一个儿子的节点的问题。它不关心这个节点是最初要删除的节点还是我们从中复制出值的那个节点。</p>
+<p>我们只需要讨论删除只有一个儿子的节点：<br>如果我们删除一个红色节点，此时该节点的儿子都为叶子节点，它的父亲和儿子一定是黑色的。所以我们可以简单的用它的黑色儿子替换它，并不会破坏性质 3。通过被删除节点的所有路径只是少了一个红色节点，这样可以继续保证性质 4。<br>另一种简单情况是在被删除节点是黑色而它的儿子是红色的时候。如果只是去除这个黑色节点，用它的红色儿子顶替上来的话，会破坏性质 4，但是如果我们重绘它的儿子为黑色，则曾经通过它的所有路径将通过它的黑色儿子，这样可以继续保持性质 4。</p>
+<p>需要进一步讨论的是在要删除的节点和它的儿子二者都是黑色的时候，这是一种复杂的情况。我们首先把要删除的节点替换为它的儿子。出于方便，称呼这个儿子为 N (在新的位置上)，称呼它的兄弟(它父亲的另一个儿子)为 S。在下面的示意图中，我们还是使用 P 称呼 N 的父亲，SL 称呼 S 的左儿子，SR 称呼 S 的右儿子。</p>
+<p>如果 N 和它初始的父亲是黑色，则删除它的父亲导致通过 N 的路径都比不通过它的路径少了一个黑色节点。因为这违反了性质 4，树需要被重新平衡。有几种情形需要考虑:</p>
+<p>情形1: N 是新的根。在这种情形下，就不需要再做改变了。我们从所有路径去除了一个黑色节点，而新根是黑色的，所有性质都保持着。</p>
+<p>注意: 在情形 2、5 和 6 下，我们假定 N 是它父亲的左儿子。如果它是右儿子，则在这些情形下的左和右应当对调。</p>
+<p>情形2: S 是红色。在这种情形下我们在 N 的父亲上做左旋转，把红色兄弟转换成 N 的祖父，我们接着对调 N 的父亲和祖父的颜色。完成这两个操作后，尽管所有路径上黑色节点的数目没有改变，但现在 N 有了一个黑色的兄弟和一个红色的父亲（它的新兄弟是黑色因为它是红色S的一个儿子），所以我们可以接下去按情形 4、情形 5 或情形 6 来处理。<br><img src="http://oyiq6rmz1.bkt.clouddn.com/%E5%88%A0%E9%99%A4%E6%83%85%E5%BD%A22.png" alt="情形2"></p>
+<p>情形3: N 的父亲、S 和 S 的儿子都是黑色的。在这种情形下，我们简单的重绘 S 为红色。结果是通过 S 的所有路径，它们就是以前不通过 N 的那些路径，都少了一个黑色节点。因为删除 N 的初始的父亲使通过 N 的所有路径少了一个黑色节点，这使事情都平衡了起来。但是，通过 P 的所有路径现在比不通过 P 的路径少了一个黑色节点，所以仍然违反性质 5。要修正这个问题，我们要从情形 1 开始，在 P 上做重新平衡处理。<br><img src="http://jbcdn2.b0.upaiyun.com/2017/07/30759b4136b3cd56ba31eb8d06a434d2.png" alt="情形3"></p>
+<p>情形4: S 和 S 的儿子都是黑色，但是 N 的父亲是红色。在这种情形下，我们简单的交换 N 的兄弟和父亲的颜色。这不影响不通过 N 的路径的黑色节点的数目，但是它在通过 N 的路径上对黑色节点数目增加了一，添补了在这些路径上删除的黑色节点。<br><img src="http://oyiq6rmz1.bkt.clouddn.com/%E5%88%A0%E9%99%A4%E6%83%85%E5%BD%A24.png" alt="情形4"></p>
+<p>情形5: S 是黑色，S 的左儿子是红色，S 的右儿子是黑色，而 N 是它父亲的左儿子。在这种情形下我们在 S 上做右旋转，这样 S 的左儿子成为 S 的父亲和 N 的新兄弟。我们接着交换 S 和它的新父亲的颜色。所有路径仍有同样数目的黑色节点，但是现在 N 有了一个黑色兄弟，他的右儿子是红色的，所以我们进入了情形 6。N 和它的父亲都不受这个变换的影响。<br><img src="http://oyiq6rmz1.bkt.clouddn.com/%E5%88%A0%E9%99%A4%E6%83%85%E5%BD%A25.png" alt="情形5"></p>
+<p>情形6: S 是黑色，S 的右儿子是红色，而 N 是它父亲的左儿子。在这种情形下我们在 N 的父亲上做左旋转，这样 S 成为 N 的父亲（P）和 S 的右儿子的父亲。我们接着交换 N 的父亲和 S 的颜色，并使 S 的右儿子为黑色。但是，N 现在增加了一个黑色祖先: 要么 N 的父亲变成黑色，要么它是黑色而 S 被增加为一个黑色祖父。所以，通过 N 的路径都增加了一个黑色节点。</p>
+<p>此时，如果一个路径不通过 N，则有两种可能性:</p>
+<p>它通过 N 的新兄弟。那么它以前和现在都必定通过 S 和 N 的父亲，而 S 和 P 只是交换了颜色。所以路径保持了同样数目的黑色节点。<br>它通过 N 的新叔父，S 的右儿子。那么它以前通过 S、S 的父亲和 S 的右儿子，但是现在只通过 S，它被假定为它以前的父亲的颜色，和 S 的右儿子，它被从红色改变为黑色。合成效果是这个路径通过了同样数目的黑色节点。<br>在任何情况下，在这些路径上的黑色节点数目都没有改变。所以我们恢复了性质 3。在示意图中的白色节点可以是红色或黑色，但是在变换前后都必须指定相同的颜色。<br><img src="http://jbcdn2.b0.upaiyun.com/2017/07/c0ea423eef5e175e0ba92e43ad17270d.png" alt="情形6"></p>
+<h3 id="B-树"><a href="#B-树" class="headerlink" title="B 树"></a>B 树</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>一棵 m 阶 B 树是一棵平衡的 m 路搜索树，树中每个结点最多含有 m 个孩子 (m&gt;=2)。它或者是空树，或者是满足下列性质的树：</p>
+<ol>
+<li><p>根结点至少有两棵子树，除非只包含一个节点；</p>
+</li>
+<li><p>每个非根节点所包含的关键字个数 n 满足：ceil(m/2) - 1 &lt;= n &lt;= m - 1，ceil 为向上取整；</p>
+</li>
+<li><p>除根结点以外的所有结点（不包括叶子结点）的度数正好是关键字总数加1，故内部子树个数 k 满足：m/2 &lt;= k &lt;= m；</p>
+</li>
+<li><p>所有叶子结点都出现在同一层，叶子结点不包含任何关键字信息 (可以看做是外部接点或查询失败的接点，实际上这些结点不存在，指向这些结点的指针都为 null)。</p>
+</li>
+</ol>
+<p>在 B 树中，每个结点中关键字从小到大排列，并且当该结点的孩子是非叶子结点时，该 k-1 个关键字正好是 k 个孩子包含的关键字的值域的分划。<br>因为叶子结点不包含关键字，所以可以把叶子结点看成在树里实际上并不存在外部结点，指向这些外部结点的指针为空，叶子结点的数目正好等于树中所包含的关键字总个数加 1。</p>
+<p>B 树中的一个包含 n 个关键字，n + 1 个指针的结点的一般形式为： （P0,K1,P1,K2,P2,…,Kn,Pn）<br>其中，Ki 为关键字，K1 &lt; K2 &lt; … &lt; Kn，Pi 是指向包括 Ki 到 Ki+1 之间的关键字的子树的指针。</p>
+<p>B-tree 这种数据结构能够让查找数据、循序存取、插入数据及删除的动作，都在对数时间内完成。B-tree 算法减少定位记录时所经历的中间过程，从而加快存取速度。这种数据结构常被应用在数据库和文件系统的实作上。</p>
+<p>如下图为一个 B 树示例（途中按照实际字母的大小来排列C&gt;B&gt;A）：<br><img src="http://hi.csdn.net/attachment/201106/7/8394323_13074405906V6Q.jpg" alt="B树"></p>
+<p>形成过程举例：<br><img src="http://wx3.sinaimg.cn/large/7cc829d3gy1fh5p12mz57g20qm06d4qq.gif" alt="形成过程"></p>
+<h4 id="文件查找的过程"><a href="#文件查找的过程" class="headerlink" title="文件查找的过程"></a>文件查找的过程</h4><p>如上图我要从上图中查找文件 29，查找流程如下:</p>
+<ol>
+<li>根据根结点指针找到文件目录的根磁盘块 1，将其中的信息导入内存。【磁盘IO操作 1 次】    </li>
+<li>此时内存中有两个文件名 17、35 和三个存储其他磁盘页面地址的数据。根据算法我们发现：17&lt;29&lt;35，因此我们找到指针 p2。</li>
+<li>根据 p2 指针，我们定位到磁盘块 3，并将其中的信息导入内存。【磁盘IO操作 2 次】    </li>
+<li>此时内存中有两个文件名 26，30 和三个存储其他磁盘页面地址的数据。根据算法我们发现：26&lt;29&lt;30，因此我们找到指针 p2。</li>
+<li>根据 p2 指针，我们定位到磁盘块 8，并将其中的信息导入内存。【磁盘IO操作 3次】    </li>
+<li>此时内存中有两个文件名 28，29。根据算法我们查找到文件名 29，并定位了该文件内存的磁盘地址。</li>
+</ol>
+<p>分析上面的过程，发现需要 3 次磁盘 IO 操作和 3 次内存查找操作。关于内存中的文件名查找，由于是一个有序表结构，可以利用折半查找提高效率。至于 IO 操作是影响整个B树查找效率的决定因素。</p>
+<h4 id="B树的插入"><a href="#B树的插入" class="headerlink" title="B树的插入"></a>B树的插入</h4><p>定义一个 5 阶树（平衡 5 路查找树;），现在我们要把 3、8、31、11、23、29、50、28 这些数字构建出一个 5 阶树出来;</p>
+<p>遵循规则：</p>
+<ol>
+<li><p>当前是要组成一个 5 路查找树，那么此时 m = 5,关键字数必须大于等于 cei(5/2) - 1 小于等于 5 - 1（关键字数小于 cei(5/2) - 1 就要进行节点合并，大于5-1就要进行节点拆分,非根节点关键字数 &gt;= 2）；</p>
+</li>
+<li><p>满足节点本身比左边节点大，比右边节点小的排序规则;</p>
+</li>
+</ol>
+<p><img src="http://oyiq6rmz1.bkt.clouddn.com/B%E6%A0%91%E6%8F%92%E5%85%A51.jpg" alt="B树插入1"><br><img src="http://oyiq6rmz1.bkt.clouddn.com/B%E6%A0%91%E6%8F%92%E5%85%A52.jpg" alt="B树插入2"><br><img src="http://oyiq6rmz1.bkt.clouddn.com/B%E6%A0%91%E6%8F%92%E5%85%A53.jpg" alt="B树插入3"></p>
+<p>举例，在下面 B 树中插入 S：<br><img src="http://hi.csdn.net/attachment/201106/8/8394323_1307525895q8j1.jpg" alt="B树插入4"><br>当插入S时，含有 N,P,Q,R 的结点需要分裂，把中间元素 Q 上移到父节点中，但是情况来了，父节点中空间已经满了，所以也要进行分裂，将父节点中的中间元素 M 上移到新形成的根结点中，注意以前在父节点中的第三个指针在修改后包括 D 和 G 节点中，这样具体插入操作的完成。<br><img src="http://hi.csdn.net/attachment/201106/8/8394323_1307525894XPqO.jpg" alt="B树插入5"></p>
+<h4 id="B树的删除"><a href="#B树的删除" class="headerlink" title="B树的删除"></a>B树的删除</h4><p>关键字需满足 (ceil(m/2)-1) &lt;= n &lt;= m-1，m 表示最多含有 m 个孩子，n 表示关键字数。<br>关键字数小了就合并，大了就分裂，以下图为例，依次删除H,T,R,E。<br><img src="http://hi.csdn.net/attachment/201106/8/8394323_1307525894XPqO.jpg" alt="B树删除1"></p>
+<ul>
+<li>删除的是叶子结点，并且删除之后关键字仍然满足条件，则直接删除，并将后面的往前移；删除节点 H ：<br><img src="http://hi.csdn.net/attachment/201106/8/8394323_1307525891j1B1.jpg" alt="B树删除2"></li>
+<li>删除的是非叶子结点，则将它右子树的最左边或者左子树的最右边的结点移到父节点中；删除结点 T ：<br><img src="http://hi.csdn.net/attachment/201106/8/8394323_1307525890gB3b.jpg" alt="B树删除3"></li>
+<li>删除的是叶子结点，且删除之后关键字小于 (ceil(m/2)-1)，但是其某个相邻兄弟结点中比较丰满 (元素个数大于 ceil(5/2)-1)，则可以向父结点借一个元素，然后将最丰满的相邻兄弟结点中上移最后或最前一个元素到父节点中；删除节点 R：<br><img src="http://hi.csdn.net/attachment/201106/8/8394323_1307525887QhC3.jpg" alt="B树删除4"></li>
+<li>删除的是叶子节点，所在的节点数目刚好达标，刚好满足最小元素个数 (ceil(5/2)-1)，而且相邻的兄弟结点也是同样的情况，则需要该节点与某相邻兄弟结点进行合并操作；首先移动父结点中的元素(该元素在两个需要合并的两个结点元素之间)下移到其子结点中，然后将这两个结点进行合并成一个结点；删除结点E ：<br><img src="http://hi.csdn.net/attachment/201106/8/8394323_1307525886x2r2.jpg" alt="B树删除5"></li>
+</ul>
+<p>也许你认为这样删除操作已经结束了，其实不然，在看看上图，对于这种特殊情况，你立即会发现父节点只包含一个元素 G，没达标（因为非根节点包括叶子结点的关键字数n必须满足于 2 =&lt; n &lt;= 4，而此处的 n=1），这是不能够接受的。如果这个问题结点的相邻兄弟比较丰满，则可以向父结点借一个元素。假设这时右兄弟结点（含有 Q,X）有一个以上的元素（Q 右边还有元素），然后咱们将 M 下移到元素很少的子结点中，将 Q 上移到 M 的位置，这时，Q 的左子树将变成 M 的右子树，也就是含有 N，P 结点被依附在M的右指针上。所以在这个实例中，咱们没有办法去借一个元素，只能与兄弟结点进行合并成一个结点，而根结点中的唯一元素 M 下移到子结点，这样，树的高度减少一层。<br><img src="http://hi.csdn.net/attachment/201106/8/8394323_1307525883hHW0.jpg" alt="B树删除6"></p>
+<h4 id="B树的特点"><a href="#B树的特点" class="headerlink" title="B树的特点"></a>B树的特点</h4><p>B 树相对于平衡二叉树的不同是，每个节点包含的关键字增多了，特别是在 B 树应用到数据库中的时候，数据库充分利用了磁盘块的原理（磁盘数据存储是采用块的形式存储的，每个块的大小为 4K，每次 IO 进行数据读取时，同一个磁盘块的数据可以一次性读取出来）把节点大小限制和充分使用在磁盘快大小范围；把树的节点关键字增多后树的层级比原来的二叉树少了，减少数据查找的次数和复杂度；<br>B树在提高了磁盘 IO 性能的同时并没有解决元素遍历的效率低下的问题</p>
+<h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>一棵含有 N 个总关键字数的 m 阶的 B 树的最大高度是多少?<br>答：log_ceil（m/2）(N+1)/2 + 1 （上面中关于 m 阶 B 树的定义已经提到：树中每个结点含有最多含有 k 个孩子，即 k 满足：ceil(m/2) &lt;= k &lt;= m。而树中每个结点含孩子数越少，树的高度则越大，故如此）</p>
+<h3 id="B-树-1"><a href="#B-树-1" class="headerlink" title="B+ 树"></a>B+ 树</h3><h4 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h4><p>B+ 树是应文件系统所需而出的一种 B 树的变型树。</p>
+<ol>
+<li>有 n 棵子树的结点中含有 n 个关键字，每个关键字不保存数据，只用来索引，所有数据都保存在叶子节点；</li>
+<li>所有的叶子结点中包含了全部关键字的信息，及指向含这些关键字记录的指针，且叶子结点本身依关键字的大小自小而大顺序链接；</li>
+<li>所有的非叶子结点可以看成是索引部分，结点中仅含其子树（根结点）中的最大（或最小）关键字。</li>
+</ol>
+<p>下图为 M=3 的 B+ 树的示意图：<br><img src="http://hi.csdn.net/attachment/201106/7/8394323_1307440587b6WG.jpg" alt="B+ 树"></p>
+<h4 id="B-的查找"><a href="#B-的查找" class="headerlink" title="B+ 的查找"></a>B+ 的查找</h4><p>对B+树可以进行两种查找运算：</p>
+<ul>
+<li>从最小关键字起顺序查找；</li>
+<li>从根结点开始，进行随机查找。<br>在查找时，若非叶子结点上的关键值等于给定值，并不终止，而是继续向下直到叶子结点。因此，在 B+ 树中，不管查找成功与否，每次查找都是走了一条从根到叶子结点的路径；其余同 B- 树的查找类似。</li>
+</ul>
+<h4 id="适合于索引操作"><a href="#适合于索引操作" class="headerlink" title="适合于索引操作"></a>适合于索引操作</h4><p>为什么说 B+ 树比 B  树更适合实际应用中操作系统的文件索引和数据库索引？</p>
+<ul>
+<li>B+ 树的磁盘读写代价更低；<br>B+ 树的内部结点并没有指向关键字具体信息的指针。因此其内部结点相对 B 树更小。如果把所有同一内部结点的关键字存放在同一盘块中，那么盘块所能容纳的关键字数量也越多。一次性读入内存中的需要查找的关键字也就越多。相对来说 IO 读写次数也就降低了。<br>举个例子，假设磁盘中的一个盘块容纳 16bytes，而一个关键字 2bytes，一个关键字具体信息指针 2bytes。一棵 9 阶 B-tree (一个结点最多 8 个关键字) 的内部结点需要 2 个盘块。而 B+ 树内部结点只需要 1 个盘块。当需要把内部结点读入内存中的时候，B  树就比 B+ 树多一次盘块查找时间(在磁盘中就是盘片旋转的时间)。</li>
+<li>B+树的查询效率更加稳定<br>由于非终结点并不是最终指向文件内容的结点，而只是叶子结点中关键字的索引。所以任何关键字的查找必须走一条从根结点到叶子结点的路。所有关键字查询的路径长度相同，导致每一个数据的查询效率相当。</li>
+</ul>
+<h3 id="B-树-2"><a href="#B-树-2" class="headerlink" title="B* 树"></a>B* 树</h3><h4 id="定义-2"><a href="#定义-2" class="headerlink" title="定义"></a>定义</h4><p>B*-tree 是 B+-tree 的变体，在 B+ 树的基础上(所有的叶子结点中包含了全部关键字的信息，及指向含有这些关键字记录的指针)，B* 树中非根和非叶子结点再增加指向兄弟的指针；B* 树定义了非叶子结点关键字个数至少为 (2/3)*M，即块的最低使用率为 2/3（代替 B+ 树的 1/2）。给出了一个简单实例，如下图所示：<br><img src="http://hi.csdn.net/attachment/201106/7/8394323_13074405869mSW.jpg" alt="B\*"></p>
+<h4 id="和-B-比较"><a href="#和-B-比较" class="headerlink" title="和 B+ 比较"></a>和 B+ 比较</h4><p>B+ 树的分裂：当一个结点满时，分配一个新的结点，并将原结点中 1/2 的数据复制到新结点，最后在父结点中增加新结点的指针；B+ 树的分裂只影响原结点和父结点，而不会影响兄弟结点，所以它不需要指向兄弟的指针。</p>
+<p>B* 树的分裂：当一个结点满时，如果它的下一个兄弟结点未满，那么将一部分数据移到兄弟结点中，再在原结点插入关键字，最后修改父结点中兄弟结点的关键字（因为兄弟结点的关键字范围改变了）；如果兄弟也满了，则在原结点与兄弟结点之间增加新结点，并各复制 1/3 的数据到新结点，最后在父结点增加新结点的指针。</p>
+<p>所以，B* 树分配新结点的概率比 B+ 树要低，空间使用率更高；</p>
+<h3 id="相关术语"><a href="#相关术语" class="headerlink" title="相关术语"></a>相关术语</h3><p>树的结点：包含一个数据元素及若干指向子树的分支；<br>孩子结点：结点的子树的根称为该结点的孩子；<br>双亲结点：B 结点是A 结点的孩子，则A结点是B 结点的双亲；<br>兄弟结点：同一双亲的孩子结点； 堂兄结点：同一层上结点；<br>祖先结点: 从根到该结点的所经分支上的所有结点子孙结点：以某结点为根的子树中任一结点都称为该结点的子孙；<br>结点层：根结点的层定义为1；根的孩子为第二层结点，依此类推；<br>树的深度：树中最大的结点层；<br>结点的度：结点子树的个数；<br>树的度： 树中最大的结点度；<br>叶子结点：也叫终端结点，是度为 0 的结点；<br>分枝结点：度不为0的结点；<br>有序树：子树有序的树，如：家族树；<br>无序树：不考虑子树的顺序；</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://github.com/CarpenterLee/JCFInternals/blob/master/markdown/5-TreeSet%20and%20TreeMap.md" target="_blank" rel="noopener">https://github.com/CarpenterLee/JCFInternals/blob/master/markdown/5-TreeSet%20and%20TreeMap.md</a><br><a href="https://blog.csdn.net/eson_15/article/details/51144079" target="_blank" rel="noopener">https://blog.csdn.net/eson_15/article/details/51144079</a><br><a href="https://zhuanlan.zhihu.com/p/27700617" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/27700617</a><br><a href="https://blog.csdn.net/v_JULY_v/article/details/6530142/" target="_blank" rel="noopener">https://blog.csdn.net/v_JULY_v/article/details/6530142/</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/树/" rel="tag"># 树</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/22/HashMap实现原理/" rel="next" title="HashMap实现原理">
+                <i class="fa fa-chevron-left"></i> HashMap实现原理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/26/垃圾回收机制/" rel="prev" title="垃圾回收机制">
+                垃圾回收机制 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="uyan_frame"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://oyiq6rmz1.bkt.clouddn.com/%E5%A4%B4%E5%83%8F.jpg"
+                alt="xiaoPandas" />
+            
+              <p class="site-author-name" itemprop="name">xiaoPandas</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/xiaoPandas" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/5626435388/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x4E8C;&#x53C9;&#x6811;" class="headerlink" title="&#x4E8C;&#x53C9;&#x6811;"></a>&#x4E8C;&#x53C9;&#x6811;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#满二叉树"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x6EE1;&#x4E8C;&#x53C9;&#x6811;" class="headerlink" title="&#x6EE1;&#x4E8C;&#x53C9;&#x6811;"></a>&#x6EE1;&#x4E8C;&#x53C9;&#x6811;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完全二叉树"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x5B8C;&#x5168;&#x4E8C;&#x53C9;&#x6811;" class="headerlink" title="&#x5B8C;&#x5168;&#x4E8C;&#x53C9;&#x6811;"></a>&#x5B8C;&#x5168;&#x4E8C;&#x53C9;&#x6811;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉查找树"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x4E8C;&#x53C9;&#x67E5;&#x627E;&#x6811;" class="headerlink" title="&#x4E8C;&#x53C9;&#x67E5;&#x627E;&#x6811;"></a>&#x4E8C;&#x53C9;&#x67E5;&#x627E;&#x6811;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#二叉查找树的插入"><span class="nav-number">4.1.</span> <span class="nav-text"><a href="#&#x4E8C;&#x53C9;&#x67E5;&#x627E;&#x6811;&#x7684;&#x63D2;&#x5165;" class="headerlink" title="&#x4E8C;&#x53C9;&#x67E5;&#x627E;&#x6811;&#x7684;&#x63D2;&#x5165;"></a>&#x4E8C;&#x53C9;&#x67E5;&#x627E;&#x6811;&#x7684;&#x63D2;&#x5165;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二叉查找树的删除"><span class="nav-number">4.2.</span> <span class="nav-text"><a href="#&#x4E8C;&#x53C9;&#x67E5;&#x627E;&#x6811;&#x7684;&#x5220;&#x9664;" class="headerlink" title="&#x4E8C;&#x53C9;&#x67E5;&#x627E;&#x6811;&#x7684;&#x5220;&#x9664;"></a>&#x4E8C;&#x53C9;&#x67E5;&#x627E;&#x6811;&#x7684;&#x5220;&#x9664;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#性能分析"><span class="nav-number">4.3.</span> <span class="nav-text"><a href="#&#x6027;&#x80FD;&#x5206;&#x6790;" class="headerlink" title="&#x6027;&#x80FD;&#x5206;&#x6790;"></a>&#x6027;&#x80FD;&#x5206;&#x6790;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#相关代码"><span class="nav-number">4.4.</span> <span class="nav-text"><a href="#&#x76F8;&#x5173;&#x4EE3;&#x7801;" class="headerlink" title="&#x76F8;&#x5173;&#x4EE3;&#x7801;"></a>&#x76F8;&#x5173;&#x4EE3;&#x7801;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#平衡二叉树"><span class="nav-number">5.</span> <span class="nav-text"><a href="#&#x5E73;&#x8861;&#x4E8C;&#x53C9;&#x6811;" class="headerlink" title="&#x5E73;&#x8861;&#x4E8C;&#x53C9;&#x6811;"></a>&#x5E73;&#x8861;&#x4E8C;&#x53C9;&#x6811;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#平衡二叉树之-AVL-树"><span class="nav-number">6.</span> <span class="nav-text"><a href="#&#x5E73;&#x8861;&#x4E8C;&#x53C9;&#x6811;&#x4E4B;-AVL-&#x6811;" class="headerlink" title="&#x5E73;&#x8861;&#x4E8C;&#x53C9;&#x6811;&#x4E4B; AVL &#x6811;"></a>&#x5E73;&#x8861;&#x4E8C;&#x53C9;&#x6811;&#x4E4B; AVL &#x6811;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AVL-树的旋转"><span class="nav-number">6.1.</span> <span class="nav-text"><a href="#AVL-&#x6811;&#x7684;&#x65CB;&#x8F6C;" class="headerlink" title="AVL &#x6811;&#x7684;&#x65CB;&#x8F6C;"></a>AVL &#x6811;&#x7684;&#x65CB;&#x8F6C;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#平衡二叉树之红黑树"><span class="nav-number">7.</span> <span class="nav-text"><a href="#&#x5E73;&#x8861;&#x4E8C;&#x53C9;&#x6811;&#x4E4B;&#x7EA2;&#x9ED1;&#x6811;" class="headerlink" title="&#x5E73;&#x8861;&#x4E8C;&#x53C9;&#x6811;&#x4E4B;&#x7EA2;&#x9ED1;&#x6811;"></a>&#x5E73;&#x8861;&#x4E8C;&#x53C9;&#x6811;&#x4E4B;&#x7EA2;&#x9ED1;&#x6811;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#红黑树的插入"><span class="nav-number">7.1.</span> <span class="nav-text"><a href="#&#x7EA2;&#x9ED1;&#x6811;&#x7684;&#x63D2;&#x5165;" class="headerlink" title="&#x7EA2;&#x9ED1;&#x6811;&#x7684;&#x63D2;&#x5165;"></a>&#x7EA2;&#x9ED1;&#x6811;&#x7684;&#x63D2;&#x5165;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#红黑树的删除"><span class="nav-number">7.2.</span> <span class="nav-text"><a href="#&#x7EA2;&#x9ED1;&#x6811;&#x7684;&#x5220;&#x9664;" class="headerlink" title="&#x7EA2;&#x9ED1;&#x6811;&#x7684;&#x5220;&#x9664;"></a>&#x7EA2;&#x9ED1;&#x6811;&#x7684;&#x5220;&#x9664;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-树"><span class="nav-number">8.</span> <span class="nav-text"><a href="#B-&#x6811;" class="headerlink" title="B &#x6811;"></a>B &#x6811;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义"><span class="nav-number">8.1.</span> <span class="nav-text"><a href="#&#x5B9A;&#x4E49;" class="headerlink" title="&#x5B9A;&#x4E49;"></a>&#x5B9A;&#x4E49;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件查找的过程"><span class="nav-number">8.2.</span> <span class="nav-text"><a href="#&#x6587;&#x4EF6;&#x67E5;&#x627E;&#x7684;&#x8FC7;&#x7A0B;" class="headerlink" title="&#x6587;&#x4EF6;&#x67E5;&#x627E;&#x7684;&#x8FC7;&#x7A0B;"></a>&#x6587;&#x4EF6;&#x67E5;&#x627E;&#x7684;&#x8FC7;&#x7A0B;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#B树的插入"><span class="nav-number">8.3.</span> <span class="nav-text"><a href="#B&#x6811;&#x7684;&#x63D2;&#x5165;" class="headerlink" title="B&#x6811;&#x7684;&#x63D2;&#x5165;"></a>B&#x6811;&#x7684;&#x63D2;&#x5165;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#B树的删除"><span class="nav-number">8.4.</span> <span class="nav-text"><a href="#B&#x6811;&#x7684;&#x5220;&#x9664;" class="headerlink" title="B&#x6811;&#x7684;&#x5220;&#x9664;"></a>B&#x6811;&#x7684;&#x5220;&#x9664;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#B树的特点"><span class="nav-number">8.5.</span> <span class="nav-text"><a href="#B&#x6811;&#x7684;&#x7279;&#x70B9;" class="headerlink" title="B&#x6811;&#x7684;&#x7279;&#x70B9;"></a>B&#x6811;&#x7684;&#x7279;&#x70B9;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#题目"><span class="nav-number">8.6.</span> <span class="nav-text"><a href="#&#x9898;&#x76EE;" class="headerlink" title="&#x9898;&#x76EE;"></a>&#x9898;&#x76EE;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-树-1"><span class="nav-number">9.</span> <span class="nav-text"><a href="#B-&#x6811;-1" class="headerlink" title="B+ &#x6811;"></a>B+ &#x6811;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义-1"><span class="nav-number">9.1.</span> <span class="nav-text"><a href="#&#x5B9A;&#x4E49;-1" class="headerlink" title="&#x5B9A;&#x4E49;"></a>&#x5B9A;&#x4E49;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#B-的查找"><span class="nav-number">9.2.</span> <span class="nav-text"><a href="#B-&#x7684;&#x67E5;&#x627E;" class="headerlink" title="B+ &#x7684;&#x67E5;&#x627E;"></a>B+ &#x7684;&#x67E5;&#x627E;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#适合于索引操作"><span class="nav-number">9.3.</span> <span class="nav-text"><a href="#&#x9002;&#x5408;&#x4E8E;&#x7D22;&#x5F15;&#x64CD;&#x4F5C;" class="headerlink" title="&#x9002;&#x5408;&#x4E8E;&#x7D22;&#x5F15;&#x64CD;&#x4F5C;"></a>&#x9002;&#x5408;&#x4E8E;&#x7D22;&#x5F15;&#x64CD;&#x4F5C;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-树-2"><span class="nav-number">10.</span> <span class="nav-text"><a href="#B-&#x6811;-2" class="headerlink" title="B* &#x6811;"></a>B* &#x6811;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义-2"><span class="nav-number">10.1.</span> <span class="nav-text"><a href="#&#x5B9A;&#x4E49;-2" class="headerlink" title="&#x5B9A;&#x4E49;"></a>&#x5B9A;&#x4E49;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#和-B-比较"><span class="nav-number">10.2.</span> <span class="nav-text"><a href="#&#x548C;-B-&#x6BD4;&#x8F83;" class="headerlink" title="&#x548C; B+ &#x6BD4;&#x8F83;"></a>&#x548C; B+ &#x6BD4;&#x8F83;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关术语"><span class="nav-number">11.</span> <span class="nav-text"><a href="#&#x76F8;&#x5173;&#x672F;&#x8BED;" class="headerlink" title="&#x76F8;&#x5173;&#x672F;&#x8BED;"></a>&#x76F8;&#x5173;&#x672F;&#x8BED;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">12.</span> <span class="nav-text"><a href="#&#x53C2;&#x8003;" class="headerlink" title="&#x53C2;&#x8003;"></a>&#x53C2;&#x8003;</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o" aria-hidden="true"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiaoPandas</span>
+
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数：<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+
+<!--
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+--!>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2152066"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'JXAo1V98Jxty3jaqIK99PaeV-gzGzoHsz',
+        appKey: 'OLlQNbYqajqOpiOwLPsvt92c',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

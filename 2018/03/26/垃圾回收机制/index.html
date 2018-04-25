@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JVM," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="概述目前内存的动态分配和内存回收技术已经相当成熟，一切看上去都进入了“自动化”时代，但是如果我们需要排查内存溢出，内存泄漏等问题，或者垃圾收集成为了系统达到更高并发量的瓶颈时，我们就需要对这些“自动化”技术进行监控和调节。">
+<meta name="keywords" content="JVM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="垃圾回收机制">
+<meta property="og:url" content="http://yoursite.com/2018/03/26/垃圾回收机制/index.html">
+<meta property="og:site_name" content="xiaoPandas">
+<meta property="og:description" content="概述目前内存的动态分配和内存回收技术已经相当成熟，一切看上去都进入了“自动化”时代，但是如果我们需要排查内存溢出，内存泄漏等问题，或者垃圾收集成为了系统达到更高并发量的瓶颈时，我们就需要对这些“自动化”技术进行监控和调节。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-25T09:17:43.091Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="垃圾回收机制">
+<meta name="twitter:description" content="概述目前内存的动态分配和内存回收技术已经相当成熟，一切看上去都进入了“自动化”时代，但是如果我们需要排查内存溢出，内存泄漏等问题，或者垃圾收集成为了系统达到更高并发量的瓶颈时，我们就需要对这些“自动化”技术进行监控和调节。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '19BJM0J404',
+      apiKey: '2f287374bf03d3739c504b7eaac5a3d0',
+      indexName: 'xiaoPandasblog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键词进行搜索","hits_empty":"找不到关于 ${query} 的文章","hits_stats":"在 ${time} ms 内找到 ${hits} 篇文章"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/26/垃圾回收机制/"/>
+
+
+
+
+
+  <title>垃圾回收机制 | xiaoPandas</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">xiaoPandas</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/26/垃圾回收机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xiaoPandas">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oyiq6rmz1.bkt.clouddn.com/%E5%A4%B4%E5%83%8F.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xiaoPandas">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">垃圾回收机制</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-26T22:09:32+08:00">
+                2018-03-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java进阶/" itemprop="url" rel="index">
+                    <span itemprop="name">Java进阶</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/03/26/垃圾回收机制/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/03/26/垃圾回收机制/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>目前内存的动态分配和内存回收技术已经相当成熟，一切看上去都进入了“自动化”时代，但是如果我们需要排查内存溢出，内存泄漏等问题，或者垃圾收集成为了系统达到更高并发量的瓶颈时，我们就需要对这些“自动化”技术进行监控和调节。<br><a id="more"></a><br>程序计数器，虚拟机栈，本地方法栈随线程而生，随线程而灭，栈帧中需要分配的内存在类结构确定的时候就基本确定了，所以这几个区域的回收不需要很多考虑，因为线程结束时内存就自然被回收了。而 Java 堆和方法区则不同，一个接口的多个实现类需要的内存可能不一样，一个方法中的多个分支需要的内存也可能不一样，程序在运行时才知道会创建哪些对象，这部分的内存分配是动态的，所以 GC 关注的主要是这部分的内存。</p>
+<h3 id="对象已死吗"><a href="#对象已死吗" class="headerlink" title="对象已死吗"></a>对象已死吗</h3><p>在堆中存放着几乎所有的对象实例，垃圾收集器 (Garbage Collection) 要做的就是确定哪些对象还“存活”，哪些对象“已死” (不可能再被使用)，然后回收这部分死掉对象的内存。</p>
+<h4 id="引用计数算法"><a href="#引用计数算法" class="headerlink" title="引用计数算法"></a>引用计数算法</h4><p>引用计数算法是判断对象是否还存活的算法之一，方式是：给对象添加一个引用计数器，每当有一个对象引用它时，计数器的值就加 1；当引用失效时，计数器的值就减 1；任何时候计数器的值都为 0 的对象就是不可能再被使用的。</p>
+<p>这种算法实现简单，判定效率也高，但是它很难解决对象之间相互循环引用的问题。两个对象可能相互引用，其实两个都不会再被使用，但是此时二者的计数器都为 1，内存不可被回收。</p>
+<h4 id="可达性分析算法"><a href="#可达性分析算法" class="headerlink" title="可达性分析算法"></a>可达性分析算法</h4><p>在 Java 的实现中，就是通过可达性分析 (Reachability Analysis) 来判定对象是否存活的。基本思想是：通过一系列的称为 “GC Roots” 的对象作为起始点，从这些节点开始向下搜索所走过的路径称为“引用链” (Reference Chain)，当一个对象到 GC Roots 没有任何引用链 (即从 GC Roots 到这个对象不可达) 时，此对象已死亡。</p>
+<p>Java 中可作为 GC Roots 的对象包括：<br>虚拟机栈中的引用对象；<br>方法区中类静态属性引用的对象；<br>方法区中常量引用的对象；<br>本地方法栈中 JNI (Native 方法) 引用的对象。</p>
+<h4 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h4><p>无论是通过上面的哪一种算法，判定对象是否存活都与“引用”有关。<br>引用分为强引用，软引用，弱引用，虚引用这四种，引用强度逐渐减弱。</p>
+<ul>
+<li>强引用<br>只要强引用还存在，GC 永远不会回收掉被引用的对象；</li>
+<li>软引用<br>内存足够就不进行回收；内存溢出异常之前，进行第二次回收；用 SoftReferenece 类来实现；</li>
+<li>弱引用<br>只能生存到下一次垃圾收集，当 GC 工作时，无论当前内存是否充足都进行回收，用 WeakReference 类实现；</li>
+<li>虚引用<br>无法通过虚引用获得对象实例，也不会对对象的生存时间产生影响，唯一目的：当该对象被 GC 收集时，收到一个系统通知；用 PhantomReference 类实现。</li>
+</ul>
+<h4 id="死亡标记过程"><a href="#死亡标记过程" class="headerlink" title="死亡标记过程"></a>死亡标记过程</h4><p>一个对象死亡，至少要经历两次标记过程：</p>
+<ol>
+<li>首先进行可达性分析，筛选出与 GC Roots 之间没有引用链的对象，进行第一次标记；</li>
+<li>第一次标记后，再进行一次筛选，筛选条件是此对象是否有必要执行 finalize() 方法。当对象没有覆盖 finalize() 方法，或者 finalize() 已被虚拟机调用过，则没必要执行，GC会回收该对象；</li>
+<li>若有必要执行，则该对象会被放入叫 F-Queue 的队列中，然后由虚拟机开启一个自动建立的，低优先级的 Finalizer 线程去执行它 (但不一定等待 finalize 执行完毕，因为如果一个对象在这个方法中执行缓慢或发生了死循环，将会导致其他对象处于永久等待，甚至导致整个回收系统崩溃)。</li>
+<li>finalize() 是对象最后一次自救的机会，若对象在 finalize() 中重新加入到引用链中，则它会被移出要回收的对象的集合。其他 F-Queue 中的对象则会被第二次标记，进行回收。</li>
+</ol>
+<p>任何对象的 finalize() 方法都只会被系统自动调用一次。这个方法运行代价高昂，不确定性大，不推荐使用这个方法。</p>
+<h4 id="回收方法区"><a href="#回收方法区" class="headerlink" title="回收方法区"></a>回收方法区</h4><p>方法区(永久代)的垃圾收集效率很低，主要回收两部分内容：废弃常量和无用的类；<br>废弃常量即有一个字符串或其他类型的常量 A 在常量池中，但是当前系统中没有一个对象等于 A，那么此时这个 A 是废弃常量，如果有必要那么下一次 GC 时内存会被回收；<br>类则需要满足下面三个条件才能算是“无用的类”：<br>该类所有的实例都已经被回收；<br>加载该类的 ClassLoader 已经被回收；<br>该类对应的 java.lang.Class 对象没有在任何地方被引用，无法在任何地方通过反射访问该类的方法；</p>
+<h3 id="垃圾收集算法"><a href="#垃圾收集算法" class="headerlink" title="垃圾收集算法"></a>垃圾收集算法</h3><h4 id="标记-清除算法"><a href="#标记-清除算法" class="headerlink" title="标记-清除算法"></a>标记-清除算法</h4><p>两个阶段：标记 + 清除；即标记出所有需要回收的对象，在标记完成后统一回收所有被标记的对象。<br>不足：两个阶段的效率都不高，会产生大量不连续的内存碎片。</p>
+<h4 id="复制算法"><a href="#复制算法" class="headerlink" title="复制算法"></a>复制算法</h4><p>将可用内存划分为大小相等的两块，每次只使用其中的一块；当这一块的内存用完了，将还存活着的对象复制到另外一块上面，然后再把已使用过的内存空间一次清理掉。<br>不足：内存缩小为原来的一半。</p>
+<p>算法用来回收新生代时，因为新生代绝大部分是“朝生夕死”，所以我们将内存划分为一个较大的 Eden 空间和两块较小的 Survivor 空间，每次只使用 Eden 和其中一块 Survivor，当回收时，把还活着的对象一次性复制到另外一块 Survivor 空间上，然后清理掉 Eden 和刚才用过的 Survivor 空间。<br>Eden 和 Survivor 的大小比例是 8：1，所以只有 10% 的内存会被浪费。Survivor 空间不够用时，需要老年代进行分配担保。</p>
+<h4 id="标记-整理算法"><a href="#标记-整理算法" class="headerlink" title="标记-整理算法"></a>标记-整理算法</h4><p>标记过程与“标记-清除”后不是直接对可回收对象进行清理，而是让所存活的对象都向一端移动，然后直接清理掉端边界以外的内存。</p>
+<h4 id="分代收集算法"><a href="#分代收集算法" class="headerlink" title="分代收集算法"></a>分代收集算法</h4><p>根据对象存活周期的不同将 Java 堆内存划分为新生代和老年代。<br>新生代的对象每次大量死亡少量存活，选用复制算法；<br>老年代对象存活率高，没有额外空间进行分配担保，选用“标记-清除”或“标记-整理”算法。</p>
+<h3 id="Stop-The-World"><a href="#Stop-The-World" class="headerlink" title="Stop-The-World"></a>Stop-The-World</h3><p>可达性分析对执行时间的敏感性体现在 GC 停顿上，因为这项分析工作必须在一个确保一致性的快照中进行，不可以出现分析过程中对象引用关系还在不断变化的情况，该点不满足的话准确性就无法得到保证，这点是导致 GC 进行时必须停顿所有 Java 执行线程的一个重要原因，Sun 将这件事情称为 “Stop-The-World”。<br>当 Stop-The-World 发生时，除了 GC 所需的线程以外，所有线程都处于等待状态，直到 GC 任务完成。GC 优化很多时候就是指减少 Stop-The-World 发生的时间。</p>
+<h3 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h3><h4 id="Serial"><a href="#Serial" class="headerlink" title="Serial"></a>Serial</h4><p>特点：单线程；Stop the World；采用复制算法；<br>应用场景：虚拟机运行在 Client 模式下的默认新生代收集器；<br>优点：简单高效；</p>
+<h4 id="ParNew"><a href="#ParNew" class="headerlink" title="ParNew"></a>ParNew</h4><p>特点：Serial 的多线程版本，其余行为二者都一样；<br>应用场景：Server 模式下的虚拟机中首选的新生代收集器；能与 CMS 收集器配合工作；</p>
+<h4 id="Parallel-Scavenge"><a href="#Parallel-Scavenge" class="headerlink" title="Parallel Scavenge"></a>Parallel Scavenge</h4><p>特点：新生代收集器；采用复制算法；并行的多线程收集器；目标是可控制的吞吐量；<br>应用场景：需要大吞吐量；自适应的调节策略；</p>
+<p>自适应调节策略<br>Parallel Scavenge 有一个参数 -XX:+UseAdaptiveSizePolicy；当这个参数打开之后，就不需要手工指定新生代的大小(-Xmn)、Eden与Survivor区的比例(-XX:SurvivorRatio)、晋升老年代对象年龄(-XX:PretenureSizeThreshold)等细节参数了，虚拟机会根据当前系统的运行情况收集性能监控信息，动态调整这些参数以提供最合适的停顿时间或者最大的吞吐量，这种调节方式称为 GC 自适应的调节策略(GC Ergonomics)。</p>
+<p>吞吐量 = 运行用户代码时间 / (运行用户代码时间+垃圾收集时间)</p>
+<h4 id="Serial-Old"><a href="#Serial-Old" class="headerlink" title="Serial Old"></a>Serial Old</h4><p>特点：Serial 的老年代版本；单线程；采用“标记-整理”算法；<br>应用场景：Client 模式下的虚拟机使用；</p>
+<h4 id="Parallel-Old"><a href="#Parallel-Old" class="headerlink" title="Parallel Old"></a>Parallel Old</h4><p>特点：Paraller Scavenge 的老年代版本；多线程；采用“标记-整理”算法；<br>应用场景：与 Paraller Scavenge 配合使用，吞吐量优先以及 CPU 资源敏感的场合；</p>
+<h4 id="CMS"><a href="#CMS" class="headerlink" title="CMS"></a>CMS</h4><p>Concurrent Mark Sweep 收集器</p>
+<p>特点：以获取最短回收停顿时间为目标；采用“标记-清除”算法；</p>
+<p>运作过程：</p>
+<ul>
+<li>初始标记：标记 GC Roots 能直接关联到的对象，Stop The World；</li>
+<li>并发标记：进行 GC Roots Tracing；</li>
+<li>重新标记：修正并发标记期间因用户程序继续运作而导致标记产生变动的那一部分对象的标记记录，Stop The World；</li>
+<li>并发清除：清除标记了的对象；</li>
+</ul>
+<p>优点：并发收集，低停顿；<br>缺点：<br>对 CPU 资源非常敏感；<br>占用了一部分线程而导致应用程序变慢，总吞吐量降低；<br>无法处理浮动垃圾(并发清除时用户线程还在运行，此时产生的出现在标记过程之后的新垃圾，只能在下次 GC 时再清除)；<br>产生大量的空间碎片；</p>
+<h4 id="G1"><a href="#G1" class="headerlink" title="G1"></a>G1</h4><p>Garbage First 收集器</p>
+<p>特点：<br>面向服务端应用；分代收集；将整个 Java 堆划分为多个大小相等的独立区域 (Region)；<br>优点：<br>并行与并发：使用多 CPU 来缩短 Stop-The-World 停顿的时间，部分需要停顿 Java 线程来执行的 GC 动作，通过并发方式让 Java 程序继续执行；<br>空间整合：整体看是基于“标记-整理”的，局部(两个 Region 之间)看是基于“复制”的；<br>可预测的停顿：使用者可明确指定在一个长度为 M 毫秒的时间片段内，消耗在垃圾收集上的时间不得超过 N 毫秒；</p>
+<p>运作过程：</p>
+<ul>
+<li>初始标记：标记 GC Roots 能直接关联到的对象，Stop-The-World；</li>
+<li>并发标记：从 GC Roots 开始对堆中对象进行可达性分析；</li>
+<li>最终标记：修正在并发标记期间因用户程序继续运作而导致标记产生变动的那一部分标记记录；</li>
+<li>筛选回收：首先对各个 Region 的回收价值和成本进行排序，根据用户所期望的 GC 停顿时间来制定回收计划；</li>
+</ul>
+<p>G1 跟踪各个 Region里面的垃圾堆积的价值大小(回收所获得的空间大小以及回收所需时间的经验值)，在后台维护一个优先列表，每次根据允许的收集时间，优先回收价值最大的 Region。</p>
+<p>Remembered Set<br>Region 之间的对象引用以及其他收集器中的新生代与老年代之间的对象引用，虚拟机都是使用 Remembered Set 来避免全堆扫描的。<br>虚拟机发现程序在对 Reference 类型的数据进行写操作时，会产生一个 Write Barrier 暂时中断写操作，检查 Reference 引用的对象是否处于不同的 Region 之中，如果是，便通过 CardTable 把相关引用信息记录到被引用对象所属的 Region 的 Remembered Set 之中。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>深入理解 Java 虚拟机(第二版)</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JVM/" rel="tag"># JVM</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/24/各种树简介/" rel="next" title="各种树简介">
+                <i class="fa fa-chevron-left"></i> 各种树简介
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/27/重建二叉树/" rel="prev" title="重建二叉树">
+                重建二叉树 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="uyan_frame"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://oyiq6rmz1.bkt.clouddn.com/%E5%A4%B4%E5%83%8F.jpg"
+                alt="xiaoPandas" />
+            
+              <p class="site-author-name" itemprop="name">xiaoPandas</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/xiaoPandas" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/5626435388/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x6982;&#x8FF0;" class="headerlink" title="&#x6982;&#x8FF0;"></a>&#x6982;&#x8FF0;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象已死吗"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x5BF9;&#x8C61;&#x5DF2;&#x6B7B;&#x5417;" class="headerlink" title="&#x5BF9;&#x8C61;&#x5DF2;&#x6B7B;&#x5417;"></a>&#x5BF9;&#x8C61;&#x5DF2;&#x6B7B;&#x5417;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#引用计数算法"><span class="nav-number">2.1.</span> <span class="nav-text"><a href="#&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x7B97;&#x6CD5;" class="headerlink" title="&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x7B97;&#x6CD5;"></a>&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x7B97;&#x6CD5;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可达性分析算法"><span class="nav-number">2.2.</span> <span class="nav-text"><a href="#&#x53EF;&#x8FBE;&#x6027;&#x5206;&#x6790;&#x7B97;&#x6CD5;" class="headerlink" title="&#x53EF;&#x8FBE;&#x6027;&#x5206;&#x6790;&#x7B97;&#x6CD5;"></a>&#x53EF;&#x8FBE;&#x6027;&#x5206;&#x6790;&#x7B97;&#x6CD5;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#引用"><span class="nav-number">2.3.</span> <span class="nav-text"><a href="#&#x5F15;&#x7528;" class="headerlink" title="&#x5F15;&#x7528;"></a>&#x5F15;&#x7528;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#死亡标记过程"><span class="nav-number">2.4.</span> <span class="nav-text"><a href="#&#x6B7B;&#x4EA1;&#x6807;&#x8BB0;&#x8FC7;&#x7A0B;" class="headerlink" title="&#x6B7B;&#x4EA1;&#x6807;&#x8BB0;&#x8FC7;&#x7A0B;"></a>&#x6B7B;&#x4EA1;&#x6807;&#x8BB0;&#x8FC7;&#x7A0B;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#回收方法区"><span class="nav-number">2.5.</span> <span class="nav-text"><a href="#&#x56DE;&#x6536;&#x65B9;&#x6CD5;&#x533A;" class="headerlink" title="&#x56DE;&#x6536;&#x65B9;&#x6CD5;&#x533A;"></a>&#x56DE;&#x6536;&#x65B9;&#x6CD5;&#x533A;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾收集算法"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x5783;&#x573E;&#x6536;&#x96C6;&#x7B97;&#x6CD5;" class="headerlink" title="&#x5783;&#x573E;&#x6536;&#x96C6;&#x7B97;&#x6CD5;"></a>&#x5783;&#x573E;&#x6536;&#x96C6;&#x7B97;&#x6CD5;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#标记-清除算法"><span class="nav-number">3.1.</span> <span class="nav-text"><a href="#&#x6807;&#x8BB0;-&#x6E05;&#x9664;&#x7B97;&#x6CD5;" class="headerlink" title="&#x6807;&#x8BB0;-&#x6E05;&#x9664;&#x7B97;&#x6CD5;"></a>&#x6807;&#x8BB0;-&#x6E05;&#x9664;&#x7B97;&#x6CD5;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#复制算法"><span class="nav-number">3.2.</span> <span class="nav-text"><a href="#&#x590D;&#x5236;&#x7B97;&#x6CD5;" class="headerlink" title="&#x590D;&#x5236;&#x7B97;&#x6CD5;"></a>&#x590D;&#x5236;&#x7B97;&#x6CD5;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#标记-整理算法"><span class="nav-number">3.3.</span> <span class="nav-text"><a href="#&#x6807;&#x8BB0;-&#x6574;&#x7406;&#x7B97;&#x6CD5;" class="headerlink" title="&#x6807;&#x8BB0;-&#x6574;&#x7406;&#x7B97;&#x6CD5;"></a>&#x6807;&#x8BB0;-&#x6574;&#x7406;&#x7B97;&#x6CD5;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分代收集算法"><span class="nav-number">3.4.</span> <span class="nav-text"><a href="#&#x5206;&#x4EE3;&#x6536;&#x96C6;&#x7B97;&#x6CD5;" class="headerlink" title="&#x5206;&#x4EE3;&#x6536;&#x96C6;&#x7B97;&#x6CD5;"></a>&#x5206;&#x4EE3;&#x6536;&#x96C6;&#x7B97;&#x6CD5;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stop-The-World"><span class="nav-number">4.</span> <span class="nav-text"><a href="#Stop-The-World" class="headerlink" title="Stop-The-World"></a>Stop-The-World</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾收集器"><span class="nav-number">5.</span> <span class="nav-text"><a href="#&#x5783;&#x573E;&#x6536;&#x96C6;&#x5668;" class="headerlink" title="&#x5783;&#x573E;&#x6536;&#x96C6;&#x5668;"></a>&#x5783;&#x573E;&#x6536;&#x96C6;&#x5668;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Serial"><span class="nav-number">5.1.</span> <span class="nav-text"><a href="#Serial" class="headerlink" title="Serial"></a>Serial</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ParNew"><span class="nav-number">5.2.</span> <span class="nav-text"><a href="#ParNew" class="headerlink" title="ParNew"></a>ParNew</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Parallel-Scavenge"><span class="nav-number">5.3.</span> <span class="nav-text"><a href="#Parallel-Scavenge" class="headerlink" title="Parallel Scavenge"></a>Parallel Scavenge</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Serial-Old"><span class="nav-number">5.4.</span> <span class="nav-text"><a href="#Serial-Old" class="headerlink" title="Serial Old"></a>Serial Old</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Parallel-Old"><span class="nav-number">5.5.</span> <span class="nav-text"><a href="#Parallel-Old" class="headerlink" title="Parallel Old"></a>Parallel Old</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CMS"><span class="nav-number">5.6.</span> <span class="nav-text"><a href="#CMS" class="headerlink" title="CMS"></a>CMS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#G1"><span class="nav-number">5.7.</span> <span class="nav-text"><a href="#G1" class="headerlink" title="G1"></a>G1</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text"><a href="#&#x53C2;&#x8003;" class="headerlink" title="&#x53C2;&#x8003;"></a>&#x53C2;&#x8003;</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o" aria-hidden="true"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiaoPandas</span>
+
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数：<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+
+<!--
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+--!>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2152066"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'JXAo1V98Jxty3jaqIK99PaeV-gzGzoHsz',
+        appKey: 'OLlQNbYqajqOpiOwLPsvt92c',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

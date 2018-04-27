@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="VMware linux," />
+  <meta name="keywords" content="JVM," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="虚拟机安装linux的时候，出现“无法检测此光盘映像中的操作系统，您需要指定要安装的操作系统”的问题。解决：  不选择“安装程序光盘映像文件”，要选择“稍后安装操作系统”； 下一步直至“已准备好创建虚拟机”(中间选项自行设置)； 点击“自定义硬件”–》“新CD/DVD”；">
-<meta name="keywords" content="VMware linux">
+<meta name="description" content="内存区域程序计数器是一块较小的内存空间，可以看作是当前线程所执行的字节码的行号指示器； 由于虚拟机的多线程是通过线程轮流切换并分配处理器执行时间的方式来实现的，在任何一个确定的时刻，一个处理器(对于多核处理器是一个内核)都只会执行一条线程中的指令。因此，为了线程切换之后能恢复到正确的执行位置，每条线程都需要有一个独立的程序计数器，各条线程之间计数器互不影响，独立存储，我们称这类内存区域为“线程私有">
+<meta name="keywords" content="JVM">
 <meta property="og:type" content="article">
-<meta property="og:title" content="VMware虚拟机安装相关">
-<meta property="og:url" content="http://yoursite.com/2018/02/22/VMware虚拟机安装相关/index.html">
+<meta property="og:title" content="Java内存模型">
+<meta property="og:url" content="http://yoursite.com/2018/04/03/Java内存模型/index.html">
 <meta property="og:site_name" content="xiaoPandas">
-<meta property="og:description" content="虚拟机安装linux的时候，出现“无法检测此光盘映像中的操作系统，您需要指定要安装的操作系统”的问题。解决：  不选择“安装程序光盘映像文件”，要选择“稍后安装操作系统”； 下一步直至“已准备好创建虚拟机”(中间选项自行设置)； 点击“自定义硬件”–》“新CD/DVD”；">
+<meta property="og:description" content="内存区域程序计数器是一块较小的内存空间，可以看作是当前线程所执行的字节码的行号指示器； 由于虚拟机的多线程是通过线程轮流切换并分配处理器执行时间的方式来实现的，在任何一个确定的时刻，一个处理器(对于多核处理器是一个内核)都只会执行一条线程中的指令。因此，为了线程切换之后能恢复到正确的执行位置，每条线程都需要有一个独立的程序计数器，各条线程之间计数器互不影响，独立存储，我们称这类内存区域为“线程私有">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-22T08:53:02.014Z">
+<meta property="og:updated_time" content="2018-04-26T14:49:55.973Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="VMware虚拟机安装相关">
-<meta name="twitter:description" content="虚拟机安装linux的时候，出现“无法检测此光盘映像中的操作系统，您需要指定要安装的操作系统”的问题。解决：  不选择“安装程序光盘映像文件”，要选择“稍后安装操作系统”； 下一步直至“已准备好创建虚拟机”(中间选项自行设置)； 点击“自定义硬件”–》“新CD/DVD”；">
+<meta name="twitter:title" content="Java内存模型">
+<meta name="twitter:description" content="内存区域程序计数器是一块较小的内存空间，可以看作是当前线程所执行的字节码的行号指示器； 由于虚拟机的多线程是通过线程轮流切换并分配处理器执行时间的方式来实现的，在任何一个确定的时刻，一个处理器(对于多核处理器是一个内核)都只会执行一条线程中的指令。因此，为了线程切换之后能恢复到正确的执行位置，每条线程都需要有一个独立的程序计数器，各条线程之间计数器互不影响，独立存储，我们称这类内存区域为“线程私有">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/02/22/VMware虚拟机安装相关/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/04/03/Java内存模型/"/>
 
 
 
 
 
-  <title>VMware虚拟机安装相关 | xiaoPandas</title>
+  <title>Java内存模型 | xiaoPandas</title>
   
 
 
@@ -301,7 +301,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/22/VMware虚拟机安装相关/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/03/Java内存模型/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="xiaoPandas">
@@ -318,7 +318,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">VMware虚拟机安装相关</h1>
+          <h1 class="post-title" itemprop="name headline">Java内存模型</h1>
         
 
         <div class="post-meta">
@@ -330,8 +330,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-22T15:58:27+08:00">
-                2018-02-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-03T13:08:25+08:00">
+                2018-04-03
               </time>
             
 
@@ -353,8 +353,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/错误汇总/" itemprop="url" rel="index">
-                    <span itemprop="name">错误汇总</span>
+                  <a href="/categories/Java-进阶/" itemprop="url" rel="index">
+                    <span itemprop="name">Java 进阶</span>
                   </a>
                 </span>
 
@@ -371,8 +371,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/02/22/VMware虚拟机安装相关/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/02/22/VMware虚拟机安装相关/" itemprop="commentCount"></span>
+                <a href="/2018/04/03/Java内存模型/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/04/03/Java内存模型/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -400,28 +400,23 @@
       
 
       
-        <h4 id="虚拟机安装linux的时候，出现“无法检测此光盘映像中的操作系统，您需要指定要安装的操作系统”的问题。"><a href="#虚拟机安装linux的时候，出现“无法检测此光盘映像中的操作系统，您需要指定要安装的操作系统”的问题。" class="headerlink" title="虚拟机安装linux的时候，出现“无法检测此光盘映像中的操作系统，您需要指定要安装的操作系统”的问题。"></a>虚拟机安装linux的时候，出现“无法检测此光盘映像中的操作系统，您需要指定要安装的操作系统”的问题。</h4><p>解决：</p>
-<ol>
-<li>不选择“安装程序光盘映像文件”，要选择“稍后安装操作系统”；</li>
-<li>下一步直至“已准备好创建虚拟机”(中间选项自行设置)；</li>
-<li>点击“自定义硬件”–》“新CD/DVD”；<a id="more"></a></li>
-<li>在连接的地方选择“使用ISO映像文件”，然后选择自己准备好的映像就行了。</li>
-</ol>
-<hr>
-<h4 id="忘记root密码"><a href="#忘记root密码" class="headerlink" title="忘记root密码"></a>忘记root密码</h4><p>解决：</p>
-<ol>
-<li>重启ubuntu，随即长按shift进入grub菜单；</li>
-<li>选择recovery mode，回车确认；</li>
-<li>在Recovery Menu中，选择“Root Drop to root shell prompt”，回车确认；</li>
-<li>进入shell界面，使用passwd命令重新设定密码：passwd root，回车确认；</li>
-<li>输入新密码；</li>
-<li>再次确认新密码；</li>
-<li>看到密码设定成功提示：passwd: password updated successfully；</li>
-<li>重启系统进入GUI界面：sudo reboot；</li>
-</ol>
-<blockquote>
-<p>备注：<br>在修改密码的时候，或许会出现 authentication token manipulation error 导致修改不成功，可能是在liveCD中修改文件导致系统重启之后发现数据被破坏，所以给Read-Only了。于是使用mount命令重新挂载成读写模式，命令如下：#mount -o remount rw /，然后再修改密码就ok。</p>
-</blockquote>
+        <h3 id="内存区域"><a href="#内存区域" class="headerlink" title="内存区域"></a>内存区域</h3><h4 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h4><p>是一块较小的内存空间，可以看作是当前线程所执行的字节码的行号指示器；</p>
+<p>由于虚拟机的多线程是通过线程轮流切换并分配处理器执行时间的方式来实现的，在任何一个确定的时刻，一个处理器(对于多核处理器是一个内核)都只会执行一条线程中的指令。因此，为了线程切换之后能恢复到正确的执行位置，每条线程都需要有一个独立的程序计数器，各条线程之间计数器互不影响，独立存储，我们称这类内存区域为<font color="red">“线程私有”</font>的内存；</p>
+<p>如果线程正在执行的是一个 Java 方法，这个计数器记录的是正在执行的虚拟机字节码指令的地址；如果正在执行的是一个 Native 方法，这个计数器值则为空；</p>
+<p>此内存区域是唯一一个在 Java 虚拟机规范中没有规定任何 OutOfMemoryError 情况的区域。</p>
+<h4 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h4><p>线程私有，生命周期与线程相同，为虚拟机执行 Java 方法服务；</p>
+<p>虚拟机栈表述的是 Java 方法执行的内存模型：每个方法在执行的同时都会创建一个栈帧用于存储局部变量表(基本数据类型，对象引用)，操作数栈，动态链接，方法出口等信息；每个方法从调用直至执行完成过程，就对应着一个栈帧在虚拟机栈中入栈道出栈的过程；</p>
+<p>两种异常状况：如果线程请求的栈深度大于虚拟机所允许的深度，将抛出 StackOverflowError 异常；如果虚拟机栈可以动态扩展，并且扩展时无法申请到足够的内存，就会抛出 OutOfMemoryError 异常。</p>
+<h4 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h4><p>线程私有，为虚拟机使用到的 Native 方法服务；</p>
+<p>虚拟机规范对本地方法栈中方法使用的语言，使用方法与数据结构并没有强制规定，因此具体的虚拟机可以自由的实现它。甚至有的虚拟机(譬如 Sun otSpot 虚拟机)直接就把本地方法栈和虚拟机栈合二为一。</p>
+<p>两种异常：StackOverFlowError，OutOfMemoryError</p>
+<h4 id="Java-堆"><a href="#Java-堆" class="headerlink" title="Java 堆"></a>Java 堆</h4><p>所有线程共享，在虚拟机启动时创建；唯一目的是存放对象实例；是垃圾收集器管理的主要区域，也被称为“GC 堆”；</p>
+<p>从内存回收的角度看，Java 堆可以细分为新生代和老年代，再细致一点有 Eden空间，From Survivor 空间，To Survivor 空间；<br>从内存分配的角度看，线程共享的 Java 堆中可能划分出多个线程私有的分配缓存区(Thread Local Allocation Buffer, TLAB)。</p>
+<p>异常：Java 堆可以处于物理上不连续的内存空间，只要逻辑上是连续的即可，当前主流的虚拟机都是按照可扩展来实现的(通过 -Xmx 和 -Xms 控制)；<br>如果在堆中没有内存完成实例分配，并且堆也无法再扩展时，抛出 OutOfMemoryError 异常。</p>
+<h4 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h4><p>所有线程共享，用于存储已被虚拟机加载的类信息，常量，静态变量，即时编译器编译后的代码等数据；</p>
+<p>Java 虚拟机规范对方法区的限制非常宽松，除了和 Java 堆一样不需要连续的内存和可选择固定大小或者可扩展外，垃圾收集行为在这个区域是比较少出现的，回收目标主要是针对常量区的回收和对类型的卸载；</p>
+<p>异常：当方法区无法满足内存分配需求时，将抛出 OutOfMemoryError 异常。</p>
+<h3 id="内存模型"><a href="#内存模型" class="headerlink" title="内存模型"></a>内存模型</h3><p>目的：屏蔽掉各种硬件和操作系统的内存访问差异，以实现让 Java 程序在各种平台下都能达到一致的内存访问效果；<br>在特定的操作协议下，对特定的内存或高速缓存进行读写访问的过程抽象；</p>
 
       
     </div>
@@ -439,7 +434,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/VMware-linux/" rel="tag"># VMware linux</a>
+            <a href="/tags/JVM/" rel="tag"># JVM</a>
           
         </div>
       
@@ -452,8 +447,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/25/Eclipse-error/" rel="next" title="Eclipse error">
-                <i class="fa fa-chevron-left"></i> Eclipse error
+              <a href="/2018/03/30/Java并发编程：volatile关键字/" rel="next" title="Java并发编程：volatile关键字">
+                <i class="fa fa-chevron-left"></i> Java并发编程：volatile关键字
               </a>
             
           </div>
@@ -462,8 +457,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/03/14/Stack-and-Heap/" rel="prev" title="Stack and Heap">
-                Stack and Heap <i class="fa fa-chevron-right"></i>
+              <a href="/2018/04/20/数梦工场笔试/" rel="prev" title="数梦工场笔试">
+                数梦工场笔试 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -621,7 +616,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#虚拟机安装linux的时候，出现“无法检测此光盘映像中的操作系统，您需要指定要安装的操作系统”的问题。"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x865A;&#x62DF;&#x673A;&#x5B89;&#x88C5;linux&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x51FA;&#x73B0;&#x201C;&#x65E0;&#x6CD5;&#x68C0;&#x6D4B;&#x6B64;&#x5149;&#x76D8;&#x6620;&#x50CF;&#x4E2D;&#x7684;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#xFF0C;&#x60A8;&#x9700;&#x8981;&#x6307;&#x5B9A;&#x8981;&#x5B89;&#x88C5;&#x7684;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x201D;&#x7684;&#x95EE;&#x9898;&#x3002;" class="headerlink" title="&#x865A;&#x62DF;&#x673A;&#x5B89;&#x88C5;linux&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x51FA;&#x73B0;&#x201C;&#x65E0;&#x6CD5;&#x68C0;&#x6D4B;&#x6B64;&#x5149;&#x76D8;&#x6620;&#x50CF;&#x4E2D;&#x7684;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#xFF0C;&#x60A8;&#x9700;&#x8981;&#x6307;&#x5B9A;&#x8981;&#x5B89;&#x88C5;&#x7684;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x201D;&#x7684;&#x95EE;&#x9898;&#x3002;"></a>&#x865A;&#x62DF;&#x673A;&#x5B89;&#x88C5;linux&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x51FA;&#x73B0;&#x201C;&#x65E0;&#x6CD5;&#x68C0;&#x6D4B;&#x6B64;&#x5149;&#x76D8;&#x6620;&#x50CF;&#x4E2D;&#x7684;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#xFF0C;&#x60A8;&#x9700;&#x8981;&#x6307;&#x5B9A;&#x8981;&#x5B89;&#x88C5;&#x7684;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x201D;&#x7684;&#x95EE;&#x9898;&#x3002;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#忘记root密码"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x5FD8;&#x8BB0;root&#x5BC6;&#x7801;" class="headerlink" title="&#x5FD8;&#x8BB0;root&#x5BC6;&#x7801;"></a>&#x5FD8;&#x8BB0;root&#x5BC6;&#x7801;</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#内存区域"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x5185;&#x5B58;&#x533A;&#x57DF;" class="headerlink" title="&#x5185;&#x5B58;&#x533A;&#x57DF;"></a>&#x5185;&#x5B58;&#x533A;&#x57DF;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#程序计数器"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#&#x7A0B;&#x5E8F;&#x8BA1;&#x6570;&#x5668;" class="headerlink" title="&#x7A0B;&#x5E8F;&#x8BA1;&#x6570;&#x5668;"></a>&#x7A0B;&#x5E8F;&#x8BA1;&#x6570;&#x5668;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#虚拟机栈"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#&#x865A;&#x62DF;&#x673A;&#x6808;" class="headerlink" title="&#x865A;&#x62DF;&#x673A;&#x6808;"></a>&#x865A;&#x62DF;&#x673A;&#x6808;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#本地方法栈"><span class="nav-number">1.3.</span> <span class="nav-text"><a href="#&#x672C;&#x5730;&#x65B9;&#x6CD5;&#x6808;" class="headerlink" title="&#x672C;&#x5730;&#x65B9;&#x6CD5;&#x6808;"></a>&#x672C;&#x5730;&#x65B9;&#x6CD5;&#x6808;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-堆"><span class="nav-number">1.4.</span> <span class="nav-text"><a href="#Java-&#x5806;" class="headerlink" title="Java &#x5806;"></a>Java &#x5806;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法区"><span class="nav-number">1.5.</span> <span class="nav-text"><a href="#&#x65B9;&#x6CD5;&#x533A;" class="headerlink" title="&#x65B9;&#x6CD5;&#x533A;"></a>&#x65B9;&#x6CD5;&#x533A;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存模型"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x5185;&#x5B58;&#x6A21;&#x578B;" class="headerlink" title="&#x5185;&#x5B58;&#x6A21;&#x578B;"></a>&#x5185;&#x5B58;&#x6A21;&#x578B;</span></a></li></ol></div>
             
 
           </div>

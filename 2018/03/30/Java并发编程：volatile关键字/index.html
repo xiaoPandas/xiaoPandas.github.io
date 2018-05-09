@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="xiaoPandas">
 <meta property="og:description" content="缓存一致性提出问题i = i + 1;当线程执行这个语句前，会先从主存当中读取 i 的值，然后复制到高速缓存中，CPU 执行指令对 i 进行加 1 操作后，再将数据写入高速缓存，最后将缓存同步回内存中。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-26T05:08:40.156Z">
+<meta property="og:updated_time" content="2018-05-09T14:47:34.466Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java并发编程：volatile关键字">
 <meta name="twitter:description" content="缓存一致性提出问题i = i + 1;当线程执行这个语句前，会先从主存当中读取 i 的值，然后复制到高速缓存中，CPU 执行指令对 i 进行加 1 操作后，再将数据写入高速缓存，最后将缓存同步回内存中。">
@@ -466,6 +466,7 @@
 </li>
 </ul>
 <p>这 8 条规则中，前 4 条规则是比较重要的，后 4 条规则都是显而易见的。</p>
+<h4 id="深入理解-volatile"><a href="#深入理解-volatile" class="headerlink" title="深入理解 volatile"></a>深入理解 volatile</h4><p>作用：当一个变量定义为 volatile 之后，它将具备两种特性，一是保证此变量对所有线程的可见性；</p>
 
       
     </div>
@@ -506,8 +507,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/04/03/Java内存模型/" rel="prev" title="Java内存模型">
-                Java内存模型 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/04/03/Java内存/" rel="prev" title="Java内存">
+                Java内存 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -594,7 +595,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -665,7 +666,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存一致性"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x7F13;&#x5B58;&#x4E00;&#x81F4;&#x6027;" class="headerlink" title="&#x7F13;&#x5B58;&#x4E00;&#x81F4;&#x6027;"></a>&#x7F13;&#x5B58;&#x4E00;&#x81F4;&#x6027;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#提出问题"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#&#x63D0;&#x51FA;&#x95EE;&#x9898;" class="headerlink" title="&#x63D0;&#x51FA;&#x95EE;&#x9898;"></a>&#x63D0;&#x51FA;&#x95EE;&#x9898;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决问题"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#&#x89E3;&#x51B3;&#x95EE;&#x9898;" class="headerlink" title="&#x89E3;&#x51B3;&#x95EE;&#x9898;"></a>&#x89E3;&#x51B3;&#x95EE;&#x9898;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发编程中的三个概念"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x5E76;&#x53D1;&#x7F16;&#x7A0B;&#x4E2D;&#x7684;&#x4E09;&#x4E2A;&#x6982;&#x5FF5;" class="headerlink" title="&#x5E76;&#x53D1;&#x7F16;&#x7A0B;&#x4E2D;&#x7684;&#x4E09;&#x4E2A;&#x6982;&#x5FF5;"></a>&#x5E76;&#x53D1;&#x7F16;&#x7A0B;&#x4E2D;&#x7684;&#x4E09;&#x4E2A;&#x6982;&#x5FF5;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原子性"><span class="nav-number">2.1.</span> <span class="nav-text"><a href="#&#x539F;&#x5B50;&#x6027;" class="headerlink" title="&#x539F;&#x5B50;&#x6027;"></a>&#x539F;&#x5B50;&#x6027;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可见性"><span class="nav-number">2.2.</span> <span class="nav-text"><a href="#&#x53EF;&#x89C1;&#x6027;" class="headerlink" title="&#x53EF;&#x89C1;&#x6027;"></a>&#x53EF;&#x89C1;&#x6027;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#有序性"><span class="nav-number">2.3.</span> <span class="nav-text"><a href="#&#x6709;&#x5E8F;&#x6027;" class="headerlink" title="&#x6709;&#x5E8F;&#x6027;"></a>&#x6709;&#x5E8F;&#x6027;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#happens-before-先行发生原则"><span class="nav-number">3.</span> <span class="nav-text"><a href="#happens-before-&#x5148;&#x884C;&#x53D1;&#x751F;&#x539F;&#x5219;" class="headerlink" title="happens-before(&#x5148;&#x884C;&#x53D1;&#x751F;&#x539F;&#x5219;)"></a>happens-before(&#x5148;&#x884C;&#x53D1;&#x751F;&#x539F;&#x5219;)</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存一致性"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x7F13;&#x5B58;&#x4E00;&#x81F4;&#x6027;" class="headerlink" title="&#x7F13;&#x5B58;&#x4E00;&#x81F4;&#x6027;"></a>&#x7F13;&#x5B58;&#x4E00;&#x81F4;&#x6027;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#提出问题"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#&#x63D0;&#x51FA;&#x95EE;&#x9898;" class="headerlink" title="&#x63D0;&#x51FA;&#x95EE;&#x9898;"></a>&#x63D0;&#x51FA;&#x95EE;&#x9898;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决问题"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#&#x89E3;&#x51B3;&#x95EE;&#x9898;" class="headerlink" title="&#x89E3;&#x51B3;&#x95EE;&#x9898;"></a>&#x89E3;&#x51B3;&#x95EE;&#x9898;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发编程中的三个概念"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x5E76;&#x53D1;&#x7F16;&#x7A0B;&#x4E2D;&#x7684;&#x4E09;&#x4E2A;&#x6982;&#x5FF5;" class="headerlink" title="&#x5E76;&#x53D1;&#x7F16;&#x7A0B;&#x4E2D;&#x7684;&#x4E09;&#x4E2A;&#x6982;&#x5FF5;"></a>&#x5E76;&#x53D1;&#x7F16;&#x7A0B;&#x4E2D;&#x7684;&#x4E09;&#x4E2A;&#x6982;&#x5FF5;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原子性"><span class="nav-number">2.1.</span> <span class="nav-text"><a href="#&#x539F;&#x5B50;&#x6027;" class="headerlink" title="&#x539F;&#x5B50;&#x6027;"></a>&#x539F;&#x5B50;&#x6027;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可见性"><span class="nav-number">2.2.</span> <span class="nav-text"><a href="#&#x53EF;&#x89C1;&#x6027;" class="headerlink" title="&#x53EF;&#x89C1;&#x6027;"></a>&#x53EF;&#x89C1;&#x6027;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#有序性"><span class="nav-number">2.3.</span> <span class="nav-text"><a href="#&#x6709;&#x5E8F;&#x6027;" class="headerlink" title="&#x6709;&#x5E8F;&#x6027;"></a>&#x6709;&#x5E8F;&#x6027;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#happens-before-先行发生原则"><span class="nav-number">3.</span> <span class="nav-text"><a href="#happens-before-&#x5148;&#x884C;&#x53D1;&#x751F;&#x539F;&#x5219;" class="headerlink" title="happens-before(&#x5148;&#x884C;&#x53D1;&#x751F;&#x539F;&#x5219;)"></a>happens-before(&#x5148;&#x884C;&#x53D1;&#x751F;&#x539F;&#x5219;)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#深入理解-volatile"><span class="nav-number">3.1.</span> <span class="nav-text"><a href="#&#x6DF1;&#x5165;&#x7406;&#x89E3;-volatile" class="headerlink" title="&#x6DF1;&#x5165;&#x7406;&#x89E3; volatile"></a>&#x6DF1;&#x5165;&#x7406;&#x89E3; volatile</span></a></li></ol></li></ol></div>
             
 
           </div>

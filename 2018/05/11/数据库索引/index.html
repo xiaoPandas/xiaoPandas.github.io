@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="xiaoPandas">
 <meta property="og:description" content="引入在数据之外，数据库系统还维护着满足特定查找算法的数据结构，这些数据结构以某种方式引用(指向)数据，这样就可以在这些数据结构上实现高级查找算法。这种数据结构，就是索引。 数据库索引，是数据库管理系统中一个排序的数据结构，以协助快速查询、更新数据库表中数据。索引的实现通常使用 B 树及其变种 B+ 树。 优点 通过创建唯一性索引，可以保证数据库表中每一行数据的唯一性；  可以大大加快数据的检索速度">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-13T02:14:30.389Z">
+<meta property="og:updated_time" content="2018-05-13T05:15:34.480Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库索引">
 <meta name="twitter:description" content="引入在数据之外，数据库系统还维护着满足特定查找算法的数据结构，这些数据结构以某种方式引用(指向)数据，这样就可以在这些数据结构上实现高级查找算法。这种数据结构，就是索引。 数据库索引，是数据库管理系统中一个排序的数据结构，以协助快速查询、更新数据库表中数据。索引的实现通常使用 B 树及其变种 B+ 树。 优点 通过创建唯一性索引，可以保证数据库表中每一行数据的唯一性；  可以大大加快数据的检索速度">
@@ -461,7 +461,7 @@
 </li>
 <li><p>like 语句操作<br>一般不鼓励使用 like，一定要使用的话如何使用也需要注意，如 like”%aaa%” 不会使用索引而 like “aaa%” 可以使用索引；</p>
 </li>
-<li><p>不要在列上进行运算<br>例如：select <em> from users where YEAR(adddate)&lt;2007，将在每行上进行运算，这将导致索引失效而进行全表扫描，因此我们可以改成：select </em> from users where adddate&lt;’2007-01-01′。</p>
+<li><p>不要在列上进行运算<br>例如：select * from users where YEAR(adddate)&lt;2007，将在每行上进行运算，这将导致索引失效而进行全表扫描，因此我们可以改成：select * from users where adddate&lt;’2007-01-01’。</p>
 </li>
 </ol>
 <h3 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h3><p><a href="https://blog.csdn.net/kennyrose/article/details/7532032" target="_blank" rel="noopener">https://blog.csdn.net/kennyrose/article/details/7532032</a><br><a href="https://blog.csdn.net/xluren/article/details/32746183" target="_blank" rel="noopener">https://blog.csdn.net/xluren/article/details/32746183</a></p>
@@ -504,6 +504,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/13/异常/" rel="prev" title="异常">
+                异常 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -589,7 +593,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -611,7 +615,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

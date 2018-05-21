@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="笔试," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="关键字哪个关键字可以对对象加互斥锁？（）A. synchronizedB. volatile">
+<meta name="keywords" content="笔试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="笔试记录二">
+<meta property="og:url" content="http://yoursite.com/2018/05/19/笔试记录二/index.html">
+<meta property="og:site_name" content="xiaoPandas">
+<meta property="og:description" content="关键字哪个关键字可以对对象加互斥锁？（）A. synchronizedB. volatile">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-05-20T12:02:40.630Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="笔试记录二">
+<meta name="twitter:description" content="关键字哪个关键字可以对对象加互斥锁？（）A. synchronizedB. volatile">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '19BJM0J404',
+      apiKey: '2f287374bf03d3739c504b7eaac5a3d0',
+      indexName: 'xiaoPandasblog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键词进行搜索","hits_empty":"找不到关于 ${query} 的文章","hits_stats":"在 ${time} ms 内找到 ${hits} 篇文章"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/19/笔试记录二/"/>
+
+
+
+
+
+  <title>笔试记录二 | xiaoPandas</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">xiaoPandas</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/19/笔试记录二/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xiaoPandas">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oyiq6rmz1.bkt.clouddn.com/%E5%A4%B4%E5%83%8F.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xiaoPandas">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">笔试记录二</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-19T19:32:08+08:00">
+                2018-05-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/笔试记录/" itemprop="url" rel="index">
+                    <span itemprop="name">笔试记录</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/19/笔试记录二/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/19/笔试记录二/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h3><p>哪个关键字可以对对象加互斥锁？（）<br>A. synchronized<br>B. volatile <a id="more"></a><br>C. serialize<br>D. static<br>答案：A</p>
+<h4 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h4><p>用来给对象和方法或者代码块加锁，当它锁定一个方法或者一个代码块的时候，同一时刻最多只有一个线程执行这个段代码。</p>
+<h4 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h4><p>用来确保将变量的更新操作通知到其他线程，当把变量声明为 volatile 类型后，编译器与运行时都会注意到这个变量是共享的，因此不会将该变量上的操作与其他内存操作一起重排序。然而，在访问 volatile 变量时不会执行加锁操作，因此也就不会使执行线程阻塞，因此 volatile 变量是一种比 synchronized 关键字更轻量级的同步机制。</p>
+<h4 id="serialize"><a href="#serialize" class="headerlink" title="serialize"></a>serialize</h4><p>Java 对象序列化为二进制文件。</p>
+<h4 id="static"><a href="#static" class="headerlink" title="static"></a>static</h4><p>static 关键字可以修饰变量，方法，静态代码块。<br>静态变量：静态变量属于类，而不属于某个对象， 静态变量它的副本只有一个(静态变量在类中只加载一次)；<br>静态方法：在静态方法中只能调用静态变量和静态方法， 在非静态方法中，可以调用静态方法或者变量； 在静态方法中不能使用 this 和 super 关键字；<br>静态代码块：用来给静态成员变量初始化。</p>
+<h3 id="插入排序与选择排序"><a href="#插入排序与选择排序" class="headerlink" title="插入排序与选择排序"></a>插入排序与选择排序</h3><h4 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h4><p>将一组数据分成两组，分别将其称为有序组与待插入组。每次从待插入组中取出一个元素，与有序组的元素从后往前比较，并找到合适的位置，将该元素插到有序组当中。就这样，每次插入一个元素，有序组增加，待插入组减少，直到待插入组元素个数为 0；当然，插入过程中涉及到了元素的移动。</p>
+<p>例如：45 80 48 40 22 78 </p>
+<p>第一轮：45 <font color="red">80</font> 48 40 22 78 —&gt; 45 80 48 40 22 78 &nbsp; i=1</p>
+<p>第二轮：45 80 <font color="red">48</font> 40 22 78 —&gt; 45 48 80 40 22 78 &nbsp; i=2</p>
+<p>第三轮：45 48 80 <font color="red">40</font> 22 78 —&gt; 40 45 48 80 22 78 &nbsp; i=3</p>
+<p>第四轮：40 45 48 80 <font color="red">22</font> 78 —&gt; 22 40 45 48 80 78 &nbsp; i=4</p>
+<p>第五轮：22 40 45 48 80 <font color="red">78</font> —&gt; 22 40 45 48 78 80 &nbsp; i=5</p>
+<p>(红色代表此轮要插入的元素，红色左边是已经排好序的，右边是待排序的)</p>
+<h4 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h4><p>首先，找到数组中最小的那个元素，其次，将它和数组的第一个元素交换位置；再次，在剩下的元素中找到最小的元素，将它与数组的第二个元素交换位置；如此往复，直到将整个数组排序。</p>
+<p>这种方法叫选择排序，因为它在不断地选择剩余元素之中的最小者。</p>
+<h3 id="Linux-命令"><a href="#Linux-命令" class="headerlink" title="Linux 命令"></a>Linux 命令</h3><p>Linux下，为某个脚本赋予可执行权限（）<br>A. chmod +x filename.sh<br>B. chown +x filename.sh<br>C. chmod +r filename.sh<br>D. chown +r filename.sh<br>答案：A</p>
+<h4 id="chown"><a href="#chown" class="headerlink" title="chown"></a>chown</h4><p>作用：设置文件和目录的用户和用户组属性；<br>使用权限：root；</p>
+<p>语法：<code>chown [-cfhvR] [--help] [--version] user[:group] file</code></p>
+<p>user : 新的文件拥有者的使用者 ID<br>group : 新的文件拥有者的使用者群体(group)<br>-c : 若该文件拥有者确实已经更改，才显示其更改动作<br>-f : 若该文件拥有者无法被更改也不要显示错误讯息<br>-h : 只对于连结(link)进行变更，而非该 link 真正指向的文件<br>-v : 显示拥有者变更的详细资料<br>-R : 对目前目录下的所有文件与子目录进行相同的拥有者变更(即以递回的方式逐个变更)</p>
+<p>如：<br>将文件 file1.txt 的拥有者设为 users 群体的使用者 jessie :<br><code>chown users:jessie file1.txt</code><br>将目前目录下的所有文件与子目录的拥有者皆设为 users 群体的使用者 lamport :<br><code>chown -R lamport:users *</code></p>
+<h4 id="chmod"><a href="#chmod" class="headerlink" title="chmod"></a>chmod</h4><p>作用：设置文件和目录的读写执行权限；<br>使用权限：所有使用者；</p>
+<p>语法：<code>chmod [-cfvR] [--help] [--version] mode file</code><br>mode：权限设定字串，<code>[ugoa...][[+-=][rwxX]...][,...]</code></p>
+<p>u 表示该文件的拥有者，g 表示与该文件的拥有者属于同一个群体者，o 表示其他以外的人，a 表示这三者皆是；</p>
+<p>+ 表示增加权限、- 表示取消权限、= 表示唯一设定权限；</p>
+<p>r 表示可读取，w 表示可写入，x 表示可执行，X 表示只有当该文件是个子目录或者该文件已经被设定过为可执行；</p>
+<p>-c : 若该文件权限确实已经更改，才显示其更改动作<br>-f : 若该文件权限无法被更改也不要显示错误讯息<br>-v : 显示权限变更的详细资料<br>-R : 对目前目录下的所有文件与子目录进行相同的权限变更(即以递回的方式逐个变更)</p>
+<p>如：<br>将文件 file1.txt 与 file2.txt 设为该文件拥有者，与其所属同一个群体者可写入，但其他以外的人则不可写入 :<br><code>chmod ug+w,o-w file1.txt file2.txt</code><br>将目前目录下的所有文件与子目录皆设为任何人可读取 :<br><code>chmod -R a+r *</code></p>
+<p>此外 chmod 也可以用数字来表示权限:<br>其中 a，b，c 各为一个数字，分别表示 User、Group、及 Other 的权限，<br>r=4，w=2，x=1<br>若要 rwx 属性则 4+2+1=7；<br>若要 rw- 属性则 4+2=6；<br>若要 r-x 属性则 4+1=5。</p>
+<p>如：<br><code>chmod a=rwx file  ==  chmod 777 file</code><br><code>chmod ug=rwx,o=x file  ==  chmod 771 file</code></p>
+<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p>有关线程的哪些叙述是对的()<br>A. 当一个线程因为抢先机制而停止运行，它被放在可运行队列的前面<br>B. 一个线程可能因为不同的原因停止(cease)并进入就绪状态<br>C. 使用start()方法可以使一个线程成为可运行的，但是它不一定立即开始运行<br>D. 一旦一个线程被创建，它就立即开始运行<br>答案：BC</p>
+<p>线程被抢占，它将被放在可运行队列的尾部；<br>一个线程可能由于之前资源不可用导致进行阻塞状态，然后当资源可用的时候，就会进入到就绪态，<br>另外一种就是线程的时间片用完了之后也会从运行态转为就绪态；<br>当然还有一种就是优先级更高的线程会抢占当前线程，使当前线程进入就绪态；<br>线程被创建后要调用它的 start() 方法才能将线程变成就绪态；</p>
+<p>多线程实现方式：</p>
+<ol>
+<li>继承 java.lang.Thread 类，并重写 run() 方法；</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;  </span><br><span class="line">　　<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">　　 System.out.println(<span class="string">"MyThread.run()"</span>);  </span><br><span class="line">　　&#125;  </span><br><span class="line">&#125;  </span><br><span class="line"> </span><br><span class="line">MyThread myThread = <span class="keyword">new</span> MyThread();  </span><br><span class="line">myThread.start();</span><br></pre></td></tr></table></figure>
+<ol>
+<li>实现 java.lang.Runnable 接口，并重写 run() 方法；</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;  </span><br><span class="line">　　<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">　　 System.out.println(<span class="string">"MyThread.run()"</span>);  </span><br><span class="line">　　&#125;  </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">MyThread myThread = <span class="keyword">new</span> MyThread();  </span><br><span class="line">Thread thread = <span class="keyword">new</span> Thread(myThread);  </span><br><span class="line">thread.start();</span><br></pre></td></tr></table></figure>
+<p>线程 start() 方法的调用，并不是立即执行多线程的，而是仅仅把线程的状态改变为可执行状态(runnable)，什么时候运行则是由操作系统决定的。</p>
+<h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><p>构造器可以被重载，但是不可以被重写，因为构造器不可以被继承。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">short s1 = 1;</span><br><span class="line">//Type mismatch: cannot convert from int to short</span><br><span class="line">s1 = s1 + 1;</span><br><span class="line"></span><br><span class="line">//正确</span><br><span class="line">short s1 = 1;</span><br><span class="line">s1 += 1;</span><br><span class="line"></span><br><span class="line">int i = 0; </span><br><span class="line">//Type mismatch: cannot convert from int to boolean</span><br><span class="line">if(i) &#123;&#125;</span><br><span class="line"></span><br><span class="line">//Type mismatch: cannot convert from double to float</span><br><span class="line">float a = 2.0;</span><br></pre></td></tr></table></figure>
+<p><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public static void swap(int a, int b) &#123;</span><br><span class="line">	int t = a;</span><br><span class="line">	a = b;</span><br><span class="line">	b = t;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int x = 2;</span><br><span class="line">int y = 3;</span><br><span class="line">swap(x,y);</span><br><span class="line">System.out.println(x); //输出 2</span><br><span class="line">System.out.println(y); //输出 3</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/笔试/" rel="tag"># 笔试</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/19/安装-VMware-tools/" rel="next" title="安装 VMware tools">
+                <i class="fa fa-chevron-left"></i> 安装 VMware tools
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/20/JSTL/" rel="prev" title="JSTL">
+                JSTL <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="uyan_frame"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://oyiq6rmz1.bkt.clouddn.com/%E5%A4%B4%E5%83%8F.jpg"
+                alt="xiaoPandas" />
+            
+              <p class="site-author-name" itemprop="name">xiaoPandas</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/xiaoPandas" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/5626435388/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#关键字"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x5173;&#x952E;&#x5B57;" class="headerlink" title="&#x5173;&#x952E;&#x5B57;"></a>&#x5173;&#x952E;&#x5B57;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#synchronized"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#volatile"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#serialize"><span class="nav-number">1.3.</span> <span class="nav-text"><a href="#serialize" class="headerlink" title="serialize"></a>serialize</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#static"><span class="nav-number">1.4.</span> <span class="nav-text"><a href="#static" class="headerlink" title="static"></a>static</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入排序与选择排序"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x63D2;&#x5165;&#x6392;&#x5E8F;&#x4E0E;&#x9009;&#x62E9;&#x6392;&#x5E8F;" class="headerlink" title="&#x63D2;&#x5165;&#x6392;&#x5E8F;&#x4E0E;&#x9009;&#x62E9;&#x6392;&#x5E8F;"></a>&#x63D2;&#x5165;&#x6392;&#x5E8F;&#x4E0E;&#x9009;&#x62E9;&#x6392;&#x5E8F;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#插入排序"><span class="nav-number">2.1.</span> <span class="nav-text"><a href="#&#x63D2;&#x5165;&#x6392;&#x5E8F;" class="headerlink" title="&#x63D2;&#x5165;&#x6392;&#x5E8F;"></a>&#x63D2;&#x5165;&#x6392;&#x5E8F;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#选择排序"><span class="nav-number">2.2.</span> <span class="nav-text"><a href="#&#x9009;&#x62E9;&#x6392;&#x5E8F;" class="headerlink" title="&#x9009;&#x62E9;&#x6392;&#x5E8F;"></a>&#x9009;&#x62E9;&#x6392;&#x5E8F;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-命令"><span class="nav-number">3.</span> <span class="nav-text"><a href="#Linux-&#x547D;&#x4EE4;" class="headerlink" title="Linux &#x547D;&#x4EE4;"></a>Linux &#x547D;&#x4EE4;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#chown"><span class="nav-number">3.1.</span> <span class="nav-text"><a href="#chown" class="headerlink" title="chown"></a>chown</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#chmod"><span class="nav-number">3.2.</span> <span class="nav-text"><a href="#chmod" class="headerlink" title="chmod"></a>chmod</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x7EBF;&#x7A0B;" class="headerlink" title="&#x7EBF;&#x7A0B;"></a>&#x7EBF;&#x7A0B;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展"><span class="nav-number">5.</span> <span class="nav-text"><a href="#&#x6269;&#x5C55;" class="headerlink" title="&#x6269;&#x5C55;"></a>&#x6269;&#x5C55;</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o" aria-hidden="true"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiaoPandas</span>
+
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数：<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+
+<!--
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+--!>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2152066"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'JXAo1V98Jxty3jaqIK99PaeV-gzGzoHsz',
+        appKey: 'OLlQNbYqajqOpiOwLPsvt92c',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

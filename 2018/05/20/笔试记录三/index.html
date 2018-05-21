@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="笔试," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="用邻接表表示的图进行深度优先遍历时，常采用 __ 结构。栈">
+<meta name="keywords" content="笔试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="笔试记录三">
+<meta property="og:url" content="http://yoursite.com/2018/05/20/笔试记录三/index.html">
+<meta property="og:site_name" content="xiaoPandas">
+<meta property="og:description" content="用邻接表表示的图进行深度优先遍历时，常采用 __ 结构。栈">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oyiq6rmz1.bkt.clouddn.com/%E6%95%B0%E6%8D%AE%E5%B0%81%E8%A3%85.png">
+<meta property="og:updated_time" content="2018-05-21T04:28:13.635Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="笔试记录三">
+<meta name="twitter:description" content="用邻接表表示的图进行深度优先遍历时，常采用 __ 结构。栈">
+<meta name="twitter:image" content="http://oyiq6rmz1.bkt.clouddn.com/%E6%95%B0%E6%8D%AE%E5%B0%81%E8%A3%85.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '19BJM0J404',
+      apiKey: '2f287374bf03d3739c504b7eaac5a3d0',
+      indexName: 'xiaoPandasblog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键词进行搜索","hits_empty":"找不到关于 ${query} 的文章","hits_stats":"在 ${time} ms 内找到 ${hits} 篇文章"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/20/笔试记录三/"/>
+
+
+
+
+
+  <title>笔试记录三 | xiaoPandas</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">xiaoPandas</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/20/笔试记录三/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xiaoPandas">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oyiq6rmz1.bkt.clouddn.com/%E5%A4%B4%E5%83%8F.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xiaoPandas">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">笔试记录三</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-20T20:01:53+08:00">
+                2018-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/笔试记录/" itemprop="url" rel="index">
+                    <span itemprop="name">笔试记录</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/20/笔试记录三/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/20/笔试记录三/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ol>
+<li><p>用邻接表表示的图进行深度优先遍历时，常采用 <em>__</em> 结构。<br>栈</p>
+<a id="more"></a>
+</li>
+<li><p>用邻接表表示的图进行广度优先遍历时，常采用 <em>__</em> 结构。<br>队列</p>
+</li>
+<li><p>管道信息以 <em>__</em> 进行写入和读出。<br>字符流<br>解析：<br>管道是指用于连接一个读进程和一个写进程以实现进程之间通信的一种共享文件。向管道提供输入的是发送进程，也称为 写进程，数据的格式是字符流。接受管道数据的接受进程为读进程。</p>
+</li>
+<li><p>数据封装过程<br><img src="http://oyiq6rmz1.bkt.clouddn.com/%E6%95%B0%E6%8D%AE%E5%B0%81%E8%A3%85.png" alt="数据封装"><br>数据解封装则是一个逆过程</p>
+</li>
+<li><p>为了使多个进程能够有效地同时处理输入和输出，最好使用 <em>__</em> 结构的缓冲技术。<br>缓冲池<br>解析：<br>缓冲池是系统共用资源，可供多个进程共享，并且既能用于输入又能用于输出。</p>
+</li>
+<li><p>进程通信中， <em>__</em> 常通过变量和数组形式实现。<br>低级通信<br>解析：<br>进程通信分为低级通信和高级通信：</p>
+</li>
+</ol>
+<ul>
+<li>低级通信：只能传递状态和整数值，传递信息量少，效率低，每次通信传递的信息量固定。</li>
+<li>高级通信：提高信号通信的效率，传递大量数据，减轻编程复杂度；分为三种方式：共享内存模式，消息传递模式，共享文件模式。</li>
+</ul>
+<ol>
+<li><p>重启 Linux 系统的同时把内存的信息写入硬盘，应该使用 <em>__</em> 命令。<br><code>#shutdown -r now</code><br>解析：<br><a href="https://www.nowcoder.com/questionTerminal/00dad2d2c62f4d66868a6ec37ea8dc8e?toCommentId=62146" target="_blank" rel="noopener">具体解析</a></p>
+</li>
+<li><p>ROM 存储器中必须有 <em>__</em> 电路。<br>地址译码<br>解析：<br>ROM 是只读存储器，信息已固化在存储器中，数据不会因为电源关闭而消失。ROM 由地址译码器、存储矩阵、读出电路以及芯片选择逻辑等组成。</p>
+</li>
+<li><p>下列关于链接描述，正确的的是（）<br>A. 硬链接就是让链接文件的i节点号指向被链接文件的i节点<br>B. 硬链接和符号连接都是产生一个新的i节点<br>C. 链接分为硬链接和符号链接<br>D. 硬连接不能链接目录文件<br>ACD</p>
+</li>
+<li><p>ICMP 协议<br>Internet Control Message Protocol &nbsp; Internet控制报文协议<br>它是 TCP/IP 协议族的一个子协议，用于在 IP 主机、路由器之间传递控制消息；<br>控制消息是指网络通不通、主机是否可达、路由是否可用等网络本身的消息。</p>
+</li>
+<li><p>两个进程完成一个任务，并在并发执行中，一个进程要等待合作伙伴发来消息或建立某个条件后再向前执行，这种关系是进程间的 <em>__</em> 关系。<br>同步</p>
+</li>
+<li><p>管理员希望阻止由外网进入的 PING 嗅探，那么管理员需要阻止哪一类协议。<br>ICMP</p>
+</li>
+<li><p>段页式管理每取一数据需要访问 <em>__</em> 次内存。<br>3<br>解析：<br>在段页式存储管理方式中，取一次指令或数据时，首先要从内存中查找段表；再查找该段对应的页表；根据页表拼接成物理地址后访问内存获得指令或数据。一共要进行 3 次内存访问。</p>
+</li>
+<li><p>操作系统中有一组常称为特殊系统调用，它不能被系统中断，在操作系统中称为 ___。<br>原语<br>解析：<br>原语是原子操作，在执行过程中不允许被中断；<br>原语在管态下执行。</p>
+</li>
+<li><p>MySQL 的默认 innodb 引擎事务隔离级别是 <em>__</em> 。<br>可重复读 (Repeatable read)<br>解析：<br>四类隔离级别，分别是：</p>
+</li>
+</ol>
+<ul>
+<li>未提交读 (Read uncommitted)：一个事务可以看到其他未提交事务的执行结果；</li>
+<li>已提交读 (Read committed)：大多数数据库的默认事务隔离级别 (但 MySQL 不是)，一个事务只能看到已提交事务的结果；</li>
+<li>可重复读 (Repeatable read)：MySQL 的默认事务隔离级别，确保同一事务的多个实例在并发读取数据时，会看到同样的结果。</li>
+<li>可串行化 (SERIALIZABLE)：完全串行化的读，在每个读的数据行上都加上共享锁，大大降低了数据库的吞吐性能。</li>
+</ul>
+<ol>
+<li><p>可以单独与 finally 语句使用的块是 <em>__</em> 。<br>try<br>解析：<br>使用 try···catch 块捕获异常时可以没有 catch 块，此时就必须有 finally 块。</p>
+</li>
+<li><p>负载压力测试不包括<br>A.访问量 &nbsp; B.点击次数 &nbsp; C.业务处理时间 &nbsp; D.业务请求吞吐量<br>C</p>
+</li>
+<li><p>JDBC 如何实现 Connection Pool？使用 Connection Pool 有哪些优势？</p>
+</li>
+<li><p>通信双方采用TCP连接，接收方打印的信息中部分可识别内容不可识别是什么原因？</p>
+</li>
+<li><p>请写出 loadBalance 负载均衡的作用，策略以及实现。</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/笔试/" rel="tag"># 笔试</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/20/Java-继承实例/" rel="next" title="Java 继承实例">
+                <i class="fa fa-chevron-left"></i> Java 继承实例
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="uyan_frame"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://oyiq6rmz1.bkt.clouddn.com/%E5%A4%B4%E5%83%8F.jpg"
+                alt="xiaoPandas" />
+            
+              <p class="site-author-name" itemprop="name">xiaoPandas</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/xiaoPandas" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/5626435388/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o" aria-hidden="true"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiaoPandas</span>
+
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数：<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+
+<!--
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+--!>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2152066"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'JXAo1V98Jxty3jaqIK99PaeV-gzGzoHsz',
+        appKey: 'OLlQNbYqajqOpiOwLPsvt92c',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

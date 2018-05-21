@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JSTL," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="简介JSTL：JSP Standard Tag Library 标准标签库 JSTL 允许开人员可以像使用 HTML 标签那样在 JSP 中开发 Java 功能； JSTL 库有 core，i18n，fmt，sql 等等； i18n 和 sql 用的很少，core 和 fmt 在工作中会用到，所以我们主要是了解 core 和 fmt。 jar 包为了能够在 JSP 中使用 JSTL，首先需要两个">
+<meta name="keywords" content="JSTL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JSTL">
+<meta property="og:url" content="http://yoursite.com/2018/05/20/JSTL/index.html">
+<meta property="og:site_name" content="xiaoPandas">
+<meta property="og:description" content="简介JSTL：JSP Standard Tag Library 标准标签库 JSTL 允许开人员可以像使用 HTML 标签那样在 JSP 中开发 Java 功能； JSTL 库有 core，i18n，fmt，sql 等等； i18n 和 sql 用的很少，core 和 fmt 在工作中会用到，所以我们主要是了解 core 和 fmt。 jar 包为了能够在 JSP 中使用 JSTL，首先需要两个">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oyiq6rmz1.bkt.clouddn.com/fn%E6%A0%87%E7%AD%BE.jpg">
+<meta property="og:updated_time" content="2018-05-20T06:19:53.110Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JSTL">
+<meta name="twitter:description" content="简介JSTL：JSP Standard Tag Library 标准标签库 JSTL 允许开人员可以像使用 HTML 标签那样在 JSP 中开发 Java 功能； JSTL 库有 core，i18n，fmt，sql 等等； i18n 和 sql 用的很少，core 和 fmt 在工作中会用到，所以我们主要是了解 core 和 fmt。 jar 包为了能够在 JSP 中使用 JSTL，首先需要两个">
+<meta name="twitter:image" content="http://oyiq6rmz1.bkt.clouddn.com/fn%E6%A0%87%E7%AD%BE.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '19BJM0J404',
+      apiKey: '2f287374bf03d3739c504b7eaac5a3d0',
+      indexName: 'xiaoPandasblog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键词进行搜索","hits_empty":"找不到关于 ${query} 的文章","hits_stats":"在 ${time} ms 内找到 ${hits} 篇文章"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/20/JSTL/"/>
+
+
+
+
+
+  <title>JSTL | xiaoPandas</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">xiaoPandas</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/20/JSTL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xiaoPandas">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oyiq6rmz1.bkt.clouddn.com/%E5%A4%B4%E5%83%8F.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xiaoPandas">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JSTL</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-20T10:54:12+08:00">
+                2018-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java基础/" itemprop="url" rel="index">
+                    <span itemprop="name">Java基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/20/JSTL/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/20/JSTL/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>JSTL：JSP Standard Tag Library 标准标签库</p>
+<p>JSTL 允许开人员可以像使用 HTML 标签那样在 JSP 中开发 Java 功能；</p>
+<p>JSTL 库有 core，i18n，fmt，sql 等等；</p>
+<p>i18n 和 sql 用的很少，core 和 fmt 在工作中会用到，所以我们主要是了解 core 和 fmt。</p>
+<h3 id="jar-包"><a href="#jar-包" class="headerlink" title="jar 包"></a>jar 包</h3><p>为了能够在 JSP 中使用 JSTL，首先需要两个 jar 包，分别是 jstl.jar 和 standard.jar；</p>
+<p>把这两个 jar 包放在 web/WEB-INF/lib 下。</p>
+<h3 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h3><p>在页面中使用 JSTL 需要在 jsp 中通过指令进行设置<br><code>&lt;%@ taglib uri=&quot;http://java.sun.com/jsp/jstl/core&quot; prefix=&quot;c&quot;%&gt;</code></p>
+<p><code>prefix=&quot;c&quot;</code> 表示后续的标签使用都会以 <code>&lt;c:</code> 开头</p>
+<p>后续示例代码都已省略：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot;</span><br><span class="line">    pageEncoding=&quot;UTF-8&quot;%&gt;</span><br><span class="line"> </span><br><span class="line">&lt;%@ taglib uri=&quot;http://java.sun.com/jsp/jstl/core&quot; prefix=&quot;c&quot;%&gt;</span><br></pre></td></tr></table></figure></p>
+<h4 id="set-out-remove"><a href="#set-out-remove" class="headerlink" title="set out remove"></a>set out remove</h4><p>set<br><code>&lt;c:set var=&quot;name&quot; value=&quot;${&#39;gareen&#39;}&quot; scope=&quot;request&quot; /&gt;</code><br>在作用域 request 中设置 name，相当于<br><code>&lt;%request.setAttribute(&quot;name&quot;,&quot;gareen&quot;)%&gt;</code></p>
+<p>out<br><code>&lt;c:out value=&quot;${name}&quot; /&gt;</code><br>相当于<br><code>&lt;%request.getAttribute(&quot;name&quot;)%&gt;</code></p>
+<p>remove<br><code>&lt;c:remove var=&quot;name&quot; scope=&quot;request&quot; /&gt;</code><br>在作用域 request 中删掉 name，相当于<br><code>&lt;%request.removeAttribute(&quot;name&quot;)%&gt;</code></p>
+<p>作用域可以是 pageContext，request，session，application</p>
+<p>示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;c:set var=&quot;name&quot; value=&quot;$&#123;&apos;gareen&apos;&#125;&quot; scope=&quot;request&quot; /&gt;</span><br><span class="line"> </span><br><span class="line">通过标签获取name: &lt;c:out value=&quot;$&#123;name&#125;&quot; /&gt; &lt;br&gt;</span><br><span class="line"> </span><br><span class="line">&lt;c:remove var=&quot;name&quot; scope=&quot;request&quot; /&gt; &lt;br&gt;</span><br><span class="line"> </span><br><span class="line">通过标签获取name: &lt;c:out value=&quot;$&#123;name&#125;&quot; /&gt; &lt;br&gt;</span><br></pre></td></tr></table></figure></p>
+<h4 id="if-else"><a href="#if-else" class="headerlink" title="if else"></a>if else</h4><p>JSTL 通过 <code>&lt;c:if test=&quot;&quot;&gt;</code> 进行条件判断；<br>但是 JSTL 没有 <code>&lt;c:else</code> 所以常用的办法是在 <code>&lt;c:if</code> 的条件里取反；</p>
+<p>配合 if 使用的还有通过 empty 进行为空判断</p>
+<p>empty 可以判断对象是否为 null，字符串长度是否为 0，集合长度是否为 0。</p>
+<p>示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;c:set var=&quot;hp&quot; value=&quot;$&#123;10&#125;&quot; scope=&quot;request&quot; /&gt;</span><br><span class="line"> </span><br><span class="line">&lt;c:if test=&quot;$&#123;hp&lt;5&#125;&quot;&gt;</span><br><span class="line">    &lt;p&gt;这个英雄要挂了&lt;/p&gt;</span><br><span class="line">&lt;/c:if&gt;</span><br><span class="line"> </span><br><span class="line">&lt;c:if test=&quot;$&#123;!(hp&lt;5)&#125;&quot;&gt;</span><br><span class="line">    &lt;p&gt;这个英雄觉得自己还可以再抢救抢救&lt;/p&gt;</span><br><span class="line">&lt;/c:if&gt;</span><br><span class="line"> </span><br><span class="line">&lt;%</span><br><span class="line">    pageContext.setAttribute(&quot;weapon&quot;, null);</span><br><span class="line">    pageContext.setAttribute(&quot;lastwords&quot;, &quot;&quot;);</span><br><span class="line">    pageContext.setAttribute(&quot;items&quot;, new ArrayList());</span><br><span class="line">%&gt;</span><br><span class="line"> </span><br><span class="line">&lt;c:if test=&quot;$&#123;empty weapon&#125;&quot;&gt;</span><br><span class="line">    &lt;p&gt;没有装备武器&lt;/p&gt;</span><br><span class="line">&lt;/c:if&gt;</span><br><span class="line">&lt;c:if test=&quot;$&#123;empty lastwords&#125;&quot;&gt;</span><br><span class="line">    &lt;p&gt;挂了也没有遗言&lt;/p&gt;</span><br><span class="line">&lt;/c:if&gt;</span><br><span class="line">&lt;c:if test=&quot;$&#123;empty items&#125;&quot;&gt;</span><br><span class="line">    &lt;p&gt;物品栏为空&lt;/p&gt;</span><br><span class="line">&lt;/c:if&gt;</span><br></pre></td></tr></table></figure></p>
+<h4 id="choose"><a href="#choose" class="headerlink" title="choose"></a>choose</h4><p>虽然 JSTL 没有提供 else 标签，但是提供了一个 else 功能的标签</p>
+<p>示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;c:choose&gt;</span><br><span class="line">    &lt;c:when test=&quot;$&#123;hp&lt;5&#125;&quot;&gt;</span><br><span class="line">	&lt;/c:when&gt;</span><br><span class="line">	&lt;c:otherwise&gt;</span><br><span class="line">	&lt;/c:otherwise&gt;</span><br><span class="line">&lt;/c:choose&gt;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;c:set var=&quot;hp&quot; value=&quot;$&#123;3&#125;&quot; scope=&quot;request&quot; /&gt;</span><br><span class="line"> </span><br><span class="line">&lt;c:choose&gt;</span><br><span class="line">    &lt;c:when test=&quot;$&#123;hp&lt;5&#125;&quot;&gt;</span><br><span class="line">        &lt;p&gt;这个英雄要挂了&lt;/p&gt;</span><br><span class="line">    &lt;/c:when&gt;</span><br><span class="line">    &lt;c:otherwise&gt;</span><br><span class="line">        &lt;p&gt;这个英雄觉得自己还可以再抢救抢救&lt;/p&gt;</span><br><span class="line">    &lt;/c:otherwise&gt;</span><br><span class="line">&lt;/c:choose&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a>forEach</h4><p>可以在 JSP 中使用 for 循环，但是可读性很差；借助 JSTL 的  <code>c:forEach</code> 标签可以改善可读性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ ··· import=&quot;java.util.*&quot;%&gt;</span><br><span class="line">··· </span><br><span class="line">&lt;%</span><br><span class="line">    List&lt;String&gt; heros = new ArrayList&lt;String&gt;();</span><br><span class="line">    heros.add(&quot;塔姆&quot;);</span><br><span class="line">    heros.add(&quot;艾克&quot;);</span><br><span class="line">    heros.add(&quot;巴德&quot;);</span><br><span class="line">    request.setAttribute(&quot;heros&quot;,heros);</span><br><span class="line">%&gt;</span><br><span class="line"> </span><br><span class="line">&lt;!-- 使用 jsp 中的 for 循环来遍历 List --&gt;</span><br><span class="line">&lt;table width=&quot;200px&quot; align=&quot;center&quot; border=&quot;1&quot; cellspacing=&quot;0&quot;&gt;</span><br><span class="line">&lt;tr&gt;</span><br><span class="line">    &lt;td&gt;编号&lt;/td&gt;</span><br><span class="line">    &lt;td&gt;英雄&lt;/td&gt;</span><br><span class="line">&lt;/tr&gt;</span><br><span class="line">   </span><br><span class="line">&lt;%</span><br><span class="line">int i =0;</span><br><span class="line">for (String hero : heros) &#123;</span><br><span class="line">    i++;</span><br><span class="line">%&gt;</span><br><span class="line">  </span><br><span class="line">&lt;tr&gt;</span><br><span class="line">    &lt;td&gt;&lt;%=i%&gt;&lt;/td&gt;</span><br><span class="line">    &lt;td&gt;&lt;%=hero%&gt;&lt;/td&gt;</span><br><span class="line">&lt;/tr&gt;</span><br><span class="line">  </span><br><span class="line">&lt;%&#125;%&gt;</span><br><span class="line">   </span><br><span class="line">&lt;/table&gt;</span><br><span class="line"> </span><br><span class="line">&lt;br&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 使用 JSTL 中的 c:forEach 循环来遍历 List --&gt;</span><br><span class="line">&lt;table width=&quot;200px&quot; align=&quot;center&quot; border=&quot;1&quot; cellspacing=&quot;0&quot;&gt;</span><br><span class="line">&lt;tr&gt;</span><br><span class="line">    &lt;td&gt;编号&lt;/td&gt;</span><br><span class="line">    &lt;td&gt;英雄&lt;/td&gt;</span><br><span class="line">&lt;/tr&gt;</span><br><span class="line">   </span><br><span class="line">&lt;c:forEach items=&quot;$&#123;heros&#125;&quot; var=&quot;hero&quot; varStatus=&quot;st&quot;  &gt;</span><br><span class="line">    &lt;tr&gt;</span><br><span class="line">        &lt;td&gt;&lt;c:out value=&quot;$&#123;st.count&#125;&quot; /&gt;&lt;/td&gt;</span><br><span class="line">        &lt;td&gt;&lt;c:out value=&quot;$&#123;hero&#125;&quot; /&gt;&lt;/td&gt;</span><br><span class="line">    &lt;/tr&gt;</span><br><span class="line">&lt;/c:forEach&gt;</span><br><span class="line">&lt;/table&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="forTokens"><a href="#forTokens" class="headerlink" title="forTokens"></a>forTokens</h4><p><code>c:forTokens</code> 专门用于字符串拆分，并且可以指定多个分隔符。</p>
+<p>示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;c:set var=&quot;heros&quot; value=&quot;塔姆,艾克;巴德|雷克赛!卡莉丝塔&quot; /&gt;</span><br><span class="line"> </span><br><span class="line">&lt;c:forTokens items=&quot;$&#123;heros&#125;&quot; delims=&quot;:;|!&quot; var=&quot;hero&quot;&gt;</span><br><span class="line">    &lt;c:out value=&quot;$&#123;hero&#125;&quot; /&gt; &lt;br&gt;</span><br><span class="line">&lt;/c:forTokens&gt;</span><br></pre></td></tr></table></figure></p>
+<h4 id="fmt-formatNumber"><a href="#fmt-formatNumber" class="headerlink" title="fmt:formatNumber"></a>fmt:formatNumber</h4><p>fmt 标签常用来进行格式化，其中 fmt:formatNumber 用于格式化数字，使用之前要加上：<br><code>&lt;%@ taglib uri=&quot;http://java.sun.com/jsp/jstl/fmt&quot; prefix=&#39;fmt&#39; %&gt;</code></p>
+<p><code>&lt;fmt:formatNumber type=&quot;number&quot; value=&quot;${money}&quot; minFractionDigits=&quot;2&quot; /&gt;</code><br>minFractionDigits：小数点至少要有的位数；<br>maxFractionDigits：小数点最多能有的位数；</p>
+<h4 id="fmt-formatDate"><a href="#fmt-formatDate" class="headerlink" title="fmt:formatDate"></a>fmt:formatDate</h4><p>fmt:formatDate 用于格式化日期<br>和 fmt:formatNumber 格式化数字一样，使用之前要加上</p>
+<p><code>&lt;%@ taglib uri=&quot;http://java.sun.com/jsp/jstl/fmt&quot; prefix=&#39;fmt&#39; %&gt;</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;fmt:formatDate value=&quot;$&#123;now&#125;&quot; pattern=&quot;G yyyy年MM月dd日 E&quot; /&gt;</span><br><span class="line">&lt;fmt:formatDate value=&quot;$&#123;now&#125;&quot; pattern=&quot;a HH:mm:ss.S z&quot;/&gt;</span><br><span class="line">&lt;fmt:formatDate value=&quot;$&#123;now&#125;&quot; pattern=&quot;yyyy-MM-dd HH:mm:ss&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<p>yyyy 表示年份<br>MM 表示月份<br>dd 表示日期<br>E 表示星期几</p>
+<p>a 表示是上午还是下午<br>HH 表示小时<br>mm 表示分钟<br>ss 表示秒<br>S 表示毫秒<br>z 表示时区</p>
+<p>示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ ··· import=&quot;java.util.*&quot;%&gt;</span><br><span class="line">     </span><br><span class="line">&lt;%@ taglib uri=&quot;http://java.sun.com/jsp/jstl/core&quot; prefix=&quot;c&quot;%&gt;</span><br><span class="line">&lt;%@ taglib uri=&quot;http://java.sun.com/jsp/jstl/fmt&quot;  prefix=&apos;fmt&apos; %&gt; </span><br><span class="line"> </span><br><span class="line">&lt;%</span><br><span class="line">    Date now = new Date();</span><br><span class="line">    pageContext.setAttribute(&quot;now&quot;,now);</span><br><span class="line">%&gt;</span><br><span class="line"> </span><br><span class="line">完整日期: &lt;fmt:formatDate value=&quot;$&#123;now&#125;&quot; pattern=&quot;G yyyy年MM月dd日 E&quot;/&gt;&lt;br&gt;</span><br><span class="line">完整时间: &lt;fmt:formatDate value=&quot;$&#123;now&#125;&quot; pattern=&quot;a HH:mm:ss.S z&quot;/&gt;&lt;br&gt;</span><br><span class="line">常见格式: &lt;fmt:formatDate value=&quot;$&#123;now&#125;&quot; pattern=&quot;yyyy-MM-dd HH:mm:ss&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br>完整日期: AD 2018年05月20日 Sun<br>完整时间: AM 14:09:10.671 CST<br>常见格式: 2018-05-20 14:09:10</p>
+<h4 id="fn"><a href="#fn" class="headerlink" title="fn"></a>fn</h4><p>fn 标签提供各种实用功能，首先使用之前加上：<br><code>&lt;%@ taglib prefix=&quot;fn&quot; uri=&quot;http://java.sun.com/jsp/jstl/functions&quot; %&gt;</code></p>
+<p>如：<code>${fn:substring(name,0,5)}</code></p>
+<p><img src="http://oyiq6rmz1.bkt.clouddn.com/fn%E6%A0%87%E7%AD%BE.jpg" alt="fn标签"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JSTL/" rel="tag"># JSTL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/19/笔试记录二/" rel="next" title="笔试记录二">
+                <i class="fa fa-chevron-left"></i> 笔试记录二
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/20/EL-表达式/" rel="prev" title="EL 表达式">
+                EL 表达式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="uyan_frame"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://oyiq6rmz1.bkt.clouddn.com/%E5%A4%B4%E5%83%8F.jpg"
+                alt="xiaoPandas" />
+            
+              <p class="site-author-name" itemprop="name">xiaoPandas</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/xiaoPandas" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/5626435388/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x7B80;&#x4ECB;" class="headerlink" title="&#x7B80;&#x4ECB;"></a>&#x7B80;&#x4ECB;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jar-包"><span class="nav-number">2.</span> <span class="nav-text"><a href="#jar-&#x5305;" class="headerlink" title="jar &#x5305;"></a>jar &#x5305;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标签"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x6807;&#x7B7E;" class="headerlink" title="&#x6807;&#x7B7E;"></a>&#x6807;&#x7B7E;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#set-out-remove"><span class="nav-number">3.1.</span> <span class="nav-text"><a href="#set-out-remove" class="headerlink" title="set out remove"></a>set out remove</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#if-else"><span class="nav-number">3.2.</span> <span class="nav-text"><a href="#if-else" class="headerlink" title="if else"></a>if else</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#choose"><span class="nav-number">3.3.</span> <span class="nav-text"><a href="#choose" class="headerlink" title="choose"></a>choose</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#forEach"><span class="nav-number">3.4.</span> <span class="nav-text"><a href="#forEach" class="headerlink" title="forEach"></a>forEach</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#forTokens"><span class="nav-number">3.5.</span> <span class="nav-text"><a href="#forTokens" class="headerlink" title="forTokens"></a>forTokens</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fmt-formatNumber"><span class="nav-number">3.6.</span> <span class="nav-text"><a href="#fmt-formatNumber" class="headerlink" title="fmt:formatNumber"></a>fmt:formatNumber</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fmt-formatDate"><span class="nav-number">3.7.</span> <span class="nav-text"><a href="#fmt-formatDate" class="headerlink" title="fmt:formatDate"></a>fmt:formatDate</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fn"><span class="nav-number">3.8.</span> <span class="nav-text"><a href="#fn" class="headerlink" title="fn"></a>fn</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o" aria-hidden="true"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiaoPandas</span>
+
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数：<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+
+<!--
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+--!>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2152066"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'JXAo1V98Jxty3jaqIK99PaeV-gzGzoHsz',
+        appKey: 'OLlQNbYqajqOpiOwLPsvt92c',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

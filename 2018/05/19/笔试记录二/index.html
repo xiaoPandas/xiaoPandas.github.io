@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="xiaoPandas">
 <meta property="og:description" content="关键字哪个关键字可以对对象加互斥锁？（）A. synchronizedB. volatile">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-20T12:02:40.630Z">
+<meta property="og:updated_time" content="2018-05-21T04:42:29.418Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="笔试记录二">
 <meta name="twitter:description" content="关键字哪个关键字可以对对象加互斥锁？（）A. synchronizedB. volatile">
@@ -432,18 +432,18 @@
 <h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p>有关线程的哪些叙述是对的()<br>A. 当一个线程因为抢先机制而停止运行，它被放在可运行队列的前面<br>B. 一个线程可能因为不同的原因停止(cease)并进入就绪状态<br>C. 使用start()方法可以使一个线程成为可运行的，但是它不一定立即开始运行<br>D. 一旦一个线程被创建，它就立即开始运行<br>答案：BC</p>
 <p>线程被抢占，它将被放在可运行队列的尾部；<br>一个线程可能由于之前资源不可用导致进行阻塞状态，然后当资源可用的时候，就会进入到就绪态，<br>另外一种就是线程的时间片用完了之后也会从运行态转为就绪态；<br>当然还有一种就是优先级更高的线程会抢占当前线程，使当前线程进入就绪态；<br>线程被创建后要调用它的 start() 方法才能将线程变成就绪态；</p>
 <p>多线程实现方式：</p>
-<ol>
+<ul>
 <li>继承 java.lang.Thread 类，并重写 run() 方法；</li>
-</ol>
+</ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;  </span><br><span class="line">　　<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">　　 System.out.println(<span class="string">"MyThread.run()"</span>);  </span><br><span class="line">　　&#125;  </span><br><span class="line">&#125;  </span><br><span class="line"> </span><br><span class="line">MyThread myThread = <span class="keyword">new</span> MyThread();  </span><br><span class="line">myThread.start();</span><br></pre></td></tr></table></figure>
-<ol>
+<ul>
 <li>实现 java.lang.Runnable 接口，并重写 run() 方法；</li>
-</ol>
+</ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;  </span><br><span class="line">　　<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">　　 System.out.println(<span class="string">"MyThread.run()"</span>);  </span><br><span class="line">　　&#125;  </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">MyThread myThread = <span class="keyword">new</span> MyThread();  </span><br><span class="line">Thread thread = <span class="keyword">new</span> Thread(myThread);  </span><br><span class="line">thread.start();</span><br></pre></td></tr></table></figure>
 <p>线程 start() 方法的调用，并不是立即执行多线程的，而是仅仅把线程的状态改变为可执行状态(runnable)，什么时候运行则是由操作系统决定的。</p>
 <h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><p>构造器可以被重载，但是不可以被重写，因为构造器不可以被继承。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">short s1 = 1;</span><br><span class="line">//Type mismatch: cannot convert from int to short</span><br><span class="line">s1 = s1 + 1;</span><br><span class="line"></span><br><span class="line">//正确</span><br><span class="line">short s1 = 1;</span><br><span class="line">s1 += 1;</span><br><span class="line"></span><br><span class="line">int i = 0; </span><br><span class="line">//Type mismatch: cannot convert from int to boolean</span><br><span class="line">if(i) &#123;&#125;</span><br><span class="line"></span><br><span class="line">//Type mismatch: cannot convert from double to float</span><br><span class="line">float a = 2.0;</span><br></pre></td></tr></table></figure>
-<p><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public static void swap(int a, int b) &#123;</span><br><span class="line">	int t = a;</span><br><span class="line">	a = b;</span><br><span class="line">	b = t;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int x = 2;</span><br><span class="line">int y = 3;</span><br><span class="line">swap(x,y);</span><br><span class="line">System.out.println(x); //输出 2</span><br><span class="line">System.out.println(y); //输出 3</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">short</span> s1 = <span class="number">1</span>;</span><br><span class="line"><span class="comment">//Type mismatch: cannot convert from int to short</span></span><br><span class="line">s1 = s1 + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//正确</span></span><br><span class="line"><span class="keyword">short</span> s1 = <span class="number">1</span>;</span><br><span class="line">s1 += <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> i = <span class="number">0</span>; </span><br><span class="line"><span class="comment">//Type mismatch: cannot convert from int to boolean</span></span><br><span class="line"><span class="keyword">if</span>(i) &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Type mismatch: cannot convert from double to float</span></span><br><span class="line"><span class="keyword">float</span> a = <span class="number">2.0</span>;</span><br></pre></td></tr></table></figure>
+<p><br><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> t = a;</span><br><span class="line">	a = b;</span><br><span class="line">	b = t;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> x = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">int</span> y = <span class="number">3</span>;</span><br><span class="line">swap(x,y);</span><br><span class="line">System.out.println(x); <span class="comment">//输出 2</span></span><br><span class="line">System.out.println(y); <span class="comment">//输出 3</span></span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -572,7 +572,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -594,7 +594,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

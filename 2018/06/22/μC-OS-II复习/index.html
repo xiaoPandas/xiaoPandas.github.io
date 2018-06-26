@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="μC/OS-II 嵌入式," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="操作系统基本概念操作系统：为应用程序提供服务的系统软件；层次上位于计算机硬件之上，应用软件之下，也叫应用软件的运行平台。">
+<meta name="keywords" content="μC&#x2F;OS-II 嵌入式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="μC&#x2F;OS-II复习">
+<meta property="og:url" content="http://yoursite.com/2018/06/22/μC-OS-II复习/index.html">
+<meta property="og:site_name" content="xiaoPandas">
+<meta property="og:description" content="操作系统基本概念操作系统：为应用程序提供服务的系统软件；层次上位于计算机硬件之上，应用软件之下，也叫应用软件的运行平台。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oyiq6rmz1.bkt.clouddn.com/%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2.jpg">
+<meta property="og:image" content="http://oyiq6rmz1.bkt.clouddn.com/%E4%BB%BB%E5%8A%A1%E7%BB%93%E6%9E%84.jpg">
+<meta property="og:updated_time" content="2018-06-26T13:39:53.700Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="μC&#x2F;OS-II复习">
+<meta name="twitter:description" content="操作系统基本概念操作系统：为应用程序提供服务的系统软件；层次上位于计算机硬件之上，应用软件之下，也叫应用软件的运行平台。">
+<meta name="twitter:image" content="http://oyiq6rmz1.bkt.clouddn.com/%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '19BJM0J404',
+      apiKey: '2f287374bf03d3739c504b7eaac5a3d0',
+      indexName: 'xiaoPandasblog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键词进行搜索","hits_empty":"找不到关于 ${query} 的文章","hits_stats":"在 ${time} ms 内找到 ${hits} 篇文章"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/22/μC-OS-II复习/"/>
+
+
+
+
+
+  <title>μC/OS-II复习 | xiaoPandas</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">xiaoPandas</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/22/μC-OS-II复习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xiaoPandas">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oyiq6rmz1.bkt.clouddn.com/%E5%A4%B4%E5%83%8F.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xiaoPandas">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">μC/OS-II复习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-22T08:52:54+08:00">
+                2018-06-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/22/μC-OS-II复习/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/06/22/μC-OS-II复习/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="操作系统基本概念"><a href="#操作系统基本概念" class="headerlink" title="操作系统基本概念"></a>操作系统基本概念</h3><p>操作系统：为应用程序提供服务的系统软件；层次上位于计算机硬件之上，应用软件之下，也叫应用软件的运行平台。<br><a id="more"></a><br>作用：</p>
+<ol>
+<li><p>屏蔽了计算机硬件的工作细节；</p>
+</li>
+<li><p>对系统中的资源进行有效的管理；</p>
+</li>
+<li><p>提供函数 (API)，使应用程序设计人员在一个友好的平台进行程序设计和开发，大大提高了应用程序的开发效率。</p>
+</li>
+</ol>
+<p>从用户角度看，操作系统就是一大堆函数 (API 和系统函数)，用户可以调用它们来对系统资源进行操作。</p>
+<p>高级语言的接口 + 用汇编语言编写的硬件抽象层</p>
+<p>功能：</p>
+<ul>
+<li>任务管理：任务表；</li>
+<li>存储管理：存储分配表；</li>
+<li>I/O 设备管理：设备表；</li>
+<li>文件管理：文件目录；</li>
+<li>网络和通信管理；处理器的管理；</li>
+</ul>
+<h3 id="操作系统常用数据结构"><a href="#操作系统常用数据结构" class="headerlink" title="操作系统常用数据结构"></a>操作系统常用数据结构</h3><ol>
+<li><p>数组：分类存放，检索速度快且恒定，占用连续空间大，用于记录同类事物的表；</p>
+</li>
+<li><p>位图：数组的特殊应用，用于登记表；</p>
+</li>
+<li><p>结构：与数组比，不分类存放，是不同数据类型数据的集合，其他一样，用于通讯录中的一条记录，工具箱等；</p>
+</li>
+<li><p>链表：分类存放，空间上不连续，检索速度慢且时间不固定，用于存放大量的较大的表；</p>
+</li>
+<li><p>队列：先进先出，可用数组或链表实现用于对象的排队；</p>
+</li>
+<li><p>栈：先进后出，数组实现，用于程序模块的嵌套运行；</p>
+</li>
+</ol>
+<h3 id="并发操作系统"><a href="#并发操作系统" class="headerlink" title="并发操作系统"></a>并发操作系统</h3><p>并发：由同一个处理器轮换地运行多个程序。</p>
+<p>程序的切换：系统是通过把待运行程序的地址赋予程序计数器 PC 来实现程序的切换的。</p>
+<h4 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h4><p>运行环境包括了两部分：处理器(PC，SP，寄存器组)中的运行环境和内存(任务代码，任务堆栈)中的运行环境；</p>
+<p>处理器通过两个指针寄存器 (PC 和 SP) 来与任务代码和任务堆栈建立联系并运行它；</p>
+<p>多任务时处理器运行环境的切换：</p>
+<ol>
+<li><p>在内存中为每个任务创建一个虚拟处理器；</p>
+</li>
+<li><p>当需要运行某个任务时就把该任务的虚拟处理器复制到实际处理器中；</p>
+</li>
+<li><p>当需要中止当前任务时，则把任务对应的虚拟处理器复制到内存，再把另一个需要运行的任务的虚拟处理器复制到实际处理器中；</p>
+</li>
+<li><p>由操作系统的调度器按某种规则来进行这两个复制工作；</p>
+</li>
+<li><p>也就是说，任务的切换是任务运行环境的切换。</p>
+</li>
+</ol>
+<h4 id="虚拟处理器"><a href="#虚拟处理器" class="headerlink" title="虚拟处理器"></a>虚拟处理器</h4><p>虚拟处理器应该存储的主要信息：<br>(保存在任务堆栈中，也叫任务的上下文)</p>
+<ul>
+<li>程序的断点地址(PC)</li>
+<li>任务堆栈指针(SP)</li>
+<li>程序状态字寄存器(PSW)</li>
+<li>通用寄存器内容</li>
+<li>函数调用信息(已存在于堆栈)</li>
+</ul>
+<p>另外再用一个数据结构保存任务堆栈<br>指针(SP)，这个数据结构叫做任务<br>控制块，它除了保存任务堆栈指针之<br>外还要负责保存任务其他信息(每个任务都有一个,在内存中独立于任务代码和任务堆栈保存)。</p>
+<h3 id="任务管理"><a href="#任务管理" class="headerlink" title="任务管理"></a>任务管理</h3><h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><p>在 μC/OS-II 中，与大型任务分解后得到的小任务对应的程序实体就叫做 “任务”(实质上是一个线程)，μC/OS-II 就是一个能对这些小任务的运行进行管理和调度的多任务操作系统。 </p>
+<p>从应用程序设计的角度来看，μC/OS-II 的任务就是一个用户编写的 C 函数和与之相关联的一些数据结构而构成的一个实体。 </p>
+<p>内存中存有任务的代码和该任务配套的堆栈。</p>
+<h4 id="任务切换过程"><a href="#任务切换过程" class="headerlink" title="任务切换过程"></a>任务切换过程</h4><ol>
+<li><p>获得待运行任务的任务控制块(根据就绪表获得待运行任务的任务控制块指针)；</p>
+</li>
+<li><p>处理器 SP = 任务控制块中保存的 SP；</p>
+</li>
+<li><p>恢复待运行任务的运行环境；</p>
+</li>
+<li><p>处理器 PC = 任务堆栈中的断点地址。</p>
+</li>
+</ol>
+<p>1 之后调度器在调度时应判断待运行任务是否为当前任务。</p>
+<h4 id="状态切换"><a href="#状态切换" class="headerlink" title="状态切换"></a>状态切换</h4><ol>
+<li><p>睡眠状态：任务在没有被配备任务控制块或被剥夺了任务控制块时的状态叫做任务的睡眠状态；</p>
+</li>
+<li><p>就绪状态：系统为任务配备了任务控制块且在任务就绪表中进行了就绪登记，这时任务的状态叫做就绪状态；</p>
+</li>
+<li><p>运行状态：处于就绪状态的任务如果经调度器判断获得了 CPU 的使用权，则任务就进入运行状态；</p>
+</li>
+<li><p>中断服务状态：一个正在运行的任务一旦响应中断申请就会中止运行而去执行中断服务程序，这时任务的状态叫做中断服务状态；</p>
+</li>
+<li><p>等待状态：正在运行的任务，需要等待一段时间或需要等待一个事件发生再运行时，该任务就会把CPU的使用权让给别的任务而使任务进入等待状态。</p>
+</li>
+</ol>
+<p><img src="http://oyiq6rmz1.bkt.clouddn.com/%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2.jpg" alt="状态转换图"></p>
+<h4 id="任务结构-内存中"><a href="#任务结构-内存中" class="headerlink" title="任务结构(内存中)"></a>任务结构(内存中)</h4><p><img src="http://oyiq6rmz1.bkt.clouddn.com/%E4%BB%BB%E5%8A%A1%E7%BB%93%E6%9E%84.jpg" alt="任务结构"></p>
+<p>多个任务靠任务控制块组成了一个任务链表。</p>
+<h4 id="任务控制块"><a href="#任务控制块" class="headerlink" title="任务控制块"></a>任务控制块</h4><p>除了任务的虚拟处理器的堆栈指针寄存器 SP 外，任务控制块还应至少保存以下内容：</p>
+<ol>
+<li><p>由于 μC/OS-II 中的任务都有唯一的优先级别，所以 μC/OS-II 是用优先级来作为任务的标识的，任务控制块还要来保存该任务的<font color="red">优先级别</font>(系统识别并管理任务)；</p>
+</li>
+<li><p>一个任务在不同的时刻还处于不同的状态，所以记录了<font color="red">任务状态的数据</font>也应该保存到任务控制块中。</p>
+</li>
+</ol>
+<p>程序切换的关键：把程序的私有堆栈指针赋予处理器的堆栈指针 SP；系统是通过 SP 的切换来实现程序的切换的。</p>
+<p>注意：</p>
+<ul>
+<li><p>具有控制块的程序才是一个可以被系统所管理和运行的任务；</p>
+</li>
+<li><p>任务的三要件：任务代码(程序)、私有堆栈(用来保护运行环境)、任务控制块(提供私有堆栈也是虚拟处理器的位置)；</p>
+</li>
+<li><p>任务控制块提供了运行环境的存储位置。</p>
+</li>
+</ul>
+<p>结构的主要成员：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">typedef struct os_tcb &#123;</span><br><span class="line">    OS_STK *OSTCBStkPtr;   //指向任务堆栈栈顶的指针</span><br><span class="line">    ……</span><br><span class="line">    struct os_tcb *OSTCBNext;  //指向后一个任务控制块的指针</span><br><span class="line">    struct os_tcb *OSTCBPrev;  //指向前一个任务控制块的指针</span><br><span class="line">    ……</span><br><span class="line">    INT16U OSTCBDly;    //任务等待的时限(节拍数)</span><br><span class="line">    INT8U OSTCBStat;	//任务的当前状态标志</span><br><span class="line">    INT8U OSTCBPrio; 	//任务的优先级别</span><br><span class="line">    ……</span><br><span class="line">&#125; OS_TCB;</span><br></pre></td></tr></table></figure></p>
+<p>OSTCBFreeList：空任务控制块链表，当进行系统初始化时，初始化函数会按用户提供的任务数为系统创建具有相应数量的任务控制块并把它们链接为一个链表。</p>
+<p>OSTCBList：任务控制块链表</p>
+<p><code>OSTCBTbl[0] ~ OSTCBTbl[OS\_MAX\_TASKS + OS\_N_SYS\_TASKS - 2]</code></p>
+<p>OSTCBPrioTbl[]：保存控制块指针的数组，数组下标即为任务优先级别；</p>
+<h4 id="用户任务代码"><a href="#用户任务代码" class="headerlink" title="用户任务代码"></a>用户任务代码</h4><p>任务的代码结构是一个可以带有临界段的无限循环。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">void MyTask(void *pdata)</span><br><span class="line">&#123;</span><br><span class="line">    for (;;) </span><br><span class="line">   &#123;</span><br><span class="line">         可以被中断的用户代码；</span><br><span class="line">         OS_ENTER_CRITICAL( )；  //进入临界段（关中断）</span><br><span class="line">         不可以被中断的用户代码；</span><br><span class="line">         OS_EXIT_CRITICAL( )； 	//退出临界段（开中断）</span><br><span class="line">         可以被中断的用户代码；</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="空闲任务"><a href="#空闲任务" class="headerlink" title="空闲任务"></a>空闲任务</h4><p><code>OSTaskIdle( )</code>：系统在无用户任务可运行而处于空闲状态时执行的一个叫做空闲任务的系统任务；</p>
+<p>空闲任务做计数工作，没有调用任务延时函数；一个用户应用程序必须使用这个空闲任务，不能用软件删除此任务；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">void OS_TaskIdle(void* pdata)</span><br><span class="line">&#123;</span><br><span class="line">    # if OS_CRITICAL_METHOD = = 3</span><br><span class="line">	    OS_CPU_SR cpu_sr;</span><br><span class="line">    #endif</span><br><span class="line"> </span><br><span class="line">	pdata = pdata;		//防止某些编译器报错</span><br><span class="line">	for(;;)</span><br><span class="line">	&#123;</span><br><span class="line">		OS_ENTER_CRITICAL( );   //关闭中断</span><br><span class="line">			OSIdleCtr++;		//计数</span><br><span class="line">		OS_EXIT_CRITICAL( );	//开放中断</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="统计任务"><a href="#统计任务" class="headerlink" title="统计任务"></a>统计任务</h4><p><code>OSTaskStat()</code>：这个统计任务每秒计算一次 CPU 在单位时间内被使用的时间，并把计算结果以百分比的形式存放在变量 <code>OSCPUsage</code> 中，以便应用程序通过访问它来了解 CPU 的利用率； </p>
+<h4 id="优先级别"><a href="#优先级别" class="headerlink" title="优先级别"></a>优先级别</h4><p>0-63：数字越大，级别越低，0 级别最高；</p>
+<p><code>OS_LOWEST_PRIO</code>：表示最低优先级别的常数(在文件 <code>OS\_CFG.H</code> 中)，来说明应用程序中任务优先级别的数目，用户根据应用程序的需要赋值。</p>
+<ul>
+<li><p>该常数一旦被定义，则意味着系统中可供使用的优先级别为：0 … <code>OS\_LOWEST\_PRIO</code>，共 <code>OS\_LOWEST\_PRIO + 1</code> 个；</p>
+</li>
+<li><p>系统总是把最低优先级别 <code>OS_LOWEST_PRIO</code> 自动赋给空闲任务；</p>
+</li>
+<li><p>如果应用程序中还使用了统计任务，系统则会把优先级别 <code>OS_LOWEST_PRIO - 1</code> 自动赋给统计任务，因此用户任务可以使用的优先级别是：0 … <code>OS_LOWEST_PRIO - 2</code>，共 <code>OS_LOWEST_PRIO - 1</code> 个；</p>
+</li>
+</ul>
+<h4 id="任务堆栈"><a href="#任务堆栈" class="headerlink" title="任务堆栈"></a>任务堆栈</h4><p>保存 CPU 寄存器中的内容及存储任务私有数据；</p>
+<ul>
+<li>定义堆栈：</li>
+</ul>
+<p>在应用程序中定义任务堆栈的栈区：定义一个 <code>OS_STK</code> 类型的一个数组并在创建一个任务时把这个数组的地址赋给该任务。<br>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">//定义堆栈的长度</span><br><span class="line">#define	TASK_STK_SIZE 512</span><br><span class="line"></span><br><span class="line">//定义一个数组来作为任务堆栈</span><br><span class="line">OS_STK MyTaskStk[TASK_STK_SIZE];</span><br><span class="line"></span><br><span class="line">//typedef unsigned int OS_STK;  这是系统定义的一个数据类型 </span><br><span class="line"></span><br><span class="line">void main(void)</span><br><span class="line">&#123;</span><br><span class="line">	……</span><br><span class="line">	//创建任务时，要传递任务的堆栈指针和任务优先级别</span><br><span class="line">	OSTaskCreate(</span><br><span class="line">	    MyTask, 	    //任务的指针</span><br><span class="line">        &amp;MyTaskAgu,     //传递给任务的参数</span><br><span class="line">        &amp;MyTaskStk[TASK_STK_SIZE-1],   //任务堆栈栈顶地址</span><br><span class="line">	    20				//任务的优先级别</span><br><span class="line">	);</span><br><span class="line">	……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>使用函数 <code>OSTaskCreate( )</code> 创建任务时，要注意所使用的处理器对堆栈增长方向的支持是向上的还是向下的；</p>
+<ul>
+<li>初始化堆栈</li>
+</ul>
+<p>在创建任务函数 <code>OSTaskCreate( )</code> 中通过调用任务堆栈初始化函数 <code>OSTaskStkInit( )</code> 来完成任务堆栈初始化工作；<br>任务堆栈的初始化就是对该任务的虚拟处理器的初始化。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">OS_STK *OSTaskStkInit(</span><br><span class="line">	void (*task)(void *pd),  </span><br><span class="line">	void *pdato, 				               OS_STK *ptos, </span><br><span class="line">	INT16U opt</span><br><span class="line">)；</span><br></pre></td></tr></table></figure></p>
+<h4 id="任务就绪表"><a href="#任务就绪表" class="headerlink" title="任务就绪表"></a>任务就绪表</h4><p>调度：在多个任务中确定该运行的任务；</p>
+<p>μC/OS_II 进行任务调度的思想：“近似地每时每刻总是让优先级最高的就绪任务处于运行状态”。为了保证这一点，它在系统或用户任务调用系统函数及执行中断服务程序结束时总是调用调度器，来确定应该运行的任务并运行它 。</p>
+<p>系统通过查找任务就绪表来获取待运行任务的优先级；</p>
+<p>OSRdyTbl[8]：任务就绪表，位图，从左至右优先级增大(RAM 中，任务调度依据)；</p>
+<p>OSRdyGrp[]：表明就绪表每行中是否存在就绪任务；</p>
+<p>任务优先级 <code>prio = y * 8 + x;</code></p>
+<p>OSMapTbl[]：把某个数值的第 i 位置1，OSMapTbl[0] = 00000001B。</p>
+<p>三种操作：</p>
+<ul>
+<li><p>入表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">OSRdyTbl[prio&gt;&gt;3] |= OSMapTbl[prio&amp;0x07];</span><br><span class="line">OSRdyGrp |= OSMapTbl[prio&gt;&gt;3];</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>出表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if((OSRdyTbl[prio&gt;&gt;3] &amp;= ~OSMapTbl[prio&amp;0x07]) == 0)</span><br><span class="line">	OSRdyGrp&amp;=~OSMapTbl[prio&gt;&gt;3];</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">y = OSUnMapTal[OSRdyGrp]; </span><br><span class="line">x = OSUnMapTal[OSRdyTbl[y]]; </span><br><span class="line">prio = (y&lt;&lt;3) + x;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="任务切换宏"><a href="#任务切换宏" class="headerlink" title="任务切换宏"></a>任务切换宏</h4><p>任务切换：中止正在运行的任务(当前任务)，转而去运行就绪任务中优先级别最高的那个任务；</p>
+<p>先保护被中止任务的断点数据，后恢复待运行任务的断点数据；</p>
+<p>OSCtxSw() 是一个中断服务程序：</p>
+<ul>
+<li><p>不可以用 push 和 pop 将 pc 压栈和出栈，没有这样的指令；</p>
+</li>
+<li><p>中断动作和过程调用指令可以使 PC 压栈，<br>中断返回指令可以使 PC 出栈；</p>
+</li>
+</ul>
+<p>需要由宏 OS_TASK_SW() 来引发一次中断或者一次调用来使 OSCtxSw() 执行任务切换工作。</p>
+<h4 id="创建任务"><a href="#创建任务" class="headerlink" title="创建任务"></a>创建任务</h4><p>应用程序通过调用 OSTaskCreate() 函数来创建一个任务；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">INT8U OSTaskCreate (</span><br><span class="line">  void (*task)(void *pd),  //指向任务的指针</span><br><span class="line">  void *pdata,	//传递给任务的参数 </span><br><span class="line">  OS_STK *ptos,	//指向任务堆栈栈顶的指针</span><br><span class="line">  INT8U prio	//任务的优先级</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<p>一般来说，任务可以在调用函数 OSStart() 启动任务调度之前来创建，也可以在任务中来创建。但是，μC/OS-II 有一个规定：在调用启动任务函数 OSStart() 之前，必须已经创建了至少一个任务。</p>
+<p>因此，人们习惯上在调用函数 OSStart() 之前先创建一个任务，并赋予它最高的优先级别，从而使它成为起始任务。然后在这个起始任务中，再创建其他各任务。</p>
+<p>如果要使用系统提供的统计任务，则统计任务的初始化函数也必须在这个起始任务中来调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">void main(void)</span><br><span class="line">&#123;	……</span><br><span class="line">	OSInit();  //对μC/OS-II进行初始化</span><br><span class="line">	……</span><br><span class="line">	OSTaskCreate (TaskStart, ……);  //创建任务 TaskStart</span><br><span class="line">	OSStart();  //开始多任务调度</span><br><span class="line">&#125; </span><br><span class="line">void TaskStart(void *pdata)</span><br><span class="line">&#123;</span><br><span class="line">	……  //在这个位置安装并启动 μC/OS-II 的时钟</span><br><span class="line">	OSStatInit();  //初始化统计任务</span><br><span class="line">	……  //在这个位置创建其他任务</span><br><span class="line">	for(;;)</span><br><span class="line">	&#123;</span><br><span class="line">		起始任务 TaskStart 的代码</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="系统准备"><a href="#系统准备" class="headerlink" title="系统准备"></a>系统准备</h3><h4 id="μC-OS-II的初始化"><a href="#μC-OS-II的初始化" class="headerlink" title="μC/OS-II的初始化"></a>μC/OS-II的初始化</h4><p>使用 μC/OS-II 的服务之前要对它自身的运行环境进行初始化；</p>
+<p>OSInit()：</p>
+<ul>
+<li><p>对 μC/OS-II 的所有的全局变量和数据结构进行初始化；<br>主要要创建包括空任务控制块链表在内的 5 个空数据缓冲区和快速地查询任务控制块链表中的各个元素的数组 OSTCBPrioTbl[]；</p>
+</li>
+<li><p>同时创建空闲任务 OSTaskIdle(优先级别为 OS_LOWEST_PRIO)，并赋之以最低的优先级别和永远的就绪状态；</p>
+</li>
+<li><p>如果用户应用程序还要使用统计任务的话（常数 OS_TASK_STAT_EN = 1），则 OSInit() 还要以优先级别为 OS_LOWEST_PRIO - 1 来创建统计任务；</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">void  OSInit (void)</span><br><span class="line">&#123;</span><br><span class="line">    OSInitHookBegin();   /* 调用端口专用初始化代码 */</span><br><span class="line">    OS_InitMisc();   /* 初始化各种变量 */</span><br><span class="line">    OS_InitRdyList();   /* 初始化就绪表 */</span><br><span class="line">    OS_InitTCBList();   /* 初始化任务控制块链表 */</span><br><span class="line">    OS_InitEventList();   /* 初始化事件的空闲列表 */</span><br><span class="line">    OS_FlagInit();   /* 初始化事件标志结构 */</span><br><span class="line">    OS_MemInit();   /* 初始化存储管理器 */</span><br><span class="line">    OS_QInit();   /* 初始化消息队列结构 */</span><br><span class="line">    OS_InitTaskIdle();   /* 创建空闲任务 */</span><br><span class="line">    OS_InitTaskStat();   /* 创建统计任务 */</span><br><span class="line">    OSInitHookEnd();   /* 调用端口专用初始化代码结束 */</span><br><span class="line">    OSDebugInit();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="μC-OS-II的启动"><a href="#μC-OS-II的启动" class="headerlink" title="μC/OS-II的启动"></a>μC/OS-II的启动</h4><p>μC/OS-II 进行任务的管理是从调用启动函数 OSStart() 开始的，前提条件是在调用该函数之前至少创建了一个<font color="red">用户任务</font>；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">void  OSStart (void)</span><br><span class="line">&#123;</span><br><span class="line">    INT8U y;</span><br><span class="line">    INT8U x;</span><br><span class="line">    if (OSRunning == FALSE) &#123;</span><br><span class="line">        y = OSUnMapTbl[OSRdyGrp];   /* 找到最高优先级任务的优先级别 */</span><br><span class="line">        x = OSUnMapTbl[OSRdyTbl[y]];</span><br><span class="line">        OSPrioHighRdy = (INT8U)((y &lt;&lt; 3) + x);</span><br><span class="line">        OSPrioCur = OSPrioHighRdy;</span><br><span class="line">        OSTCBHighRdy = OSTCBPrioTbl[OSPrioHighRdy]; /* 指向最高优先级任务准备运行 */</span><br><span class="line">        OSTCBCur = OSTCBHighRdy;</span><br><span class="line">        OSStartHighRdy();   /* 执行特定代码启动任务 */</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/μC-OS-II-嵌入式/" rel="tag"># μC/OS-II 嵌入式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/21/编译原理复习/" rel="next" title="编译原理复习">
+                <i class="fa fa-chevron-left"></i> 编译原理复习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/24/μC-OS-II复习2/" rel="prev" title="μC/OS-II复习2">
+                μC/OS-II复习2 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="uyan_frame"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://oyiq6rmz1.bkt.clouddn.com/%E5%A4%B4%E5%83%8F.jpg"
+                alt="xiaoPandas" />
+            
+              <p class="site-author-name" itemprop="name">xiaoPandas</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/xiaoPandas" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/5626435388/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#操作系统基本概念"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x57FA;&#x672C;&#x6982;&#x5FF5;" class="headerlink" title="&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x57FA;&#x672C;&#x6982;&#x5FF5;"></a>&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x57FA;&#x672C;&#x6982;&#x5FF5;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作系统常用数据结构"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x5E38;&#x7528;&#x6570;&#x636E;&#x7ED3;&#x6784;" class="headerlink" title="&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x5E38;&#x7528;&#x6570;&#x636E;&#x7ED3;&#x6784;"></a>&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x5E38;&#x7528;&#x6570;&#x636E;&#x7ED3;&#x6784;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发操作系统"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x5E76;&#x53D1;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;" class="headerlink" title="&#x5E76;&#x53D1;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;"></a>&#x5E76;&#x53D1;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#运行环境"><span class="nav-number">3.1.</span> <span class="nav-text"><a href="#&#x8FD0;&#x884C;&#x73AF;&#x5883;" class="headerlink" title="&#x8FD0;&#x884C;&#x73AF;&#x5883;"></a>&#x8FD0;&#x884C;&#x73AF;&#x5883;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#虚拟处理器"><span class="nav-number">3.2.</span> <span class="nav-text"><a href="#&#x865A;&#x62DF;&#x5904;&#x7406;&#x5668;" class="headerlink" title="&#x865A;&#x62DF;&#x5904;&#x7406;&#x5668;"></a>&#x865A;&#x62DF;&#x5904;&#x7406;&#x5668;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#任务管理"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x4EFB;&#x52A1;&#x7BA1;&#x7406;" class="headerlink" title="&#x4EFB;&#x52A1;&#x7BA1;&#x7406;"></a>&#x4EFB;&#x52A1;&#x7BA1;&#x7406;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本概念"><span class="nav-number">4.1.</span> <span class="nav-text"><a href="#&#x57FA;&#x672C;&#x6982;&#x5FF5;" class="headerlink" title="&#x57FA;&#x672C;&#x6982;&#x5FF5;"></a>&#x57FA;&#x672C;&#x6982;&#x5FF5;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#任务切换过程"><span class="nav-number">4.2.</span> <span class="nav-text"><a href="#&#x4EFB;&#x52A1;&#x5207;&#x6362;&#x8FC7;&#x7A0B;" class="headerlink" title="&#x4EFB;&#x52A1;&#x5207;&#x6362;&#x8FC7;&#x7A0B;"></a>&#x4EFB;&#x52A1;&#x5207;&#x6362;&#x8FC7;&#x7A0B;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#状态切换"><span class="nav-number">4.3.</span> <span class="nav-text"><a href="#&#x72B6;&#x6001;&#x5207;&#x6362;" class="headerlink" title="&#x72B6;&#x6001;&#x5207;&#x6362;"></a>&#x72B6;&#x6001;&#x5207;&#x6362;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#任务结构-内存中"><span class="nav-number">4.4.</span> <span class="nav-text"><a href="#&#x4EFB;&#x52A1;&#x7ED3;&#x6784;-&#x5185;&#x5B58;&#x4E2D;" class="headerlink" title="&#x4EFB;&#x52A1;&#x7ED3;&#x6784;(&#x5185;&#x5B58;&#x4E2D;)"></a>&#x4EFB;&#x52A1;&#x7ED3;&#x6784;(&#x5185;&#x5B58;&#x4E2D;)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#任务控制块"><span class="nav-number">4.5.</span> <span class="nav-text"><a href="#&#x4EFB;&#x52A1;&#x63A7;&#x5236;&#x5757;" class="headerlink" title="&#x4EFB;&#x52A1;&#x63A7;&#x5236;&#x5757;"></a>&#x4EFB;&#x52A1;&#x63A7;&#x5236;&#x5757;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用户任务代码"><span class="nav-number">4.6.</span> <span class="nav-text"><a href="#&#x7528;&#x6237;&#x4EFB;&#x52A1;&#x4EE3;&#x7801;" class="headerlink" title="&#x7528;&#x6237;&#x4EFB;&#x52A1;&#x4EE3;&#x7801;"></a>&#x7528;&#x6237;&#x4EFB;&#x52A1;&#x4EE3;&#x7801;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#空闲任务"><span class="nav-number">4.7.</span> <span class="nav-text"><a href="#&#x7A7A;&#x95F2;&#x4EFB;&#x52A1;" class="headerlink" title="&#x7A7A;&#x95F2;&#x4EFB;&#x52A1;"></a>&#x7A7A;&#x95F2;&#x4EFB;&#x52A1;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#统计任务"><span class="nav-number">4.8.</span> <span class="nav-text"><a href="#&#x7EDF;&#x8BA1;&#x4EFB;&#x52A1;" class="headerlink" title="&#x7EDF;&#x8BA1;&#x4EFB;&#x52A1;"></a>&#x7EDF;&#x8BA1;&#x4EFB;&#x52A1;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#优先级别"><span class="nav-number">4.9.</span> <span class="nav-text"><a href="#&#x4F18;&#x5148;&#x7EA7;&#x522B;" class="headerlink" title="&#x4F18;&#x5148;&#x7EA7;&#x522B;"></a>&#x4F18;&#x5148;&#x7EA7;&#x522B;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#任务堆栈"><span class="nav-number">4.10.</span> <span class="nav-text"><a href="#&#x4EFB;&#x52A1;&#x5806;&#x6808;" class="headerlink" title="&#x4EFB;&#x52A1;&#x5806;&#x6808;"></a>&#x4EFB;&#x52A1;&#x5806;&#x6808;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#任务就绪表"><span class="nav-number">4.11.</span> <span class="nav-text"><a href="#&#x4EFB;&#x52A1;&#x5C31;&#x7EEA;&#x8868;" class="headerlink" title="&#x4EFB;&#x52A1;&#x5C31;&#x7EEA;&#x8868;"></a>&#x4EFB;&#x52A1;&#x5C31;&#x7EEA;&#x8868;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#任务切换宏"><span class="nav-number">4.12.</span> <span class="nav-text"><a href="#&#x4EFB;&#x52A1;&#x5207;&#x6362;&#x5B8F;" class="headerlink" title="&#x4EFB;&#x52A1;&#x5207;&#x6362;&#x5B8F;"></a>&#x4EFB;&#x52A1;&#x5207;&#x6362;&#x5B8F;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建任务"><span class="nav-number">4.13.</span> <span class="nav-text"><a href="#&#x521B;&#x5EFA;&#x4EFB;&#x52A1;" class="headerlink" title="&#x521B;&#x5EFA;&#x4EFB;&#x52A1;"></a>&#x521B;&#x5EFA;&#x4EFB;&#x52A1;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统准备"><span class="nav-number">5.</span> <span class="nav-text"><a href="#&#x7CFB;&#x7EDF;&#x51C6;&#x5907;" class="headerlink" title="&#x7CFB;&#x7EDF;&#x51C6;&#x5907;"></a>&#x7CFB;&#x7EDF;&#x51C6;&#x5907;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#μC-OS-II的初始化"><span class="nav-number">5.1.</span> <span class="nav-text"><a href="#&#x3BC;C-OS-II&#x7684;&#x521D;&#x59CB;&#x5316;" class="headerlink" title="&#x3BC;C/OS-II&#x7684;&#x521D;&#x59CB;&#x5316;"></a>&#x3BC;C/OS-II&#x7684;&#x521D;&#x59CB;&#x5316;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#μC-OS-II的启动"><span class="nav-number">5.2.</span> <span class="nav-text"><a href="#&#x3BC;C-OS-II&#x7684;&#x542F;&#x52A8;" class="headerlink" title="&#x3BC;C/OS-II&#x7684;&#x542F;&#x52A8;"></a>&#x3BC;C/OS-II&#x7684;&#x542F;&#x52A8;</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o" aria-hidden="true"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiaoPandas</span>
+
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数：<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+
+<!--
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+--!>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2152066"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'JXAo1V98Jxty3jaqIK99PaeV-gzGzoHsz',
+        appKey: 'OLlQNbYqajqOpiOwLPsvt92c',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

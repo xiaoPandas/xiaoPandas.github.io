@@ -88,7 +88,7 @@
 <meta property="og:description" content="用邻接表表示的图进行深度优先遍历时，常采用 __ 结构。栈">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://oyiq6rmz1.bkt.clouddn.com/%E6%95%B0%E6%8D%AE%E5%B0%81%E8%A3%85.png">
-<meta property="og:updated_time" content="2018-05-21T04:28:13.635Z">
+<meta property="og:updated_time" content="2018-05-21T04:47:35.175Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="笔试记录三">
 <meta name="twitter:description" content="用邻接表表示的图进行深度优先遍历时，常采用 __ 结构。栈">
@@ -414,14 +414,8 @@
 </li>
 <li><p>为了使多个进程能够有效地同时处理输入和输出，最好使用 <em>__</em> 结构的缓冲技术。<br>缓冲池<br>解析：<br>缓冲池是系统共用资源，可供多个进程共享，并且既能用于输入又能用于输出。</p>
 </li>
-<li><p>进程通信中， <em>__</em> 常通过变量和数组形式实现。<br>低级通信<br>解析：<br>进程通信分为低级通信和高级通信：</p>
+<li><p>进程通信中， <em>__</em> 常通过变量和数组形式实现。<br>低级通信<br>解析：<br>进程通信分为低级通信和高级通信：<br>低级通信：只能传递状态和整数值，传递信息量少，效率低，每次通信传递的信息量固定。<br>高级通信：提高信号通信的效率，传递大量数据，减轻编程复杂度；分为三种方式：共享内存模式，消息传递模式，共享文件模式。</p>
 </li>
-</ol>
-<ul>
-<li>低级通信：只能传递状态和整数值，传递信息量少，效率低，每次通信传递的信息量固定。</li>
-<li>高级通信：提高信号通信的效率，传递大量数据，减轻编程复杂度；分为三种方式：共享内存模式，消息传递模式，共享文件模式。</li>
-</ul>
-<ol>
 <li><p>重启 Linux 系统的同时把内存的信息写入硬盘，应该使用 <em>__</em> 命令。<br><code>#shutdown -r now</code><br>解析：<br><a href="https://www.nowcoder.com/questionTerminal/00dad2d2c62f4d66868a6ec37ea8dc8e?toCommentId=62146" target="_blank" rel="noopener">具体解析</a></p>
 </li>
 <li><p>ROM 存储器中必须有 <em>__</em> 电路。<br>地址译码<br>解析：<br>ROM 是只读存储器，信息已固化在存储器中，数据不会因为电源关闭而消失。ROM 由地址译码器、存储矩阵、读出电路以及芯片选择逻辑等组成。</p>
@@ -438,16 +432,8 @@
 </li>
 <li><p>操作系统中有一组常称为特殊系统调用，它不能被系统中断，在操作系统中称为 ___。<br>原语<br>解析：<br>原语是原子操作，在执行过程中不允许被中断；<br>原语在管态下执行。</p>
 </li>
-<li><p>MySQL 的默认 innodb 引擎事务隔离级别是 <em>__</em> 。<br>可重复读 (Repeatable read)<br>解析：<br>四类隔离级别，分别是：</p>
+<li><p>MySQL 的默认 innodb 引擎事务隔离级别是 <em>__</em> 。<br>可重复读 (Repeatable read)<br>解析：<br>四类隔离级别，分别是：<br>未提交读 (Read uncommitted)：一个事务可以看到其他未提交事务的执行结果；<br>已提交读 (Read committed)：大多数数据库的默认事务隔离级别 (但 MySQL 不是)，一个事务只能看到已提交事务的结果；<br>可重复读 (Repeatable read)：MySQL 的默认事务隔离级别，确保同一事务的多个实例在并发读取数据时，会看到同样的结果。<br>可串行化 (SERIALIZABLE)：完全串行化的读，在每个读的数据行上都加上共享锁，大大降低了数据库的吞吐性能。</p>
 </li>
-</ol>
-<ul>
-<li>未提交读 (Read uncommitted)：一个事务可以看到其他未提交事务的执行结果；</li>
-<li>已提交读 (Read committed)：大多数数据库的默认事务隔离级别 (但 MySQL 不是)，一个事务只能看到已提交事务的结果；</li>
-<li>可重复读 (Repeatable read)：MySQL 的默认事务隔离级别，确保同一事务的多个实例在并发读取数据时，会看到同样的结果。</li>
-<li>可串行化 (SERIALIZABLE)：完全串行化的读，在每个读的数据行上都加上共享锁，大大降低了数据库的吞吐性能。</li>
-</ul>
-<ol>
 <li><p>可以单独与 finally 语句使用的块是 <em>__</em> 。<br>try<br>解析：<br>使用 try···catch 块捕获异常时可以没有 catch 块，此时就必须有 finally 块。</p>
 </li>
 <li><p>负载压力测试不包括<br>A.访问量 &nbsp; B.点击次数 &nbsp; C.业务处理时间 &nbsp; D.业务请求吞吐量<br>C</p>
@@ -498,6 +484,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/24/笔试记录四/" rel="prev" title="笔试记录四">
+                笔试记录四 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -574,7 +564,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -596,7 +586,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="μC/OS-II 嵌入式," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="μC/OS-II的中断和时钟主要内容：  μC/OS-II 的中断管理和中断服务程序的结构；  μC/OS-II 的系统时钟及实现方法；">
+<meta name="keywords" content="μC&#x2F;OS-II 嵌入式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="μC&#x2F;OS-II复习2">
+<meta property="og:url" content="http://yoursite.com/2018/06/24/μC-OS-II复习2/index.html">
+<meta property="og:site_name" content="xiaoPandas">
+<meta property="og:description" content="μC/OS-II的中断和时钟主要内容：  μC/OS-II 的中断管理和中断服务程序的结构；  μC/OS-II 的系统时钟及实现方法；">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oyiq6rmz1.bkt.clouddn.com/%E4%B8%AD%E6%96%AD%E5%93%8D%E5%BA%94%E8%BF%87%E7%A8%8B.jpg">
+<meta property="og:image" content="http://oyiq6rmz1.bkt.clouddn.com/ECB.jpg">
+<meta property="og:image" content="http://oyiq6rmz1.bkt.clouddn.com/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97.jpg">
+<meta property="og:updated_time" content="2018-06-26T13:41:04.650Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="μC&#x2F;OS-II复习2">
+<meta name="twitter:description" content="μC/OS-II的中断和时钟主要内容：  μC/OS-II 的中断管理和中断服务程序的结构；  μC/OS-II 的系统时钟及实现方法；">
+<meta name="twitter:image" content="http://oyiq6rmz1.bkt.clouddn.com/%E4%B8%AD%E6%96%AD%E5%93%8D%E5%BA%94%E8%BF%87%E7%A8%8B.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '19BJM0J404',
+      apiKey: '2f287374bf03d3739c504b7eaac5a3d0',
+      indexName: 'xiaoPandasblog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键词进行搜索","hits_empty":"找不到关于 ${query} 的文章","hits_stats":"在 ${time} ms 内找到 ${hits} 篇文章"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/24/μC-OS-II复习2/"/>
+
+
+
+
+
+  <title>μC/OS-II复习2 | xiaoPandas</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">xiaoPandas</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/24/μC-OS-II复习2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xiaoPandas">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oyiq6rmz1.bkt.clouddn.com/%E5%A4%B4%E5%83%8F.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xiaoPandas">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">μC/OS-II复习2</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-24T22:36:59+08:00">
+                2018-06-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/24/μC-OS-II复习2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/06/24/μC-OS-II复习2/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="μC-OS-II的中断和时钟"><a href="#μC-OS-II的中断和时钟" class="headerlink" title="μC/OS-II的中断和时钟"></a>μC/OS-II的中断和时钟</h3><p>主要内容：</p>
+<ul>
+<li><p>μC/OS-II 的中断管理和中断服务程序的结构；</p>
+</li>
+<li><p>μC/OS-II 的系统时钟及实现方法；</p>
+<a id="more"></a></li>
+<li>μC/OS-II 的时间管理服务：延时，取消延时；</li>
+</ul>
+<h4 id="临界段"><a href="#临界段" class="headerlink" title="临界段"></a>临界段</h4><p>在应用程序中经常有一些代码段必须不受任何干扰地连续运行，这样的代码段叫做临界段。</p>
+<p>为了使临界段在运行时不受中断所打断，在临界段代码前必须用关中断指令使 CPU 屏蔽中断请求，而在临界段代码后必须用开中断指令解除屏蔽使得 CPU 可以响应中断请求。</p>
+<p>由于各厂商生产的 CPU 和 C 编译器的关中断和开中断的方法和指令不尽相同，为增强 μC/OS-II 的可移植性（即在 μC/OS-II 的各个 C 函数中尽可能地不出现汇编语言代码)，μC/OS-II 用两个宏来实现中断的开放和关闭，而把与系统的硬件相关的关中断和开中断的指令分别封装在这两个宏中：<br><code>OS_ENTER_CRITICAL()</code>  &nbsp;&nbsp; <code>OS_EXIT_CRITICAL()</code></p>
+<p>临界代码保护方式，即上述两个宏的实现方法有 3 种：</p>
+<ul>
+<li><p><code>OS\_CRITICAL\_METHOD = 1</code><br>直接使用处理器的开中断和关中断指令来实现宏，简单高效，但无法满足嵌套的情况；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#if OS_CRITICAL_METHOD == 1</span><br><span class="line">#define OS_ENTER_CRITICAL()  ARMDisableInt();   /* Disable interrupts  */</span><br><span class="line">#define OS_EXIT_CRITICAL()   ARMEnableInt();   /* Restore  interrupts   */</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>OS\_CRITICAL\_METHOD = 2</code><br>可以使 CPU 中断允许标志的状态，在临界段前和临界段后不发生改变；把 CPU 的允许中断标志保持到堆栈中，然后再关闭中断，这样在临界段结束时，只要把堆栈中保存的 CPU 允许中断状态恢复就可以了；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#define OS_ENTER_CRITICAL() __asm__(&quot;pushf \n\t cli&quot;)  </span><br><span class="line">#define OS_EXIT_CRITICAL() __asm__(&quot;popf&quot;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>OS\_CRITICAL\_METHOD = 3</code><br>在关中断前，使用局部变量保存中断状态；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#if OS_CRITICAL_METHOD == 3</span><br><span class="line">#define OS_ENTER_CRITICAL()  (cpu_sr = OS_CPU_SR_Save());   //关中断</span><br><span class="line">#define  OS_EXIT_CRITICAL()   (OS_CPU_SR_Restore(cpu_sr));  //开中断</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">OS_CPU_SR_Save</span><br><span class="line">    MRS R0,CPSR   //Set IRQ and FIQ bits in CPSR to disable all interrupts</span><br><span class="line">    ORR R1,R0,#NO_INT</span><br><span class="line">    MSR CPSR_c,R1   //c control field mask byte (PSR[7:0]) </span><br><span class="line">    MRS R1,CPSR   //Confirm that CPSR contains the proper interrupt disable flags</span><br><span class="line">    AND R1,R1,#NO_INT</span><br><span class="line">    CMP R1,#NO_INT</span><br><span class="line">    BNE OS_CPU_SR_Save   //Not properly disabled (try again)</span><br><span class="line">    MOV PC,LR   //Disabled, return the original CPSR contents in R0</span><br><span class="line"></span><br><span class="line">OS_CPU_SR_Restore</span><br><span class="line">    MSR CPSR_c,R0</span><br><span class="line">    MOV PC,LR</span><br><span class="line">       </span><br><span class="line">ARMDisableInt             	    </span><br><span class="line">	MRS R12, CPSR   //get current CPU mode</span><br><span class="line">  	ORR R12, R12, #I_BIT   //set the interrupt disable mode bit</span><br><span class="line">  	MSR CPSR_c, R12         </span><br><span class="line">  	BX LR                  </span><br><span class="line"></span><br><span class="line">ARMEnableInt</span><br><span class="line">  	MRS R12, CPSR   //move current processor status into reg 12  </span><br><span class="line">  	BIC R12, R12, #I_BIT   //clear the interrupt disable bit</span><br><span class="line">  	MSR CPSR_c, R12           </span><br><span class="line">  	BX LR</span><br></pre></td></tr></table></figure>
+<h4 id="系统响应中断的过程"><a href="#系统响应中断的过程" class="headerlink" title="系统响应中断的过程"></a>系统响应中断的过程</h4><ul>
+<li><p>系统接收到中断请求；</p>
+</li>
+<li><p>这时如果 CPU 处于中断允许状态(即中断是开放的)，系统就会中止正在运行的当前任务，而按照中断向量的指向转而去运行中断服务子程序；</p>
+</li>
+<li><p>当中断服务子程序的运行结束后，系统将会根据情况返回到被中止的任务继续运行<font color="red">或者转向运行另一个具有更高优先级别的就绪任务</font>(进行一次任务调度)。</p>
+</li>
+</ul>
+<p><img src="http://oyiq6rmz1.bkt.clouddn.com/%E4%B8%AD%E6%96%AD%E5%93%8D%E5%BA%94%E8%BF%87%E7%A8%8B.jpg" alt="中断响应过程"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">void  OSIntEnter (void)</span><br><span class="line">&#123;</span><br><span class="line">    if (OSRunning == TRUE)</span><br><span class="line">    &#123;</span><br><span class="line">        if (OSIntNesting &lt; 255) </span><br><span class="line">        &#123;</span><br><span class="line">            OSIntNesting++;   //中断嵌套层数计数器加一</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void  OSIntExit (void)</span><br><span class="line">&#123;</span><br><span class="line">    #if OS_CRITICAL_METHOD == 3   //临界代码保护方式 </span><br><span class="line">        OS_CPU_SR cpu_sr;   //获得程序状态字，保存在局部变量 cpu_sr 中</span><br><span class="line">    #endif    </span><br><span class="line">    if (OSRunning == TRUE) </span><br><span class="line">	&#123;</span><br><span class="line">	    //进入临界区，关中断</span><br><span class="line">        OS_ENTER_CRITICAL();</span><br><span class="line">        if (OSIntNesting &gt; 0) </span><br><span class="line">		&#123;</span><br><span class="line">            OSIntNesting--;   //中断嵌套层数计数器减一</span><br><span class="line">        &#125;</span><br><span class="line">        if ((OSIntNesting == 0) &amp;&amp; (OSLockNesting == 0)) </span><br><span class="line">		&#123;</span><br><span class="line">            OSIntExitY = OSUnMapTbl[OSRdyGrp];</span><br><span class="line">            OSPrioHighRdy = (INT8U)((OSIntExitY &lt;&lt; 3) </span><br><span class="line">+ OSUnMapTbl[OSRdyTbl[OSIntExitY]]);</span><br><span class="line">            if (OSPrioHighRdy != OSPrioCur) </span><br><span class="line">			&#123;</span><br><span class="line">                OSTCBHighRdy = OSTCBPrioTbl[OSPrioHighRdy];</span><br><span class="line">                OSCtxSwCtr++;</span><br><span class="line">                OSIntCtxSw();   //任务切换函数</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //退出临界区，开中断</span><br><span class="line">        OS_EXIT_CRITICAL();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="中断级任务切换函数"><a href="#中断级任务切换函数" class="headerlink" title="中断级任务切换函数"></a>中断级任务切换函数</h4><p>OSIntCtxSw()：在中断服务程序中调用的负责任务切换工作的函数；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">OSIntCtxSw( )</span><br><span class="line">&#123;</span><br><span class="line">    OSTCBCur = OSTCBHighRdy;   //任务控制块的切换	</span><br><span class="line">    OSPrioCur = OSPrioHighRdy;</span><br><span class="line">    SP = OSTCBHighRdy-&gt;OSTCBStkPtr;   //SP指向待运行任务堆栈用出栈指令把 R1,R2,…… 弹入 CPU 的通用寄存器；</span><br><span class="line">    RETI;   //中断返回，使 PC 指向待运行任务</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="μC-OS-II的系统时钟"><a href="#μC-OS-II的系统时钟" class="headerlink" title="μC/OS-II的系统时钟"></a>μC/OS-II的系统时钟</h3><p>μC/OS-II 与大多数计算机系统一样，用硬件定时器产生一个周期为 ms 级的周期性中断来实现系统时钟，最小的时钟单位就是两次中断之间相间隔的时间，这个最小时钟单位叫做<font color="red">时钟节拍</font>(Time Tick)。</p>
+<h4 id="OSTickISR-amp-OSTimeTick"><a href="#OSTickISR-amp-OSTimeTick" class="headerlink" title="OSTickISR() &amp; OSTimeTick()"></a>OSTickISR() &amp; OSTimeTick()</h4><p>硬件定时器以时钟节拍为周期定时地产生中断，该中断的中断服务程序叫做 OSTickISR()。</p>
+<p>中断服务程序通过调用函数 OSTimeTick() 来完成系统在每个时钟节拍时需要做的工作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">//时钟中断服务程序</span><br><span class="line">void OSTickISR(void)</span><br><span class="line">&#123;</span><br><span class="line">	保存CPU寄存器；</span><br><span class="line">	调用OSIntEnter();   //记录中断嵌套层数</span><br><span class="line">	if (OSIntNesting == 1)</span><br><span class="line">	&#123;</span><br><span class="line">		OSTCBCur-&gt;OSTCBStkPtr = SP;   //保存堆栈指针</span><br><span class="line">	&#125;</span><br><span class="line">	调用OSTimeTick();   //节拍处理</span><br><span class="line">	清除中断；</span><br><span class="line">	开中断；</span><br><span class="line">	调用 OSIntExit();   //中断嵌套层数减一 </span><br><span class="line">	恢复 CPU 寄存器；</span><br><span class="line">	中断返回；</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">* 时钟节拍服务函数：</span><br><span class="line">* 在每个时钟节拍了解每个任务的延时状态，使其中已经到了延时时限的非挂起任务进入就绪状态</span><br><span class="line">*/</span><br><span class="line">void  OSTimeTick (void)</span><br><span class="line">&#123;</span><br><span class="line">	……</span><br><span class="line">    OSTimeTickHook();</span><br><span class="line">	……</span><br><span class="line">    OSTime++;   //记录节拍数</span><br><span class="line">    ……</span><br><span class="line">if (OSRunning = = TRUE) </span><br><span class="line">&#123;    </span><br><span class="line">    ptcb = OSTCBList;</span><br><span class="line">    while (ptcb-&gt;OSTCBPrio != OS_IDLE_PRIO) </span><br><span class="line">    &#123;</span><br><span class="line">        OS_ENTER_CRITICAL();</span><br><span class="line">        if (ptcb-&gt;OSTCBDly != 0) </span><br><span class="line">	    &#123;</span><br><span class="line">            if (--ptcb-&gt;OSTCBDly == 0)   //任务的延时时间减一</span><br><span class="line">	        &#123;</span><br><span class="line">                if ((ptcb-&gt;OSTCBStat &amp; OS_STAT_SUSPEND) == OS_STAT_RDY) </span><br><span class="line">	            &#123; </span><br><span class="line">                    OSRdyGrp |= ptcb-&gt;OSTCBBitY;</span><br><span class="line">                    OSRdyTbl[ptcb-&gt;OSTCBY] |= ptcb-&gt;OSTCBBitX;</span><br><span class="line">                &#125; </span><br><span class="line">                else </span><br><span class="line">                &#123;</span><br><span class="line">                    ptcb-&gt;OSTCBDly = 1;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ptcb = ptcb-&gt;OSTCBNext;</span><br><span class="line">        OS_EXIT_CRITICAL();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="任务的延时"><a href="#任务的延时" class="headerlink" title="任务的延时"></a>任务的延时</h4><p>由于嵌入式系统的任务是一个无限循环，并且 μC/OS-II 还是一个抢占式内核，所以为了使高优先级别的任务不至于独占 CPU，可以给其他任务优先级别较低的任务获得 CPU 使用权的机会：</p>
+<p>μC/OS-II 规定：除了空闲任务之外的所有任务必须在任务中合适的位置调用系统提供的函数 OSTimeDly()，使当前任务的运行延时(暂停)一段时间并进行一次任务调度，以让出 CPU 的使用权。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">void  OSTimeDly (INT16U ticks)</span><br><span class="line">&#123;</span><br><span class="line">    #if OS_CRITICAL_METHOD == 3 </span><br><span class="line">        OS_CPU_SR  cpu_sr;</span><br><span class="line">    #endif    </span><br><span class="line"> 	if (ticks &gt; 0) </span><br><span class="line">    &#123; </span><br><span class="line">        OS_ENTER_CRITICAL( );</span><br><span class="line">        if ((OSRdyTbl[OSTCBCur-&gt;OSTCBY] &amp;= ~OSTCBCur-&gt;OSTCBBitX) == 0) </span><br><span class="line">        &#123; </span><br><span class="line">            OSRdyGrp &amp;= ~OSTCBCur-&gt;OSTCBBitY;   //取消当前任务的就绪状态</span><br><span class="line">        &#125;</span><br><span class="line">        OSTCBCur-&gt;OSTCBDly = ticks;//延时节拍数存入任务控制块</span><br><span class="line">        OS_EXIT_CRITICAL();</span><br><span class="line">        OS_Sched( );   //调用调度函数</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="其他用来管理时间的函数"><a href="#其他用来管理时间的函数" class="headerlink" title="其他用来管理时间的函数"></a>其他用来管理时间的函数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//取消任务延时函数</span><br><span class="line">INT8U OSTimeDlyResume(INT8U prio);</span><br><span class="line"></span><br><span class="line">//获得系统时间函数</span><br><span class="line">INT32U OSTimeGet(void);</span><br><span class="line"></span><br><span class="line">//设置系统时间函数</span><br><span class="line">void OSTimeSet(INT32U ticks);</span><br></pre></td></tr></table></figure>
+<h3 id="任务的同步和通信"><a href="#任务的同步和通信" class="headerlink" title="任务的同步和通信"></a>任务的同步和通信</h3><p>需要的原因：</p>
+<ul>
+<li><p>多个任务运行时，经常需要互相无冲突的访问同一个共享资源；</p>
+</li>
+<li><p>或者需要互相支持和依赖；</p>
+</li>
+<li><p>或者互相加以必要的限制和制约，才能保证任务的顺利运行；</p>
+</li>
+</ul>
+<p>所以多个任务共享同一资源或有工作顺序要求时，正式工作前要先进行通信。</p>
+<h4 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h4><p>任务间的同步依赖于任务间的通信。在 μC/OS-II 中，是使用信号量、消息邮箱和消息队列这些被称作事件的中间环节来实现任务之间的通信的。 </p>
+<h4 id="事件控制块"><a href="#事件控制块" class="headerlink" title="事件控制块"></a>事件控制块</h4><p>事件控制块 ECB(Event Control Block)：描述诸如信号量、消息邮箱和消息队列这些事件；其中包含了包括等待任务表在内的所有有关事件的数据 。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">typedef struct </span><br><span class="line">&#123;</span><br><span class="line">   INT8U OSEventType;   //事件的类型</span><br><span class="line">   INT16U OSEventCnt;	//信号量计数器</span><br><span class="line">   void *OSEventPtr;	//消息或消息队列的指针</span><br><span class="line">   INT8U OSEventGrp;	//等待事件的任务组</span><br><span class="line">   INT8U OSEventTbl[OS_EVENT_TBL_SIZE];   //任务等待表</span><br><span class="line">&#125; OS_EVENT;</span><br><span class="line"></span><br><span class="line">// OSEventGrp 和 OSEventTbl[] 参考任务控制块的 OSRdyGrp 和 OSRdyTbl[]</span><br></pre></td></tr></table></figure>
+<p><img src="http://oyiq6rmz1.bkt.clouddn.com/ECB.jpg" alt="ECB"></p>
+<ul>
+<li><p><code>OS_EventTaskWait()</code>：把一个任务置于等待状态。<br>该函数通常在任务调用函数 OS×××Pend() 请求一个事件时，被 OS×××Pend() 所调用。<br><code>void OS_EventTaskWait (OS_EVENT *pevent)</code></p>
+</li>
+<li><p><code>OS_EventTaskRdy()</code>： 把等待态任务变为就绪态。<br>该函数通常在任务调用函数 OS×××Post() 发送一个事件时，被 OS×××Post() 所调用。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//把调用这个函数的任务在任务等待表清 0，在任务就绪表置 1，然后引发一次任务调度</span><br><span class="line">INT8U  OS_EventTaskRdy (</span><br><span class="line">    OS_EVENT *pevent,   //事件控制块的指针</span><br><span class="line">    void *msg,   //未使用</span><br><span class="line">    INT8U msk    //清除TCB状态标志掩码</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>OS_EventTO()</code>：正在等待事件的任务已经超过了等待时间，未具备可以运行的条件，但要使它进入就绪态。<br>该函数通常在任务调用函数 OS×××Pend() 请求一个事件时，被 OS×××Pend() 所调用。<br><code>void OS_EventTO (OS_EVENT *pevent)</code></p>
+</li>
+</ul>
+<p>空事件控制块链表(OSEventFreeList)：</p>
+<p>在 μC/OS-II 初始化时，系统会在初始化函数 OSInit() 中按应用程序使用事件的总数创建 OS_MAX_EVENTS 个空事件控制块并使用成员 OSEventPtr 作为链接指针，把这些空事件控制块链接成一个单向链表。</p>
+<h4 id="信号量及其操作"><a href="#信号量及其操作" class="headerlink" title="信号量及其操作"></a>信号量及其操作</h4><ol>
+<li><p><code>OSSemCreate()</code>：创建信号量，并对计数初值赋值，0-65535；<br><code>OS_EVENT *OSSemCreate (INT16U cnt);</code><br>执行步骤：<br>从空闲事件控制块链表中得到一个 ECB；<br>初始化 ECB，包括设置信号量的初始值、把等待任务列表清零、设置 ECB 的事件类型等；<br>返回一个指向该事件控制块的指针。</p>
+</li>
+<li><p><code>OSSemPend()</code>：请求信号量，操作系统的 P 操作，将信号量的值减 1；<br><code>void OSSemPend (OS_EVENT *pevent, INT16U timeout, INT8U *err);</code><br>timeout = 0 表示任务等待时间为无限长；<br>执行步骤：<br>如果信号量的计数值大于 0，将它减 1 并返回；<br>如果信号量的值等于 0，则调用本函数的任务将被阻塞起来，等待另一个任务把它唤醒，<br>然后调用 OSSched() 函数，调度下一个最高优先级的任务运行。</p>
+</li>
+<li><p><code>OSSemPost()</code>：释放信号量，操作系统的 V 操作，将信号量的值加 1；<br><code>INT8U OSSemPost (OS_EVENT *pevent);</code><br>执行步骤<br>检查是否有任务在等待该信号量，如果没有，将信号量的计数值加1并返回；<br>如果有，将优先级最高的任务从等待任务列表中删除，并使它进入就绪状态，<br>调用OSSched()，判断是否需要进行任务切换。</p>
+</li>
+<li><p><code>OSSemDel()</code>：删除信号量；<br>pevent：信号量的指针，opt：删除条件选项，err：错误信息。<br><code>OS_EVENT *OSSemDel (OS_EVENT *pevent, INT8U opt, INT8U *err);</code></p>
+</li>
+</ol>
+<h4 id="任务优先级反转"><a href="#任务优先级反转" class="headerlink" title="任务优先级反转"></a>任务优先级反转</h4><ul>
+<li><p>任务优先级反转：在可剥夺型内核中，当任务以独占方式使用共享资源时，出现的低优先级任务先于高优先级任务而被运行的现象。</p>
+</li>
+<li><p>互斥型信号量：有一个共享资源，用于保护该资源的信号量在同一时间只允许一个任务以独占的方式对该资源进行访问。</p>
+</li>
+</ul>
+<p>优先级反转出现原因：</p>
+<p>使用信号量的任务是否能够运行是受任务的优先级别和是否占用信号量两个条件约束的，而信号量的约束高于优先级别的约束。</p>
+<p>于是当出现低优先级别的任务与高优先级别的任务使用同一个信号量，而系统中还存有别的中等优先级别的任务时：</p>
+<p>如果低优先级别的任务先获得了信号量，就会使高级别的任务处于等待状态，而那些不使用该信号量的中等级别的任务却可以剥夺低优先级别的任务的 CPU 使用权而先于高优先级别的任务而运行了。 </p>
+<p>解决方法：</p>
+<p>使获得信号量任务的优先级别在使用共享资源期间暂时提升到所有任务最高优先级的高一个级别上，以使该任务不被其他的任务所打断，从而能尽快地使用完共享资源并释放信号量，然后在释放了信号量之后再恢复该任务原来的优先级别。 </p>
+<h4 id="互斥型信号量"><a href="#互斥型信号量" class="headerlink" title="互斥型信号量"></a>互斥型信号量</h4><p>互斥型信号量的事件控制块：</p>
+<p>成员 OSEventType 要赋以常数 OS_EVENT_TYPE_MUTEX 以表明这是一个互斥型信号量；</p>
+<p>没有使用成员 OSEventPtr；</p>
+<p>成员 OSEventCnt 被分成了低 8 位和高 8 位两部分：低 8 位用来存放信号值(该值为 0xFF 时，信号为有效，否则信号为无效)，高 8 位用来存放为了避免出现优先级反转现象而要提升的优先级别 prio。 </p>
+<ul>
+<li><p><code>OSMutexCreate()</code>：创建互斥型信号量；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//从空事件控制块链表获取一个事件控制块</span><br><span class="line">OS_EVENT *OSMutexCreate (</span><br><span class="line">    INT8U prio,	  //优先级别</span><br><span class="line">    INT8U *err	  //错误信息</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>OSMutexPend()</code>：请求管理一个独占式共享资源的互斥型信号量；<br>如果信号量有信号( OSEventCnt 的低 8 位为 0xFF )，意味着当前无任务占用资源，任务继续运行并对该资源进行访问；否则进入等待状态，直至占用这个资源的其他任务释放了该信号量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void OSMutexPend (</span><br><span class="line">    OS_EVENT *pevent,   //互斥型信号量指针</span><br><span class="line">    INT16U timeout,   //等待时限</span><br><span class="line">    INT8U *err   //错误信息</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>OSMutexPost()</code>：释放一个互斥型信号量；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">INT8U OSMutexPost (</span><br><span class="line">    OS_EVENT *pevent   //互斥型信号量指针</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="消息邮箱"><a href="#消息邮箱" class="headerlink" title="消息邮箱"></a>消息邮箱</h4><p>消息邮箱的事件控制块：</p>
+<p>成员 OSEventType 为常数 OS_EVENT_TYPE_MBOX；</p>
+<p>把数据缓冲区的指针 &amp;message 赋给成员 OSEventPrt；</p>
+<p>成员 OSEventCnt 为 0x0000；</p>
+<p>消息邮箱是在两个需要通信的任务之间通过传递数据缓冲区指针的方法来通信的。 </p>
+<p>一个邮箱可能处于两种状态：</p>
+<p>满的状态：邮箱包含一个非空指针型变量；</p>
+<p>空的状态：邮箱的内容为空指针 NULL；</p>
+<p>邮箱的系统服务：</p>
+<ul>
+<li><p><code>OSMboxCreate()</code>：创建邮箱，需先定义 msg 的初始值。<br>一般情况下，初始值为 NULL；也可以事先定义一个邮箱，然后把这个邮箱的指针作为参数传递到函数 OSMboxCreate () 中，使之一开始就指向一个邮箱。<br><code>OS_EVENT *OSMboxCreate (void * msg);</code></p>
+</li>
+<li><p><code>OSMboxPost()</code>：向消息邮箱发送消息；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">INT8U  OSMboxPost (</span><br><span class="line">    OS_EVENT *pevent,   //消息邮箱指针</span><br><span class="line">    void *msg   //消息指针</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>OSMboxPend()</code>：任务请求邮箱；<br>查看邮箱指针 OSEventPtr 是否为 NULL，如果不是 NULL 就把邮箱中的消息指针返回给调用函数的任务，同时用 <code>OS\_NO\_ERR</code> 通过函数的参数 err 通知任务获取消息成功；如果是 NULL，则使任务进入等待状态，并引发一次任务调度。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void *OSMboxPend (</span><br><span class="line">    OS_EVENT *pevent,   //请求消息邮箱指针</span><br><span class="line">    INT16U timeout,   //等待时限</span><br><span class="line">    INT8U *err   //错误信息</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>OSMboxAccept()</code></p>
+</li>
+<li><p><code>OSMboxQuery()</code></p>
+</li>
+</ul>
+<p>程序示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">// OSMboxCreate() 函数</span><br><span class="line">OS_EVENT *CommMbox;</span><br><span class="line">void main(void)</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    OSInit();  </span><br><span class="line">    ...  </span><br><span class="line">    CommMbox = OSMboxCreate((void*)0);  </span><br><span class="line">    ...</span><br><span class="line">    OSStart();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// OSMboxPend() 函数</span><br><span class="line">void CommTask(void *pdata)</span><br><span class="line">&#123;</span><br><span class="line">    INT8U err;</span><br><span class="line">    void *msg;</span><br><span class="line">    pdata = pdata;</span><br><span class="line">    for (;;) </span><br><span class="line">    &#123;</span><br><span class="line">        ...</span><br><span class="line">        msg=OSMboxPend(CommMbox,10,&amp;err); </span><br><span class="line">       if(err == OS_NO_ERR) &#123;</span><br><span class="line">        /* 收到消息时的代码 */</span><br><span class="line">    &#125; </span><br><span class="line">    else </span><br><span class="line">    &#123;</span><br><span class="line">      /* 未收到消息时的代码 */</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// OSMboxPost() 函数</span><br><span class="line">OS_EVENT *CommMbox;</span><br><span class="line">INT8U CommRxBuf[100];</span><br><span class="line">void CommTaskRx(void *pdata)</span><br><span class="line">&#123;</span><br><span class="line">    INT8U   err;  ...</span><br><span class="line">    for (;;) </span><br><span class="line">    &#123;</span><br><span class="line">        ...     </span><br><span class="line">        err = OSMboxPost(CommMbox,(void*)&amp;CommRxbuf[0]);</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h4><p>消息队列由三个部分组成：事件控制块、队列控制块和消息指针。</p>
+<p>消息队列的事件控制块：</p>
+<p>成员 OSEventType 的值置为 OS_EVENT_TYPE_Q。</p>
+<p>成员 OSEventPtr 指向了一个叫做队列控制块(OS_Q)的结构，该结构管理了一个数组 MsgTbl[]，该数组中的元素都是一些指向消息的指针；</p>
+<p>消息队列相当于一个共用一个任务等待列表的消息邮箱数组。</p>
+<p><img src="http://oyiq6rmz1.bkt.clouddn.com/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97.jpg" alt="消息队列"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//队列控制块</span><br><span class="line">typedef struct os_q &#123;</span><br><span class="line">  struct os_q *OSQPtr;   //空闲队列控制块指针</span><br><span class="line">  void **OSQStart;   //指向消息指针数组的起始地址</span><br><span class="line">  void **OSQEnd;   //指向消息指针数组结束单元的下一个单元</span><br><span class="line">  void **OSQIn;   //指向插入一条消息的位置</span><br><span class="line">  void **OSQOut;   //指向被取出消息的位置</span><br><span class="line">  INT16U OSQSize;   //数组的长度</span><br><span class="line">  INT16U OSQEntries;   //已存放消息指针的元素数目</span><br><span class="line">&#125; OS_Q;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>可移动的指针为 OSQIn 和 OSQOut，其中一个 移动到数组末尾也就是与 OSQEnd 相等时，会被调整到数组的起始位置 OSQStart；</p>
+</li>
+<li><p>指针 OSQStart 和 OSQEnd 只是一个标志(常指针)；</p>
+</li>
+<li><p>所以这个消息指针数组是一个环形的数据缓冲区。</p>
+</li>
+</ul>
+<p>每一个消息队列都要用到一个队列控制块，队列控制块的总数由 OS_CFG.H 中的常量 OS_MAX_QS 定义；</p>
+<p>在系统初始化时，所有的队列控制块被成员 OSQPtr 链接成一个单向链表，即空队列控制块链表 —— OSQFreeList；</p>
+<ul>
+<li><p><code>OSQCreate()</code>：创建消息队列，调用这个函数之前首先需要定义一个指针数组，然后把各个消息数据缓冲区的首地址存入这个数组中；<br>start：指针数组的地址，size：指针数组的长度。<br><code>OS_EVENT OSQCreate(void** start, INT16U size    );</code><br>执行步骤<br>从空闲事件控制块链表(OSEventFreeList)中取得一个 ECB；<br>从空闲队列控制块列表(OSQFreeList)中取出一个队列控制块，并对其进行初始化；<br>初始化 ECB 的内容(事件类型、等待任务列表)，并将 OSEventPtr 指针指向队列控制块。</p>
+</li>
+<li><p><code>OSQPend()</code>：请求消息队列，目的是为了从消息队列中获取消息；<br>如果消息队列中有消息，返回消息地址；如果没有，相应任务进入等待状态；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void*OSQPend(</span><br><span class="line">    OS_EVENT *pevent,   //所请求的消息队列的指针</span><br><span class="line">    INT16U timeout,    //等待时限</span><br><span class="line">    INT8U *err    //错误信息</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>OSQAccept()</code>：无等待地请求消息队列中的消息;<br>如果消息队列中有消息，返回消息的地址；如果消息队列中没有消息，返回 NULL。<br><code>void *OSQAccept(OS_EVENT *pevent);</code></p>
+</li>
+<li><p><code>OSQPost()</code>：向消息队列发送消息，以 FIFO （先进先出）的方式组织消息队列；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">INT8U OSQPost(</span><br><span class="line">    OS_EVENT *pevent,   //消息队列的指针</span><br><span class="line">    void *msg   //待发消息的指针</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>如果有任务在等待该消息队列，唤醒其中优先级最高的任务，并重新调度；<br>如果没有任务在等待该消息队列，而且此时消息队列未满，则以 FIFO 方式插入这个消息。</p>
+<ul>
+<li><code>OSQPostFront()</code>：向消息队列发送消息，以 LIFO （后进先出）的方式组织消息队列；<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">INT8U OSQPostFront(</span><br><span class="line">    OS_EVENT *pevent,   //消息队列的指针</span><br><span class="line">    void *msg   //待发消息的指针</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="信号量集"><a href="#信号量集" class="headerlink" title="信号量集"></a>信号量集</h4><p>在实际应用中，任务常常需要与多个事件同步，即要根据多个信号量组合作用的结果来决定任务的运行方式。</p>
+<p>μC/OS-II 为了实现多个信号量组合的功能定义了一种特殊的数据结构 —— 信号量集。</p>
+<p>信号量集所能管理的信号量都是一些二值信号，所有信号量集实质上是一种可以对多个输入的逻辑信号进行基本逻辑运算的组合逻辑。</p>
+<p>μC/OS-II 不使用事件控制块来描述信号量集，而使用了一个叫做标志组的结构 OS_FLAG_GRP。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">typedef struct &#123;</span><br><span class="line">	INT8U OSFlagType;   //识别是否为信号量集的标志(OS_EVENT_TYPE_FLAG)</span><br><span class="line">	void *OSFlagWaitList;   //指向信号量集的等待任务链表的指针</span><br><span class="line">	OS_FLAGS OSFlagFlags;   //所有信号列表，每一位都表示一个信号的状态</span><br><span class="line">&#125; OS_FLAG_GRP;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><code>OSFlagFreeList</code>：空信号量集标志组链表，通过 OSFlagWaitList 指针链起来，共 OS_MAX_FLAGS 个空标志组。</p>
+</li>
+<li><p><code>OSFlagCreate()</code>：创建信号量集；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">OS_FLAG_GRP  *OSFlagCreate (</span><br><span class="line">    OS_FLAGS flags,   //信号的初始值</span><br><span class="line">    INT8U *err   //错误信息</span><br><span class="line">)；</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>OSFlagPend()</code>：请求信号量集；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">OS_FLAGS OSFlagPend (</span><br><span class="line">    OS_FLAG_GRP *pgrp,   //所请求的信号量集指针</span><br><span class="line">    OS_FLAGS flags,    //滤波器</span><br><span class="line">    INT8U wait_type,   //逻辑运算类型</span><br><span class="line">    INT16U timeout,    //等待时限</span><br><span class="line">    INT8U *err    //错误信息</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>OSFlagPost()</code>：向信号量集发信号；<br>任务向信号量集发信号，就是对信号量集标志组中的信号进行置 1 或置 0 的操作。至于对信号量集中的哪些信号进行操作，用函数中的参数 flags 来指定；对指定的信号是置 1 还是置 0，用函数中的参数 opt 来指定 (opt = OS_FLAG_SET 为置 1 操作；opt = OS_FLAG_CLR 为置 0 操作)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">OS_FLAGS OSFlagPost (</span><br><span class="line">OS_FLAG_GRP *pgrp,   //信号量集指针</span><br><span class="line">OS_FLAGS flags,   //选择所要发送的信号</span><br><span class="line">INT8U opt,   //信号有效的选项</span><br><span class="line">INT8U *err   //错误信息</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="等待任务链表"><a href="#等待任务链表" class="headerlink" title="等待任务链表"></a>等待任务链表</h4><p>信号量集用一个双向链表来组织等待任务，每一个等待任务都是该链表中的一个节点(Node)。标志组 OS_FLAG_GRP 的成员 OSFlagWaitList 就指向了信号量集的这个等待任务链表。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">typedef struct &#123;</span><br><span class="line">    void *OSFlagNodeNext;   //指向下一个节点的指针</span><br><span class="line">    void *OSFlagNodePrev;   //指向前一个节点的指针</span><br><span class="line">    void *OSFlagNodeTCB;   //指向对应任务控制块的指针</span><br><span class="line">    void *OSFlagNodeFlagGrp;   //反向指向信号量集的指针</span><br><span class="line">    OS_FLAGS OSFlagNodeFlags;   //信号过滤器</span><br><span class="line">    INT8U OSFlagNodeWaitType;   //定义逻辑运算关系的数据，WAIT_CLR_ALL/AND/ANY/OR，WAIT_SET_ALL/AND/ANY/OR</span><br><span class="line">&#125; OS_FLAG_NODE;</span><br></pre></td></tr></table></figure>
+<p>信号量集的逻辑运算及控制：</p>
+<p>发送信号量集的任务 -&gt; OSFlagFlags -&gt; OSFlagNodeWaitType -&gt; 1/0? -&gt; AND/OR? -&gt; 请求信号量集的任务；</p>
+<ul>
+<li><p><code>OS_FlagBlock()</code>：给等待任务链表添加节点；<br>在请求信号量集函数 OSFlagPend() 中被调用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">static void OS_FlagBlock (</span><br><span class="line">    OS_FLAG_GRP *pgrp,   //信号量集指针</span><br><span class="line">    OS_FLAG_NODE *pnode,   //待添加的等待任务节点指针</span><br><span class="line">    OS_FLAGS flags,   //指定等待信号的数据</span><br><span class="line">    INT8U wait_type,  //信号与等待任务之间的逻辑</span><br><span class="line">    INT16U timeout   //等待时限</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>OS_FlagUnlink()</code>：从等待任务链表删除结点；<br>在发送信号量集函数 OSFlagPost() 中被调用。<br><code>void OS_FlagUnlink (OS_FLAG_NODE *pnode);</code></p>
+</li>
+</ul>
+<h4 id="内存的动态分配"><a href="#内存的动态分配" class="headerlink" title="内存的动态分配"></a>内存的动态分配</h4><p>应用程序在运行中为了某种特殊需要，经常需要临时获得一些内存空间，因此作为一个比较完善的操作系统必须具有动态分配内存的能力。</p>
+<p>能否合理、有效地对内存储器进行分配和管理，是衡量一个操作系统品质的指标之一。特别地对于实时操作系统来说，还应该保证系统在动态分配内存时，它的执行时间必须是可确定的。</p>
+<p>μC/OS-II 改进了 ANSIC 用来动态分配和释放内存的 malloc() 和 free() 函数，使它们可以对大小固定的内存块进行操作，从而使 malloc() 和 free() 函数的执行时间成为可确定的，满足了实时操作系统的要求。 </p>
+<h4 id="内存控制块"><a href="#内存控制块" class="headerlink" title="内存控制块"></a>内存控制块</h4><p>μC/OS-II 对内存进行两级管理，即把一个大片连续的内存空间分成了若干个分区，每个分区又分成了若干个大小相等的内存块来进行管理。</p>
+<p>操作系统以分区为单位来管理动态内存，而任务以内存块为单位来获得和释放动态内存。内存分区及内存块的使用情况则由表 —— 内存控制块来记录。</p>
+<p>可动态分配内存的划分：</p>
+<p>应用程序如果要使用动态内存的话，则要首先在内存中划分出可以进行动态分配的区域，这个划分出来区域叫做内存分区，每个分区要包含若干个内存块。</p>
+<p>μC/OS-II 要求同一个分区中的内存块的字节数必须相等，而且每个分区与该分区的内存块的数据类型必须相同。</p>
+<p>在内存中划分一个内存分区与内存块的方法非常简单，只要定义一个二维数组就可以了，其中的每个一维数组就是一个内存块。</p>
+<p>例如，定义一个用来存储 INT16U 类型数据，有 10 个内存块，每个内存块长度为 10 的内存分区的代码如下：<br><code>INT16U IntMemBuf[10][10];</code></p>
+<p>上面这个定义只是在内存中划分出了分区及内存块的区域，还不是一个真正的可以动态分配的内存区。只有当把内存控制块与分区关联起来之后，系统才能对其进行相应的管理和控制，它才能是一个真正的动态内存区。</p>
+<ul>
+<li><p><code>OS_MEM</code>：内存控制块，使系统能够感知和有效地管理内存分区，系统用这个来记录和跟踪每一个内存分区的状态。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">typedef struct &#123;</span><br><span class="line">    void *OSMemAddr;   //内存分区的指针</span><br><span class="line">    void *OSMemFreeList;   //内存控制块链表的指针</span><br><span class="line">    INT32U OSMemBlkSize;   //内存块的长度</span><br><span class="line">    INT32U OSMemNBlks;   //分区内内存块的数目</span><br><span class="line">    INT32U OSMemNFree;   //分区内当前可分配的内存块的数目</span><br><span class="line">&#125; OS_MEM;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>OSMenFreeList</code>：空内存控制块链表，用成员 OSMemFreeList 链起来，共 OS_MAX_MEM_PART 个内存控制块。</p>
+</li>
+</ul>
+<h4 id="动态内存的管理"><a href="#动态内存的管理" class="headerlink" title="动态内存的管理"></a>动态内存的管理</h4><ul>
+<li><p><code>OSMemCreate()</code>：建立内存分区；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">OS_MEM *OSMemCreate(</span><br><span class="line">    void*addr,   //内存分区的起始地址</span><br><span class="line">    INT32U nblks,   //分区中内存块的数目</span><br><span class="line">    INT32U blksize,   //每个内存块的字节数</span><br><span class="line">    INT8U *err   //错误信息</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>OSMemGet()</code>：向内存分区请求一个内存块；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">void  *OSMemGet (</span><br><span class="line">OS_MEM *pmem,   //内存分区的指针</span><br><span class="line">INT8U *err   //错误信息</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>OSMemPut()</code>：释放一个内存块；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">INT8U OSMemPut (</span><br><span class="line">    OS_MEM *pmem,   //内存块所属内存分区的指针</span><br><span class="line">    void *pblk   //待释放内存块的指针</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>OSMemQuery()</code>：查询一个分区目前的状态信息；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">INT8U  OSMemQuery (</span><br><span class="line">    OS_MEM *pmem,   //待查询的内存控制块的指针</span><br><span class="line">    OS_MEM_DATA *pdata   //存放分区状态信息的结构的指针</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>OS_MEM_DATA</code>：上面 pdata 的结构类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">typedef struct &#123;</span><br><span class="line">    void *OSAddr;   //内存分区的指针</span><br><span class="line">    void *OSFreeList;   //分区内内存块链表的头指针</span><br><span class="line">    INT32U OSBlkSize;   //内存块的长度</span><br><span class="line">    INT32U OSNBlks;    //分区内内存块的数目</span><br><span class="line">    INT32U OSNFree;		//分区内空闲内存块的数目</span><br><span class="line">    INT32U OSNUsed;    //已被分配的内存块数目</span><br><span class="line">&#125; OS_MEM_DATA;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/μC-OS-II-嵌入式/" rel="tag"># μC/OS-II 嵌入式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/22/μC-OS-II复习/" rel="next" title="μC/OS-II复习">
+                <i class="fa fa-chevron-left"></i> μC/OS-II复习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/26/μC-OS-II复习3/" rel="prev" title="μC/OS-II复习3">
+                μC/OS-II复习3 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="uyan_frame"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://oyiq6rmz1.bkt.clouddn.com/%E5%A4%B4%E5%83%8F.jpg"
+                alt="xiaoPandas" />
+            
+              <p class="site-author-name" itemprop="name">xiaoPandas</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/xiaoPandas" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/5626435388/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#μC-OS-II的中断和时钟"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x3BC;C-OS-II&#x7684;&#x4E2D;&#x65AD;&#x548C;&#x65F6;&#x949F;" class="headerlink" title="&#x3BC;C/OS-II&#x7684;&#x4E2D;&#x65AD;&#x548C;&#x65F6;&#x949F;"></a>&#x3BC;C/OS-II&#x7684;&#x4E2D;&#x65AD;&#x548C;&#x65F6;&#x949F;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#临界段"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#&#x4E34;&#x754C;&#x6BB5;" class="headerlink" title="&#x4E34;&#x754C;&#x6BB5;"></a>&#x4E34;&#x754C;&#x6BB5;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#系统响应中断的过程"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#&#x7CFB;&#x7EDF;&#x54CD;&#x5E94;&#x4E2D;&#x65AD;&#x7684;&#x8FC7;&#x7A0B;" class="headerlink" title="&#x7CFB;&#x7EDF;&#x54CD;&#x5E94;&#x4E2D;&#x65AD;&#x7684;&#x8FC7;&#x7A0B;"></a>&#x7CFB;&#x7EDF;&#x54CD;&#x5E94;&#x4E2D;&#x65AD;&#x7684;&#x8FC7;&#x7A0B;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#中断级任务切换函数"><span class="nav-number">1.3.</span> <span class="nav-text"><a href="#&#x4E2D;&#x65AD;&#x7EA7;&#x4EFB;&#x52A1;&#x5207;&#x6362;&#x51FD;&#x6570;" class="headerlink" title="&#x4E2D;&#x65AD;&#x7EA7;&#x4EFB;&#x52A1;&#x5207;&#x6362;&#x51FD;&#x6570;"></a>&#x4E2D;&#x65AD;&#x7EA7;&#x4EFB;&#x52A1;&#x5207;&#x6362;&#x51FD;&#x6570;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#μC-OS-II的系统时钟"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x3BC;C-OS-II&#x7684;&#x7CFB;&#x7EDF;&#x65F6;&#x949F;" class="headerlink" title="&#x3BC;C/OS-II&#x7684;&#x7CFB;&#x7EDF;&#x65F6;&#x949F;"></a>&#x3BC;C/OS-II&#x7684;&#x7CFB;&#x7EDF;&#x65F6;&#x949F;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#OSTickISR-amp-OSTimeTick"><span class="nav-number">2.1.</span> <span class="nav-text"><a href="#OSTickISR-amp-OSTimeTick" class="headerlink" title="OSTickISR() &amp; OSTimeTick()"></a>OSTickISR() &amp; OSTimeTick()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#任务的延时"><span class="nav-number">2.2.</span> <span class="nav-text"><a href="#&#x4EFB;&#x52A1;&#x7684;&#x5EF6;&#x65F6;" class="headerlink" title="&#x4EFB;&#x52A1;&#x7684;&#x5EF6;&#x65F6;"></a>&#x4EFB;&#x52A1;&#x7684;&#x5EF6;&#x65F6;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他用来管理时间的函数"><span class="nav-number">2.3.</span> <span class="nav-text"><a href="#&#x5176;&#x4ED6;&#x7528;&#x6765;&#x7BA1;&#x7406;&#x65F6;&#x95F4;&#x7684;&#x51FD;&#x6570;" class="headerlink" title="&#x5176;&#x4ED6;&#x7528;&#x6765;&#x7BA1;&#x7406;&#x65F6;&#x95F4;&#x7684;&#x51FD;&#x6570;"></a>&#x5176;&#x4ED6;&#x7528;&#x6765;&#x7BA1;&#x7406;&#x65F6;&#x95F4;&#x7684;&#x51FD;&#x6570;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#任务的同步和通信"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x4EFB;&#x52A1;&#x7684;&#x540C;&#x6B65;&#x548C;&#x901A;&#x4FE1;" class="headerlink" title="&#x4EFB;&#x52A1;&#x7684;&#x540C;&#x6B65;&#x548C;&#x901A;&#x4FE1;"></a>&#x4EFB;&#x52A1;&#x7684;&#x540C;&#x6B65;&#x548C;&#x901A;&#x4FE1;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#事件"><span class="nav-number">3.1.</span> <span class="nav-text"><a href="#&#x4E8B;&#x4EF6;" class="headerlink" title="&#x4E8B;&#x4EF6;"></a>&#x4E8B;&#x4EF6;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#事件控制块"><span class="nav-number">3.2.</span> <span class="nav-text"><a href="#&#x4E8B;&#x4EF6;&#x63A7;&#x5236;&#x5757;" class="headerlink" title="&#x4E8B;&#x4EF6;&#x63A7;&#x5236;&#x5757;"></a>&#x4E8B;&#x4EF6;&#x63A7;&#x5236;&#x5757;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#信号量及其操作"><span class="nav-number">3.3.</span> <span class="nav-text"><a href="#&#x4FE1;&#x53F7;&#x91CF;&#x53CA;&#x5176;&#x64CD;&#x4F5C;" class="headerlink" title="&#x4FE1;&#x53F7;&#x91CF;&#x53CA;&#x5176;&#x64CD;&#x4F5C;"></a>&#x4FE1;&#x53F7;&#x91CF;&#x53CA;&#x5176;&#x64CD;&#x4F5C;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#任务优先级反转"><span class="nav-number">3.4.</span> <span class="nav-text"><a href="#&#x4EFB;&#x52A1;&#x4F18;&#x5148;&#x7EA7;&#x53CD;&#x8F6C;" class="headerlink" title="&#x4EFB;&#x52A1;&#x4F18;&#x5148;&#x7EA7;&#x53CD;&#x8F6C;"></a>&#x4EFB;&#x52A1;&#x4F18;&#x5148;&#x7EA7;&#x53CD;&#x8F6C;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#互斥型信号量"><span class="nav-number">3.5.</span> <span class="nav-text"><a href="#&#x4E92;&#x65A5;&#x578B;&#x4FE1;&#x53F7;&#x91CF;" class="headerlink" title="&#x4E92;&#x65A5;&#x578B;&#x4FE1;&#x53F7;&#x91CF;"></a>&#x4E92;&#x65A5;&#x578B;&#x4FE1;&#x53F7;&#x91CF;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消息邮箱"><span class="nav-number">3.6.</span> <span class="nav-text"><a href="#&#x6D88;&#x606F;&#x90AE;&#x7BB1;" class="headerlink" title="&#x6D88;&#x606F;&#x90AE;&#x7BB1;"></a>&#x6D88;&#x606F;&#x90AE;&#x7BB1;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消息队列"><span class="nav-number">3.7.</span> <span class="nav-text"><a href="#&#x6D88;&#x606F;&#x961F;&#x5217;" class="headerlink" title="&#x6D88;&#x606F;&#x961F;&#x5217;"></a>&#x6D88;&#x606F;&#x961F;&#x5217;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#信号量集"><span class="nav-number">3.8.</span> <span class="nav-text"><a href="#&#x4FE1;&#x53F7;&#x91CF;&#x96C6;" class="headerlink" title="&#x4FE1;&#x53F7;&#x91CF;&#x96C6;"></a>&#x4FE1;&#x53F7;&#x91CF;&#x96C6;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#等待任务链表"><span class="nav-number">3.9.</span> <span class="nav-text"><a href="#&#x7B49;&#x5F85;&#x4EFB;&#x52A1;&#x94FE;&#x8868;" class="headerlink" title="&#x7B49;&#x5F85;&#x4EFB;&#x52A1;&#x94FE;&#x8868;"></a>&#x7B49;&#x5F85;&#x4EFB;&#x52A1;&#x94FE;&#x8868;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内存的动态分配"><span class="nav-number">3.10.</span> <span class="nav-text"><a href="#&#x5185;&#x5B58;&#x7684;&#x52A8;&#x6001;&#x5206;&#x914D;" class="headerlink" title="&#x5185;&#x5B58;&#x7684;&#x52A8;&#x6001;&#x5206;&#x914D;"></a>&#x5185;&#x5B58;&#x7684;&#x52A8;&#x6001;&#x5206;&#x914D;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内存控制块"><span class="nav-number">3.11.</span> <span class="nav-text"><a href="#&#x5185;&#x5B58;&#x63A7;&#x5236;&#x5757;" class="headerlink" title="&#x5185;&#x5B58;&#x63A7;&#x5236;&#x5757;"></a>&#x5185;&#x5B58;&#x63A7;&#x5236;&#x5757;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#动态内存的管理"><span class="nav-number">3.12.</span> <span class="nav-text"><a href="#&#x52A8;&#x6001;&#x5185;&#x5B58;&#x7684;&#x7BA1;&#x7406;" class="headerlink" title="&#x52A8;&#x6001;&#x5185;&#x5B58;&#x7684;&#x7BA1;&#x7406;"></a>&#x52A8;&#x6001;&#x5185;&#x5B58;&#x7684;&#x7BA1;&#x7406;</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o" aria-hidden="true"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiaoPandas</span>
+
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数：<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+
+<!--
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+--!>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2152066"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'JXAo1V98Jxty3jaqIK99PaeV-gzGzoHsz',
+        appKey: 'OLlQNbYqajqOpiOwLPsvt92c',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
